@@ -42,10 +42,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     lat: {
-      type: DataTypes.DECIMAL(7, 7),
+      type: DataTypes.DECIMAL(20, 7),
     },
     lng: {
-      type: DataTypes.DECIMAL(7, 7),
+      type: DataTypes.DECIMAL(20, 7),
     },
     name: {
       type: DataTypes.STRING,
@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: DataTypes.STRING,
     price: {
-      type: DataTypes.DECIMAL(20, 2),
+      type: DataTypes.DECIMAL(30, 2),
       allowNull: false
     }
   }, {
