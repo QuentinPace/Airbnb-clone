@@ -42,32 +42,68 @@ router.post('/:spotId/images', async(req, res) => {
 
 })
 
+
+
 router.get('/:spotId', async(req, res) => {
     const spotById = await Spot.findAll({
         where: {
             id: parseInt(req.params.spotId)
         }
     })
+    console.log(spotById)
+    if(!spotById.length){
+        res.statusCode = 404
+        return res.json({
+            message: "Spot Couldn't be found"
+        })
+    }
+    const ownerId = spotById[0].dataValues.ownerId
+    const owner = await User.findOne({
+        where: {
+            id: ownerId
+        },
+        attributes: ['id', 'firstName', 'lastName']
+    })
+
+    const spotImages = await SpotImage.findAll({
+        where: {
+            spotId: parseInt(req.params.spotId)
+        }
+    })
+
+    const imagesArr = []
+    spotImages.forEach(spot => {
+        const imageObj = {}
+        imageObj.id = spot.dataValues.id
+        imageObj.url = spot.dataValues.url
+        imageObj.preview = spot.dataValues.preview
+        imagesArr.push(imageObj)
+    })
+    const response = {
+        ...spotById[0].dataValues,
+        SpotImages: imagesArr,
+        Owner: owner
+    }
     res.statusCode = 200
-    return res.json(spotById)
+    return res.json(response)
 })
 
-router.get('/current', async(req,res) => {
-    const { user } = req;
-    if (user) {
-        const allSpots = await Spot.findAll({
-        where : {ownerId : user.id}
-        })
-        res.status(200)
-        return res.json(allSpots)  
-    } else {
-        res.status(403)
-        return res.json({ user: null });
-    } 
-})
 
 router.get('/', async(req, res) => {
-    const allSpots = await Spot.findAll()
+    const allSpots = await Spot.findAll({
+        include: {
+            model: SpotImage,
+            where: {
+                preview: true
+            },
+            attributes: ['url'] 
+        }
+    })
+    allSpots.forEach(spot => {
+        const url = spot.dataValues.SpotImages[0].dataValues.url
+        spot.dataValues.previewImage = url
+        delete spot.dataValues.SpotImages
+    })
     res.statusCode = 200
     return res.json(allSpots)
 })
