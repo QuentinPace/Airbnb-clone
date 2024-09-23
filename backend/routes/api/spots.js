@@ -1,13 +1,55 @@
 const express = require('express')
-const { Spot, User } = require('../../db/models');
+const { Spot, User, SpotImage } = require('../../db/models');
 
 
 const router = express.Router()
 
-router.get('/', async(req, res) => {
-    const allSpots = await Spot.findAll()
+router.post('/:spotId/images', async(req, res) => {
+    const { user } = req
+    if (user) {
+        const spotFound = await Spot.findOne({
+            where: {
+                id: parseInt(req.params.spotId)
+            }
+
+        })
+        if(!spotFound){
+            res.statusCode = 404
+            return res.json({
+                message: "Spot Couldn't be found"
+            })
+        }
+        else{
+            const newSpotImage = await SpotImage.create({
+                ...req.body,
+                spotId: parseInt(req.params.spotId)
+            })
+            const { id, url, preview } = newSpotImage
+            res.statusCode = 201
+
+            return res.json({
+                id,
+                url,
+                preview
+            })
+        }    
+    } else {
+        res.status(403)
+        return res.json({ user: null , message: 'you must log in'});
+
+    }
+
+
+})
+
+router.get('/:spotId', async(req, res) => {
+    const spotById = await Spot.findAll({
+        where: {
+            id: parseInt(req.params.spotId)
+        }
+    })
     res.statusCode = 200
-    return res.json(allSpots)
+    return res.json(spotById)
 })
 
 router.get('/current', async(req,res) => {
@@ -24,14 +66,10 @@ router.get('/current', async(req,res) => {
     } 
 })
 
-router.get('/:spotId', async(req, res) => {
-    const spotById = await Spot.findAll({
-        where: {
-            id: parseInt(req.params.spotId)
-        }
-    })
+router.get('/', async(req, res) => {
+    const allSpots = await Spot.findAll()
     res.statusCode = 200
-    return res.json(spotById)
+    return res.json(allSpots)
 })
 
 router.post('/', async(req, res) => {
