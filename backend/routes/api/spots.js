@@ -34,7 +34,7 @@ router.post('/:spotId/images', async(req, res) => {
         if(!spotFound){
             res.statusCode = 404
             return res.json({
-                message: "Spot Couldn't be found"
+                message: "Spot couldn't be found"
             })
         }
         else{
