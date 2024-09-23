@@ -57,6 +57,8 @@ router.post(
 
     await setTokenCookie(res, safeUser);
 
+    res.statusCode = 201
+    
     return res.json({
       user: safeUser
     });
