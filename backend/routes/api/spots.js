@@ -183,7 +183,7 @@ router.put('/:spotId', async (req, res,next ) => {
 router.delete('/:spotId', async (req, res) => {
     const spotId = parseInt(req.params.spotId)
     if(!req.user){
-        res.status(404)
+        res.status(401)
         return res.json({
             message: "Require proper authorization: Spot must belong to the current user"
         })
