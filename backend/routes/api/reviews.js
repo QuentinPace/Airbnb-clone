@@ -45,7 +45,28 @@ router.post('/:reviewId/images',async (req,res)=>{
     }
 })
 
-
+router.delete('/:reviewId/',async (req,res) => {
+    if (!req.user) {
+        return res.json({
+            message : 'Require proper authorization: Review must belong to the current user'
+        })
+    } else {
+        const reviewId = parseInt(req.params.reviewId);
+        const targetReview = await Review.findByPk(reviewId)
+        if (!targetReview) {
+            res.status(404);
+            return res.json({
+                message: "Review couldn't be found"
+              })
+        } else{
+            await targetReview.destroy()
+            res.statusCode = 200
+            return res.json({
+                "message": "Successfully deleted"
+            })
+        }
+    }
+})
 
 
 
