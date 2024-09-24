@@ -1,5 +1,5 @@
 const express = require('express')
-const { Spot, User, SpotImage } = require('../../db/models');
+const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 
 
 const router = express.Router()
@@ -19,6 +19,35 @@ router.get('/current', async(req,res) => {
         console.log("====> 4");
         res.status(403)
         return res.json({ user: null });
+    }
+})
+
+router.get('/:spotId/reviews', async (req,res) => {
+    const spotId = parseInt(req.params.spotId);
+    const targetSpot = await Spot.findByPk(spotId);
+    if (!targetSpot) {
+        res.status(404);
+        return res.json({
+            "message": "Spot couldn't be found"
+          })
+    } else {
+        const reviews = await Review.findAll({
+            where : {
+                spotId
+            },
+            include:[
+                {
+                    model:User,
+                    attributes: ['id','firstName', 'lastName']
+                },
+                {
+                    model:ReviewImage,
+                    attributes: ['id','url']
+                }
+            ]
+        })
+        res.status(200);
+        return res.json(reviews);
     }
 })
 
