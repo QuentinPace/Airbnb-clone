@@ -19,7 +19,7 @@ router.get('/current', async(req,res) => {
         console.log("====> 4");
         res.status(403)
         return res.json({ user: null });
-    } 
+    }
 })
 
 router.post('/:spotId/images', async(req, res) => {
@@ -149,6 +149,32 @@ router.put('/:spotId', async (req, res,next ) => {
             })
         }
     }
+})
+
+router.delete('/:spotId', async (req, res) => {
+    const spotId = parseInt(req.params.spotId)
+    if(!req.user){
+        res.status(404)
+        return res.json({
+            message: "Require proper authorization: Spot must belong to the current user"
+        })
+    }
+    else{
+        const targetSpot = await Spot.findByPk(spotId);
+        if(!targetSpot){
+            res.status(404)
+            return res.json({
+                "message": "Spot couldn't be found"
+              })
+        }else {
+            await targetSpot.destroy()
+            res.statusCode = 200
+            return res.json({
+                "message": "Successfully deleted"
+              })
+        }
+    }
+
 })
 
 
