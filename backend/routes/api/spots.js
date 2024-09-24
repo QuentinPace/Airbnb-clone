@@ -1,6 +1,20 @@
 const express = require('express')
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+
+const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('Please provide a valid email or username.'),
+    check('stars')
+      .exists({ checkFalsy: true })
+      .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ];
+
 
 const router = express.Router()
 
@@ -20,6 +34,49 @@ router.get('/current', async(req,res) => {
         res.status(403)
         return res.json({ user: null });
     }
+})
+
+router.post('/:spotId/reviews', validateReview, async (req, res) => {
+    const spotId = parseInt(req.params.spotId)
+    const { user } = req
+    if(user) {
+        const spot = await Spot.findByPk(spotId)
+        if(!spot){
+            res.statusCode = 404
+            return res.json({
+                "message": "Spot couldn't be found"
+              })
+        }
+        const allReviewsForSpot = await Review.findAll({
+            where: {
+                spotId: spotId
+            }
+        })
+        for(let i = 0; i < allReviewsForSpot.length; i++){
+            const currRev = allReviewsForSpot[i].dataValues
+            if(currRev.userId === user.id){
+                res.statusCode = 500
+                return res.json({
+                    "message": "User already has a review for this spot"
+                  })
+            }
+
+        }
+        const createdReview = await Review.create({
+            ...req.body,
+            userId: user.id,
+            spotId: spot.dataValues.id
+        })
+        res.statusCode = 201
+        return res.json(createdReview)
+    }
+    else {
+        res.statusCode = 401
+        return res.json({
+            "message": "Authentication required"
+          })
+    }
+
 })
 
 router.get('/:spotId/reviews', async (req,res) => {
