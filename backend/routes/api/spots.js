@@ -7,6 +7,41 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const validateReview = [
+    check('address')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('Street address is required'),
+    check('city')
+      .exists({ checkFalsy: true })
+      .withMessage('City is required'),
+    check('state')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('State is required'),
+    check('country')
+      .exists({ checkFalsy: true })
+      .withMessage('Country is required'),
+    check('lat')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('Latitude must be within -90 and 90'),
+    check('lng')
+      .exists({ checkFalsy: true })
+      .withMessage('Longitude must be within -180 and 180'),
+    check('name')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('Name must be less than 50 characters'),
+    check('description')
+      .exists({ checkFalsy: true })
+      .withMessage('Description is required'),
+    check('price')
+      .exists({ checkFalsy: true })
+      .withMessage('Price per day must be a positive number'),
+    handleValidationErrors
+  ];
+
+  const validateSpot = [
     check('review')
       .exists({ checkFalsy: true })
       .notEmpty()
@@ -16,6 +51,7 @@ const validateReview = [
       .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
   ];
+
 
 
 const router = express.Router()
@@ -316,13 +352,11 @@ router.post('/', async(req, res) => {
     //const { address, city, state, country, lat, lng, name, description, price } = req.body
     if (user) {
         try{
-        console.log("====> 2");
         const newSpot = await Spot.create({
             ownerId: user.id,
             ...req.body
         })
         res.status(201)
-        console.log("====> 3");
         return res.json(newSpot)
     }
     catch{
