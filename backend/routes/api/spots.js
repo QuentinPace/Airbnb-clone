@@ -4,7 +4,7 @@ const { fn, col } = require('sequelize');
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 
 
-const { validateSpotCreate, validateSpotEdit, validateReview } = require('../../utils/validationArrays')
+const { validateSpotCreate, validateSpotEdit, validateReviewCreate } = require('../../utils/validationArrays')
 
 
 const router = express.Router()
@@ -12,46 +12,20 @@ const router = express.Router()
 router.get('/current', async(req,res) => {
     const { user } = req;
     if (user) {
-        const spots = await Spot.findAll({
-            where : {ownerId : user.id},
-            attributes: {
-                include: [
-                    [fn('AVG', col('Reviews.stars')), 'avgRating']  
-                ]
-            },
-            include: [
-                {
-                    model: Review,
-                    attributes: [],  
-                    required :false
-                },
-                {
-                    model: SpotImage,
-                    where :{ preview: true},
-                    attributes:[['url','previewImage']],
-                    required :false
-                }
-            ],
-            group: ['Spot.id'],  // Group by SpotId
-        });
-        
-        const formattedSpots = spots.map(spot => {
-            let previewImage = spot.dataValues.SpotImages.length > 0 ? spot.dataValues.SpotImages[0].dataValues.previewImage : null; 
-            delete spot.dataValues.SpotImages;
-            return {
-                ...spot.get(),
-                previewImage,  
-            };
-        });
+        const allSpots = await Spot.findAll({
+        where : {ownerId : user.id}
+        })
         res.status(200)
-        return res.json(formattedSpots)  
+        return res.json(allSpots)  
     } else {
         res.status(403)
-        return res.json({ user: null });
+        return res.json({
+            "message": "Authentication required"
+          });
     }
 })
 
-router.post('/:spotId/reviews', validateReview, async (req, res) => {
+router.post('/:spotId/reviews', validateReviewCreate, async (req, res) => {
     const spotId = parseInt(req.params.spotId)
     const { user } = req
     if(user) {
@@ -130,8 +104,13 @@ router.post('/:spotId/images', async(req, res) => {
             where: {
                 id: parseInt(req.params.spotId)
             }
-
         })
+        if(spotFound.dataValues.ownerId !== user.id){
+            res.statusCode = 403
+            return res.json({
+                "message": "Forbidden"
+              })
+        }
         if(!spotFound){
             res.statusCode = 404
             return res.json({
@@ -154,7 +133,9 @@ router.post('/:spotId/images', async(req, res) => {
         }    
     } else {
         res.status(403)
-        return res.json({ user: null , message: 'you must log in'});
+        return res.json({
+            "message": "Authentication required"
+          });
 
     }
 
@@ -164,32 +145,19 @@ router.post('/:spotId/images', async(req, res) => {
 
 
 router.get('/:spotId', async(req, res) => {
-    const spots = await Spot.findAll({
+    const spotById = await Spot.findAll({
         where: {
             id: parseInt(req.params.spotId)
-        },
-        attributes: {
-            include: [
-                [fn('AVG', col('Reviews.stars')), 'avgRating']  
-            ]
-        },
-        include: [
-            {
-                model: Review,
-                attributes: [],  
-                required :false
-            }
-        ],
-        group: ['Spot.id'],  // Group by SpotId
+        }
     })
-    // console.log(spots)
-    if(!spots.length){
+    console.log(spotById)
+    if(!spotById.length){
         res.statusCode = 404
         return res.json({
             message: "Spot Couldn't be found"
         })
     }
-    const ownerId = spots[0].dataValues.ownerId
+    const ownerId = spotById[0].dataValues.ownerId
     const owner = await User.findOne({
         where: {
             id: ownerId
@@ -212,7 +180,7 @@ router.get('/:spotId', async(req, res) => {
         imagesArr.push(imageObj)
     })
     const response = {
-        ...spots[0].dataValues,
+        ...spotById[0].dataValues,
         SpotImages: imagesArr,
         Owner: owner
     }
@@ -223,8 +191,10 @@ router.get('/:spotId', async(req, res) => {
 
 router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
     if(!req.user) {
-        res.status=200;
-        res.json({ 'message': 'Require proper authorization: Spot must belong to the current user'})
+        res.status = 403;
+        res.json({
+            "message": "Authentication required"
+          })
     } else {
         const spotId= parseInt(req.params.spotId);
         const targetSpot = await Spot.findByPk(spotId);
@@ -235,6 +205,12 @@ router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
                     "message": "Spot couldn't be found"
                 })
             } else {
+                if(targetSpot.dataValues.ownerId !== req.user.id){
+                    res.statusCode = 403
+                    return res.json({
+                        "message": "Forbidden"
+                      })
+                }
                 await Spot.update(
                     req.body, // attributes and values to update
                     { where:
@@ -253,11 +229,17 @@ router.delete('/:spotId', async (req, res) => {
     if(!req.user){
         res.status(401)
         return res.json({
-            message: "Require proper authorization: Spot must belong to the current user"
-        })
+            "message": "Authentication required"
+          })
     }
     else{
         const targetSpot = await Spot.findByPk(spotId);
+        if(targetSpot.dataValues.ownerId !== req.user.id){
+            res.statusCode = 403
+            return res.json({
+                "message": "Forbidden"
+              })
+        }
         if(!targetSpot){
             res.status(404)
             return res.json({
@@ -289,13 +271,11 @@ router.get('/', async(req, res) => {
                 {
                     model: Review,
                     attributes: [],  
-                    required :false
                 },
                 {
                     model: SpotImage,
                     where :{ preview: true},
-                    attributes:[['url','previewImage']],
-                    required :false
+                    attributes:[['url','previewImage']]
                 }
             ],
             group: ['Spot.id'],  // Group by SpotId
@@ -333,9 +313,10 @@ router.post('/', validateSpotCreate, async(req, res) => {
         res.status(201)
         return res.json(newSpot)
     } else {
-        console.log("====> 4");
         res.status(403)
-        return res.json({ user: null });
+        return res.json({
+            "message": "Authentication required"
+          });
     }
 
 })
