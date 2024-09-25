@@ -13,26 +13,26 @@ router.delete('/:imageId', async (req, res) => {
           })
     }
     else{
-        const targetSpotImage = await SpotImage.findOne({
+        const targetReviewImage = await ReviewImage.findOne({
             where : {id :imageId},
             include :{
-                model : Spot,
-                attributes : ['ownerId']
+                model : Review,
+                attributes : ['userId']
             }
         });
-        if(!targetSpotImage){
+        if(!targetReviewImage){
             res.status(404)
             return res.json({
-                "message": "Spot Image couldn't be found"
+                "message": "Review Image couldn't be found"
               })
         }else {
-            if(targetSpotImage.dataValues.Spot.dataValues.ownerId !== req.user.id){
+            if(targetReviewImage.dataValues.Review.dataValues.userId !== req.user.id){
                 res.statusCode = 403
                 return res.json({
                     "message": "Forbidden"
                   })
             }
-            await SpotImage.destroy({ where: { id: imageId } });
+            await ReviewImage.destroy({ where: { id: imageId } });
             res.statusCode = 200
             return res.json({
                 "message": "Successfully deleted"
