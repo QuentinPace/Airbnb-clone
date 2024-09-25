@@ -1,4 +1,6 @@
 const express = require('express')
+const { fn, col } = require('sequelize');
+
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 
 
@@ -210,22 +212,46 @@ router.delete('/:spotId', async (req, res) => {
 
 
 router.get('/', async(req, res) => {
-    const allSpots = await Spot.findAll({
-        include: {
-            model: SpotImage,
-            where: {
-                preview: true
+    try {
+        const spots = await Spot.findAll({
+            attributes: {
+                include: [
+                    [fn('AVG', col('Reviews.stars')), 'avgRating']  
+                ]
             },
-            attributes: ['url'] 
-        }
-    })
-    allSpots.forEach(spot => {
-        const url = spot.dataValues.SpotImages[0].dataValues.url
-        spot.dataValues.previewImage = url
-        delete spot.dataValues.SpotImages
-    })
-    res.statusCode = 200
-    return res.json(allSpots)
+            include: [
+                {
+                    model: Review,
+                    attributes: [],  
+                },
+                {
+                    model: SpotImage,
+                    where :{ preview: true},
+                    attributes:[['url','previewImage']]
+                }
+            ],
+            group: ['Spot.id'],  // Group by SpotId
+        });
+        
+        const formattedSpots = spots.map(spot => {
+            let previewImage = spot.dataValues.SpotImages.length > 0 ? spot.dataValues.SpotImages[0].dataValues.previewImage : null; 
+            delete spot.dataValues.SpotImages;
+            return {
+                ...spot.get(),
+                previewImage,  
+            };
+        });
+
+        res.statusCode = 200
+        return res.json(formattedSpots); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching spots.' });
+    }
+    
+
+    // res.statusCode = 200
+    // return res.json(allSpots)
 })
 
 router.post('/', async(req, res) => {
