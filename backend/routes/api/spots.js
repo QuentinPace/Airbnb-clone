@@ -270,12 +270,14 @@ router.get('/', async(req, res) => {
             include: [
                 {
                     model: Review,
-                    attributes: [],  
+                    attributes: [],
+                    required: false  
                 },
                 {
                     model: SpotImage,
                     where :{ preview: true},
-                    attributes:[['url','previewImage']]
+                    attributes:[['url','previewImage']],
+                    required: false
                 }
             ],
             group: ['Spot.id'],  // Group by SpotId
@@ -301,6 +303,7 @@ router.get('/', async(req, res) => {
     // res.statusCode = 200
     // return res.json(allSpots)
 })
+
 
 router.post('/', validateSpotCreate, async(req, res) => {
     const { user } = req;
