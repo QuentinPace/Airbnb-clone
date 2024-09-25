@@ -157,7 +157,7 @@ const validateSpotCreate = [
     handleValidationErrors
   ];
 
-  const validateReview = [
+  const validateReviewCreate = [
     check('review')
       .isString()
       .withMessage('review text is required')
@@ -175,8 +175,29 @@ const validateSpotCreate = [
     handleValidationErrors
   ];
 
+  const validateReviewEdit = [
+    check('review')
+      .optional()
+      .isString()
+      .withMessage('review text is required')
+      .exists({ checkFalsy: true })
+      .withMessage('review text is required')
+      .notEmpty()
+      .withMessage('review text is required')
+      .isLength({min: 2, max: 300})
+      .withMessage('review text is required'),
+    check('stars')
+      .optional()
+      .isInt({min: 1, max: 5})
+      .withMessage('Stars must be an integer from 1 to 5')
+      .exists({ checkFalsy: true })
+      .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ];
+
   module.exports = {
     validateSpotCreate,
-    validateReview,
-    validateSpotEdit
+    validateReviewCreate,
+    validateSpotEdit,
+    validateReviewEdit
   };

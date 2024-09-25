@@ -4,7 +4,7 @@ const { fn, col } = require('sequelize');
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 
 
-const { validateSpotCreate, validateSpotEdit, validateReview } = require('../../utils/validationArrays')
+const { validateSpotCreate, validateSpotEdit, validateReviewCreate } = require('../../utils/validationArrays')
 
 
 const router = express.Router()
@@ -25,7 +25,7 @@ router.get('/current', async(req,res) => {
     }
 })
 
-router.post('/:spotId/reviews', validateReview, async (req, res) => {
+router.post('/:spotId/reviews', validateReviewCreate, async (req, res) => {
     const spotId = parseInt(req.params.spotId)
     const { user } = req
     if(user) {
