@@ -12,39 +12,11 @@ const router = express.Router()
 router.get('/current', async(req,res) => {
     const { user } = req;
     if (user) {
-        const spots = await Spot.findAll({
-            where : {ownerId : user.id},
-            attributes: {
-                include: [
-                    [fn('AVG', col('Reviews.stars')), 'avgRating']  
-                ]
-            },
-            include: [
-                {
-                    model: Review,
-                    attributes: [],  
-                    required :false
-                },
-                {
-                    model: SpotImage,
-                    where :{ preview: true},
-                    attributes:[['url','previewImage']],
-                    required :false
-                }
-            ],
-            group: ['Spot.id'],  // Group by SpotId
-        });
-        
-        const formattedSpots = spots.map(spot => {
-            let previewImage = spot.dataValues.SpotImages.length > 0 ? spot.dataValues.SpotImages[0].dataValues.previewImage : null; 
-            delete spot.dataValues.SpotImages;
-            return {
-                ...spot.get(),
-                previewImage,  
-            };
-        });
+        const allSpots = await Spot.findAll({
+        where : {ownerId : user.id}
+        })
         res.status(200)
-        return res.json(formattedSpots)  
+        return res.json(allSpots)  
     } else {
         res.status(403)
         return res.json({
@@ -173,32 +145,19 @@ router.post('/:spotId/images', async(req, res) => {
 
 
 router.get('/:spotId', async(req, res) => {
-    const spots = await Spot.findAll({
+    const spotById = await Spot.findAll({
         where: {
             id: parseInt(req.params.spotId)
-        },
-        attributes: {
-            include: [
-                [fn('AVG', col('Reviews.stars')), 'avgRating']  
-            ]
-        },
-        include: [
-            {
-                model: Review,
-                attributes: [],  
-                required :false
-            }
-        ],
-        group: ['Spot.id'],  // Group by SpotId
+        }
     })
-    // console.log(spots)
-    if(!spots.length){
+    console.log(spotById)
+    if(!spotById.length){
         res.statusCode = 404
         return res.json({
             message: "Spot Couldn't be found"
         })
     }
-    const ownerId = spots[0].dataValues.ownerId
+    const ownerId = spotById[0].dataValues.ownerId
     const owner = await User.findOne({
         where: {
             id: ownerId
@@ -221,7 +180,7 @@ router.get('/:spotId', async(req, res) => {
         imagesArr.push(imageObj)
     })
     const response = {
-        ...spots[0].dataValues,
+        ...spotById[0].dataValues,
         SpotImages: imagesArr,
         Owner: owner
     }
@@ -311,23 +270,14 @@ router.get('/', async(req, res) => {
             include: [
                 {
                     model: Review,
-<<<<<<< HEAD
                     attributes: [],  
                     required :false
-=======
-                    attributes: [],
-                    required: false  
->>>>>>> 196a8fe8197302facae1a266e91e32337954bf8e
                 },
                 {
                     model: SpotImage,
                     where :{ preview: true},
                     attributes:[['url','previewImage']],
-<<<<<<< HEAD
                     required :false
-=======
-                    required: false
->>>>>>> 196a8fe8197302facae1a266e91e32337954bf8e
                 }
             ],
             group: ['Spot.id'],  // Group by SpotId
