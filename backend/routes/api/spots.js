@@ -12,7 +12,6 @@ const router = express.Router()
 router.get('/current', async(req,res) => {
     const { user } = req;
     if (user) {
-<<<<<<< HEAD
         const spots = await Spot.findAll({
             where : {ownerId : user.id},
             attributes: {
@@ -46,13 +45,6 @@ router.get('/current', async(req,res) => {
         });
         res.status(200)
         return res.json(formattedSpots)  
-=======
-        const allSpots = await Spot.findAll({
-        where : {ownerId : user.id}
-        })
-        res.status(200)
-        return res.json(allSpots)  
->>>>>>> 196a8fe8197302facae1a266e91e32337954bf8e
     } else {
         res.status(403)
         return res.json({
