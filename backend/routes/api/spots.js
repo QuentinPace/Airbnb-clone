@@ -6,42 +6,162 @@ const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models'
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const validateReview = [
+const validateSpotCreate = [
     check('address')
+      .isString()
+      .withMessage('Street address is required')
       .exists({ checkFalsy: true })
+      .withMessage('Street address is required')
       .notEmpty()
       .withMessage('Street address is required'),
     check('city')
+      .isString()
+      .withMessage('City is required')
       .exists({ checkFalsy: true })
       .withMessage('City is required'),
     check('state')
       .exists({ checkFalsy: true })
+      .withMessage('State is required')
+      .isString()
+      .withMessage('State is required')
       .notEmpty()
       .withMessage('State is required'),
     check('country')
+      .isString()
+      .withMessage('Country is required')
       .exists({ checkFalsy: true })
       .withMessage('Country is required'),
     check('lat')
+      .custom(value => {
+        if(value < -90 || value > 90){
+            return false
+        }else {
+            return true
+        }
+      })
+      .withMessage('Latitude must be within -90 and 90')
       .exists({ checkFalsy: true })
+      .withMessage('Latitude must be within -90 and 90')
       .notEmpty()
       .withMessage('Latitude must be within -90 and 90'),
     check('lng')
+      .custom(value => {
+        if(value < -180 || value > 180){
+            return false
+        }else {
+            return true
+        }
+      })
+      .withMessage('Longitude must be within -180 and 180')
       .exists({ checkFalsy: true })
+      .withMessage('Longitude must be within -180 and 180')
+      .notEmpty()
       .withMessage('Longitude must be within -180 and 180'),
     check('name')
       .exists({ checkFalsy: true })
+      .withMessage('Name must be less than 50 characters')
       .notEmpty()
+      .withMessage('Name must be less than 50 characters')
+      .isString()
+      .withMessage('Name must be less than 50 characters')
+      .isLength({ max: 49 })
       .withMessage('Name must be less than 50 characters'),
     check('description')
+      .isString()
+      .withMessage('Description is required')
       .exists({ checkFalsy: true })
       .withMessage('Description is required'),
     check('price')
+      .isInt({min: 0})
+      .withMessage('Price per day must be a positive number')
       .exists({ checkFalsy: true })
       .withMessage('Price per day must be a positive number'),
     handleValidationErrors
   ];
 
-  const validateSpot = [
+  const validateSpotEdit = [
+    check('address')
+      .optional()
+      .isString()
+      .withMessage('Street address is required')
+      .exists({ checkFalsy: true })
+      .withMessage('Street address is required')
+      .notEmpty()
+      .withMessage('Street address is required'),
+    check('city')
+      .optional()
+      .isString()
+      .withMessage('City is required')
+      .exists({ checkFalsy: true })
+      .withMessage('City is required'),
+    check('state')
+      .optional()
+      .exists({ checkFalsy: true })
+      .withMessage('State is required')
+      .isString()
+      .withMessage('State is required')
+      .notEmpty()
+      .withMessage('State is required'),
+    check('country')
+      .optional()
+      .isString()
+      .withMessage('Country is required')
+      .exists({ checkFalsy: true })
+      .withMessage('Country is required'),
+    check('lat')
+      .optional()
+      .custom(value => {
+        if(value < -90 || value > 90){
+            return false
+        }else {
+            return true
+        }
+      })
+      .withMessage('Latitude must be within -90 and 90')
+      .exists({ checkFalsy: true })
+      .withMessage('Latitude must be within -90 and 90')
+      .notEmpty()
+      .withMessage('Latitude must be within -90 and 90'),
+    check('lng')
+      .optional()
+      .custom(value => {
+        if(value < -180 || value > 180){
+            return false
+        }else {
+            return true
+        }
+      })
+      .withMessage('Longitude must be within -180 and 180')
+      .exists({ checkFalsy: true })
+      .withMessage('Longitude must be within -180 and 180')
+      .notEmpty()
+      .withMessage('Longitude must be within -180 and 180'),
+    check('name')
+      .optional()
+      .exists({ checkFalsy: true })
+      .withMessage('Name must be less than 50 characters')
+      .notEmpty()
+      .withMessage('Name must be less than 50 characters')
+      .isString()
+      .withMessage('Name must be less than 50 characters')
+      .isLength({ max: 49 })
+      .withMessage('Name must be less than 50 characters'),
+    check('description')
+      .optional()
+      .isString()
+      .withMessage('Description is required')
+      .exists({ checkFalsy: true })
+      .withMessage('Description is required'),
+    check('price')
+      .optional()
+      .isInt({min: 0})
+      .withMessage('Price per day must be a positive number')
+      .exists({ checkFalsy: true })
+      .withMessage('Price per day must be a positive number'),
+    handleValidationErrors
+  ];
+
+  const validateReview = [
     check('review')
       .exists({ checkFalsy: true })
       .notEmpty()
@@ -231,14 +351,14 @@ router.get('/:spotId', async(req, res) => {
 })
 
 
-router.put('/:spotId', async (req, res,next ) => {
+router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
     if(!req.user) {
         res.status=200;
         res.json({ 'message': 'Require proper authorization: Spot must belong to the current user'})
     } else {
         const spotId= parseInt(req.params.spotId);
         const targetSpot = await Spot.findByPk(spotId);
-        try {
+        
             if(!targetSpot) {
                 res.status(404);
                 return res.json({
@@ -255,23 +375,6 @@ router.put('/:spotId', async (req, res,next ) => {
                 res.status(200);
                 return res.json(updatedSpot);
             }
-        } catch (err){
-            res.statusCode=400;
-            res.json({
-                "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
-                "errors": {
-                "address": "Street address is required",
-                "city": "City is required",
-                "state": "State is required",
-                "country": "Country is required",
-                "lat": "Latitude must be within -90 and 90",
-                "lng": "Longitude must be within -180 and 180",
-                "name": "Name must be less than 50 characters",
-                "description": "Description is required",
-                "price": "Price per day must be a positive number"
-                }
-            })
-        }
     }
 })
 
@@ -347,37 +450,16 @@ router.get('/', async(req, res) => {
     // return res.json(allSpots)
 })
 
-router.post('/', async(req, res) => {
+router.post('/', validateSpotCreate, async(req, res) => {
     const { user } = req;
     //const { address, city, state, country, lat, lng, name, description, price } = req.body
     if (user) {
-        try{
         const newSpot = await Spot.create({
             ownerId: user.id,
             ...req.body
         })
         res.status(201)
         return res.json(newSpot)
-    }
-    catch{
-        const errors = {
-            "address": "Street address is required",
-            "city": "City is required",
-            "state": "State is required",
-            "country": "Country is required",
-            "lat": "Latitude must be within -90 and 90",
-            "lng": "Longitude must be within -180 and 180",
-            "name": "Name must be less than 50 characters",
-            "description": "Description is required",
-            "price": "Price per day must be a positive number"
-          }
-          res.status(400)
-          return res.json({
-            message: "Bad Request",
-            errors
-          })
-
-    }
     } else {
         console.log("====> 4");
         res.status(403)
