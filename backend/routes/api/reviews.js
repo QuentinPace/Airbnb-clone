@@ -89,8 +89,8 @@ router.get('/current', async (req, res) => {
 router.post('/:reviewId/images',async (req,res)=>{
     if(!req.user) {
         return res.json({
-            message: 'Require proper authorization: Review must belong to the current user'
-        })
+            "message": "Authentication required"
+          })
     } else{
         const reviewId = parseInt(req.params.reviewId)
         const targetReview = await Review.findByPk(reviewId);
@@ -100,6 +100,12 @@ router.post('/:reviewId/images',async (req,res)=>{
                 "message": "Review couldn't be found"
             })
         } else {
+            if(targetReview.dataValues.userId !== req.user.id){
+                res.statusCode = 403
+                return res.json({
+                    "message": "Forbidden"
+                  })
+            }
             const existingImages = await ReviewImage.findAll({
                 where : {
                     reviewId
@@ -126,9 +132,10 @@ router.post('/:reviewId/images',async (req,res)=>{
 
 router.delete('/:reviewId/',async (req,res) => {
     if (!req.user) {
+        res.statusCode = 401
         return res.json({
-            message : 'Require proper authorization: Review must belong to the current user'
-        })
+            "message": "Authentication required"
+          })
     } else {
         const reviewId = parseInt(req.params.reviewId);
         const targetReview = await Review.findByPk(reviewId)
@@ -138,6 +145,12 @@ router.delete('/:reviewId/',async (req,res) => {
                 message: "Review couldn't be found"
               })
         } else{
+            if(targetReview.dataValues.userId !== req.user.id){
+                res.statusCode = 403
+                return res.json({
+                    "message": "Forbidden"
+                  })
+            }
             await targetReview.destroy()
             res.statusCode = 200
             return res.json({

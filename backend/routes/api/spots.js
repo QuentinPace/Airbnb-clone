@@ -10,20 +10,18 @@ const { validateSpotCreate, validateSpotEdit, validateReview } = require('../../
 const router = express.Router()
 
 router.get('/current', async(req,res) => {
-    console.log("====> 1");
     const { user } = req;
     if (user) {
-        console.log("====> 2");
         const allSpots = await Spot.findAll({
         where : {ownerId : user.id}
         })
         res.status(200)
-        console.log("====> 3");
         return res.json(allSpots)  
     } else {
-        console.log("====> 4");
         res.status(403)
-        return res.json({ user: null });
+        return res.json({
+            "message": "Authentication required"
+          });
     }
 })
 
@@ -106,8 +104,13 @@ router.post('/:spotId/images', async(req, res) => {
             where: {
                 id: parseInt(req.params.spotId)
             }
-
         })
+        if(spotFound.dataValues.ownerId !== user.id){
+            res.statusCode = 403
+            return res.json({
+                "message": "Forbidden"
+              })
+        }
         if(!spotFound){
             res.statusCode = 404
             return res.json({
@@ -130,7 +133,9 @@ router.post('/:spotId/images', async(req, res) => {
         }    
     } else {
         res.status(403)
-        return res.json({ user: null , message: 'you must log in'});
+        return res.json({
+            "message": "Authentication required"
+          });
 
     }
 
@@ -186,8 +191,10 @@ router.get('/:spotId', async(req, res) => {
 
 router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
     if(!req.user) {
-        res.status=200;
-        res.json({ 'message': 'Require proper authorization: Spot must belong to the current user'})
+        res.status = 403;
+        res.json({
+            "message": "Authentication required"
+          })
     } else {
         const spotId= parseInt(req.params.spotId);
         const targetSpot = await Spot.findByPk(spotId);
@@ -198,6 +205,12 @@ router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
                     "message": "Spot couldn't be found"
                 })
             } else {
+                if(targetSpot.dataValues.ownerId !== req.user.id){
+                    res.statusCode = 403
+                    return res.json({
+                        "message": "Forbidden"
+                      })
+                }
                 await Spot.update(
                     req.body, // attributes and values to update
                     { where:
@@ -216,11 +229,17 @@ router.delete('/:spotId', async (req, res) => {
     if(!req.user){
         res.status(401)
         return res.json({
-            message: "Require proper authorization: Spot must belong to the current user"
-        })
+            "message": "Authentication required"
+          })
     }
     else{
         const targetSpot = await Spot.findByPk(spotId);
+        if(targetSpot.dataValues.ownerId !== req.user.id){
+            res.statusCode = 403
+            return res.json({
+                "message": "Forbidden"
+              })
+        }
         if(!targetSpot){
             res.status(404)
             return res.json({
@@ -294,9 +313,10 @@ router.post('/', validateSpotCreate, async(req, res) => {
         res.status(201)
         return res.json(newSpot)
     } else {
-        console.log("====> 4");
         res.status(403)
-        return res.json({ user: null });
+        return res.json({
+            "message": "Authentication required"
+          });
     }
 
 })

@@ -161,7 +161,7 @@ const validateSpotCreate = [
     check('review')
       .exists({ checkFalsy: true })
       .notEmpty()
-      .withMessage('Please provide a valid email or username.'),
+      .withMessage('review text is required'),
     check('stars')
       .exists({ checkFalsy: true })
       .withMessage('Stars must be an integer from 1 to 5'),
