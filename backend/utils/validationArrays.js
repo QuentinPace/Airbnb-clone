@@ -159,10 +159,17 @@ const validateSpotCreate = [
 
   const validateReview = [
     check('review')
+      .isString()
+      .withMessage('review text is required')
       .exists({ checkFalsy: true })
+      .withMessage('review text is required')
       .notEmpty()
+      .withMessage('review text is required')
+      .isLength({min: 2, max: 300})
       .withMessage('review text is required'),
     check('stars')
+      .isInt({min: 1, max: 5})
+      .withMessage('Stars must be an integer from 1 to 5')
       .exists({ checkFalsy: true })
       .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
