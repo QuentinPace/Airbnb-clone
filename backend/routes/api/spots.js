@@ -2,7 +2,7 @@ const express = require('express')
 const { fn, col,literal } = require('sequelize');
 
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
-
+const {environment} = require('../../config/index.js')
 
 const { validateSpotCreate, validateSpotEdit, validateReviewCreate } = require('../../utils/validationArrays')
 
@@ -12,11 +12,58 @@ const router = express.Router()
 router.get('/current', async(req,res) => {
     const { user } = req;
     if (user) {
-        const allSpots = await Spot.findAll({
-        where : {ownerId : user.id}
-        })
-        res.status(200)
-        return res.json(allSpots)  
+        try{
+            let spots;
+            if(environment==="development"){ 
+                spots = await Spot.findAll({
+                    where : {ownerId : user.id},
+                    attributes: {
+                        include: [
+                            [literal(`(
+                                SELECT AVG(stars) 
+                                FROM "Reviews" 
+                                WHERE "Reviews"."spotId" = Spot.id
+                                )`), 'averageRating'],  
+                            [literal(`(
+                                SELECT url 
+                                FROM "SpotImages" 
+                                WHERE "SpotImages"."spotId" = Spot.id 
+                                    AND "SpotImages".preview = true 
+                                LIMIT 1
+                                )`), 'previewImage']  
+                        ]
+                    },
+                    raw: true
+                });
+            } else { // production environment
+                spots = await Spot.findAll({
+                    where : {ownerId : user.id},
+                    attributes: {
+                        include: [
+                            [literal(`(
+                                SELECT AVG(stars) 
+                                FROM "airbnb-db"."Reviews" 
+                                WHERE "Reviews"."spotId" = "Spot".id
+                                )`), 'averageRating'],  
+                            [literal(`(
+                                SELECT url 
+                                FROM "airbnb-db"."SpotImages" 
+                                WHERE "SpotImages"."spotId" = "Spot".id 
+                                    AND "SpotImages".preview = true 
+                                LIMIT 1
+                                )`), 'previewImage']  
+                        ]
+                    },
+                    raw: true
+                });
+            }
+    
+            return res.status(200).json({Spots:spots})
+        } catch (error) {
+            console.error('Error details:', error.message);  
+            console.error('Stack trace:', error.stack);  
+            res.status(500).json({ error: 'An error occurred while fetching spots.' });
+        }
     } else {
         res.status(403)
         return res.json({
@@ -257,13 +304,12 @@ router.delete('/:spotId', async (req, res) => {
 })
 
 
-// const { Op, literal } = require('sequelize');
-const {environment} = require('../../config/index.js')
+
+
 router.get('/', async (req,res) =>{
     try{
         let spots;
-        if(environment==="development"){
-            console.log("===== 1 =====")
+        if(environment==="development"){ 
             spots = await Spot.findAll({
                 attributes: {
                     include: [
@@ -284,7 +330,6 @@ router.get('/', async (req,res) =>{
                 raw: true
             });
         } else { // production environment
-            console.log("===== 2 =====")
             spots = await Spot.findAll({
                 attributes: {
                     include: [
@@ -314,88 +359,6 @@ router.get('/', async (req,res) =>{
     }
 })
 
-
-
-// router.get('/', async(req, res) => {
-//     const spots = await Spot.findAll({
-//         attributes:{
-//             include :[
-//                 [
-//                     literal(`(
-//                         SELECT AVG(stars)
-//                         FROM Reviews AS Review
-//                         WHERE 
-//                             Review.spotId = Spot.id
-//                     )`),
-//                     "avgRating"
-//                 ],
-//                 [
-//                     literal(`(
-//                         SELECT (url)
-//                         FROM SpotImages as SpotImage
-//                         WHERE 
-//                             spotImage.spotId = Spot.id
-//                             AND
-//                             spotImage.preview = true
-//                     )`),
-//                     "previewImage"
-//                 ]
-//             ]
-//         }
-//     })
-
-//     const allSpots =[];
-//     for (const spot of spots) {
-//         const spotJson = spot.toJSON();
-//         spotJson.avgRating = spotJson.avgRating || 0;
-//         allSpots.push(spotJson)
-//     }
-//     return res.status(200).json({
-//         Spots:allSpots
-//     })
-
-// })
-
-
-
-// router.get('/', async(req, res) => {
-//     try {
-//         const spots = await Spot.findAll({
-//             attributes: {
-//                 include: [
-//                     [fn('AVG', col('Reviews.stars')), 'avgRating']  
-//                 ]
-//             },
-//             include: [
-//                 {
-//                     model: Review,
-//                     attributes: [],  
-//                     required :false
-//                 },
-//                 {
-//                     model: SpotImage,
-//                     where :{ preview: true},
-//                     attributes:[['url','previewImage']],
-//                     required :false
-//                 }
-//             ],
-//             group: ['Spot.id'],  // Group by SpotId
-//         });
-//         const formattedSpots = spots.map(spot => {
-//             let previewImage = spot.dataValues.SpotImages.length > 0 ? spot.dataValues.SpotImages[0].dataValues.previewImage : null; 
-//             delete spot.dataValues.SpotImages;
-//             return {
-//                 ...spot.get(),
-//                 previewImage,  
-//             };
-//         });
-//         res.statusCode = 200
-//         return res.json(formattedSpots); 
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'An error occurred while fetching spots.' });
-//     }
-// })
 
 
 router.post('/', validateSpotCreate, async(req, res) => {
