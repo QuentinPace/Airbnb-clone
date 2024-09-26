@@ -256,45 +256,78 @@ router.delete('/:spotId', async (req, res) => {
 
 })
 
-router.get('/', async(req, res) => {
-    const spots = await Spot.findAll({
-        attributes:{
-            include :[
-                [
-                    literal(`(
-                        SELECT AVG(stars)
-                        FROM Reviews AS Review
-                        WHERE 
-                            Review.spotId = Spot.id
-                    )`),
-                    "avgRating"
+
+// const { Op, literal } = require('sequelize');
+
+router.get('/', async (req,res) =>{
+    try{
+        const spots = await Spot.findAll({
+            attributes: {
+                include: [
+                    [literal(`(
+                        SELECT AVG(stars) 
+                        FROM Reviews 
+                        WHERE Reviews.spotId = Spot.id
+                        )`), 'averageRating'],  
+                    [literal(`(
+                        SELECT url 
+                        FROM SpotImages 
+                        WHERE SpotImages.spotId = Spot.id 
+                            AND SpotImages.preview = true 
+                        LIMIT 1
+                        )`), 'previewImage']  
                 ],
-                [
-                    literal(`(
-                        SELECT (url)
-                        FROM SpotImages as SpotImage
-                        WHERE 
-                            spotImage.spotId = Spot.id
-                            AND
-                            spotImage.preview = true
-                    )`),
-                    "previewImage"
-                ]
-            ]
-        }
-    })
-
-    const allSpots =[];
-    for (const spot of spots) {
-        const spotJson = spot.toJSON();
-        spotJson.avgRating = spotJson.avgRating || 0;
-        allSpots.push(spotJson)
+                raw: true,
+            }
+        });
+        return res.status(200).json({Spots:spots})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching spots.' });
     }
-    return res.status(200).json({
-        Spots:allSpots
-    })
-
 })
+
+
+
+// router.get('/', async(req, res) => {
+//     const spots = await Spot.findAll({
+//         attributes:{
+//             include :[
+//                 [
+//                     literal(`(
+//                         SELECT AVG(stars)
+//                         FROM Reviews AS Review
+//                         WHERE 
+//                             Review.spotId = Spot.id
+//                     )`),
+//                     "avgRating"
+//                 ],
+//                 [
+//                     literal(`(
+//                         SELECT (url)
+//                         FROM SpotImages as SpotImage
+//                         WHERE 
+//                             spotImage.spotId = Spot.id
+//                             AND
+//                             spotImage.preview = true
+//                     )`),
+//                     "previewImage"
+//                 ]
+//             ]
+//         }
+//     })
+
+//     const allSpots =[];
+//     for (const spot of spots) {
+//         const spotJson = spot.toJSON();
+//         spotJson.avgRating = spotJson.avgRating || 0;
+//         allSpots.push(spotJson)
+//     }
+//     return res.status(200).json({
+//         Spots:allSpots
+//     })
+
+// })
 
 
 
@@ -321,7 +354,6 @@ router.get('/', async(req, res) => {
 //             ],
 //             group: ['Spot.id'],  // Group by SpotId
 //         });
-        
 //         const formattedSpots = spots.map(spot => {
 //             let previewImage = spot.dataValues.SpotImages.length > 0 ? spot.dataValues.SpotImages[0].dataValues.previewImage : null; 
 //             delete spot.dataValues.SpotImages;
@@ -330,17 +362,12 @@ router.get('/', async(req, res) => {
 //                 previewImage,  
 //             };
 //         });
-
 //         res.statusCode = 200
 //         return res.json(formattedSpots); 
 //     } catch (error) {
 //         console.error(error);
 //         res.status(500).json({ error: 'An error occurred while fetching spots.' });
 //     }
-    
-
-//     // res.statusCode = 200
-//     // return res.json(allSpots)
 // })
 
 
