@@ -409,7 +409,7 @@ router.get('/', validateQuery, async (req,res) =>{
 
 
             spots = await Spot.findAll(query);
-            
+
         } else { // production environment
 
             const query = {
@@ -437,6 +437,9 @@ router.get('/', validateQuery, async (req,res) =>{
             query.offset = size * (page - 1)
 
             spots = await Spot.findAll(query);
+
+            console.log(spots)
+
         }
 
         return res.status(200).json({Spots:spots})
