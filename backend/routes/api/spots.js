@@ -1,10 +1,10 @@
 const express = require('express')
-const { fn, col,literal } = require('sequelize');
+const { literal, Op } = require('sequelize');
 
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 const {environment} = require('../../config/index.js')
 
-const { validateSpotCreate, validateSpotEdit, validateReviewCreate } = require('../../utils/validationArrays')
+const { validateSpotCreate, validateSpotEdit, validateReviewCreate, validateQuery } = require('../../utils/validationArrays')
 
 
 const router = express.Router()
@@ -306,7 +306,7 @@ router.delete('/:spotId', async (req, res) => {
 
 
 
-router.get('/', async (req,res) =>{
+router.get('/', validateQuery, async (req,res) =>{
     try{
         let { page, size } = req.query
 
@@ -403,6 +403,10 @@ router.get('/', async (req,res) =>{
                 raw: true
             }
 
+            query.where = where
+            query.limit = size
+            query.offset = size * (page - 1)
+
 
             spots = await Spot.findAll(query);
         } else { // production environment
@@ -427,6 +431,7 @@ router.get('/', async (req,res) =>{
                 raw: true
             }
 
+            query.where = where
             query.limit = size
             query.offset = size * (page - 1)
 
