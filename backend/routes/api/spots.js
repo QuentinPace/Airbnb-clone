@@ -266,14 +266,14 @@ router.get('/', async (req,res) =>{
                 include: [
                     [literal(`(
                         SELECT AVG(stars) 
-                        FROM Reviews 
-                        WHERE Reviews.spotId = Spot.id
+                        FROM "Reviews" 
+                        WHERE "Reviews".spotId = Spot.id
                         )`), 'averageRating'],  
                     [literal(`(
                         SELECT url 
-                        FROM SpotImages 
-                        WHERE SpotImages.spotId = Spot.id 
-                            AND SpotImages.preview = true 
+                        FROM "SpotImages" 
+                        WHERE "SpotImages".spotId = Spot.id 
+                            AND "SpotImages".preview = true 
                         LIMIT 1
                         )`), 'previewImage']  
                 ]
@@ -282,7 +282,8 @@ router.get('/', async (req,res) =>{
         });
         return res.status(200).json({Spots:spots})
     } catch (error) {
-        console.error(error);
+        console.error('Error details:', error.message);  
+        console.error('Stack trace:', error.stack);  
         res.status(500).json({ error: 'An error occurred while fetching spots.' });
     }
 })
