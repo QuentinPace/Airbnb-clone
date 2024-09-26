@@ -391,7 +391,7 @@ router.get('/', validateQuery, async (req,res) =>{
                             SELECT AVG(stars) 
                             FROM "Reviews" 
                             WHERE "Reviews"."spotId" = Spot.id
-                            )`), 'averageRating'],  
+                            )`), 'avgRating'],  
                         [literal(`(
                             SELECT url 
                             FROM "SpotImages" 
@@ -420,7 +420,7 @@ router.get('/', validateQuery, async (req,res) =>{
                             SELECT AVG(stars) 
                             FROM "airbnb-db"."Reviews" 
                             WHERE "Reviews"."spotId" = "Spot".id
-                            )`), 'averageRating'],  
+                            )`), 'avgRating'],  
                         [literal(`(
                             SELECT url 
                             FROM "airbnb-db"."SpotImages" 
