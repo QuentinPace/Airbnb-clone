@@ -441,6 +441,18 @@ router.get('/', validateQuery, async (req,res) =>{
 
             console.log(spots)
 
+            spots.map(spotObj => {
+                let updatedLat = spotObj.lat ? Number(spotObj.lat) : null
+                spotObj.lat = updatedLat
+                let updatedLng = spotObj.lng ? Number(spotObj.lng) : null
+                spotObj.lng = updatedLng
+                let updatedPrice = spotObj.price ? parseFloat(Number(spotObj.price).toFixed(2)) : null
+                spotObj.price = updatedPrice
+                let updatedAvgRate = spotObj.avgRating ? Number((spotObj.avgRating.substring(0, 3))) : null
+                spotObj.avgRating = updatedAvgRate
+
+            })
+
 
         }
 
