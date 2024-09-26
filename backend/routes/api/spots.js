@@ -276,9 +276,9 @@ router.get('/', async (req,res) =>{
                             AND SpotImages.preview = true 
                         LIMIT 1
                         )`), 'previewImage']  
-                ],
-                raw: true,
-            }
+                ]
+            },
+            raw: true
         });
         return res.status(200).json({Spots:spots})
     } catch (error) {
