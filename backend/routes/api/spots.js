@@ -448,9 +448,8 @@ router.get('/', validateQuery, async (req,res) =>{
                 spotObj.lng = updatedLng
                 let updatedPrice = spotObj.price ? parseFloat(Number(spotObj.price).toFixed(2)) : null
                 spotObj.price = updatedPrice
-                let updatedAvgRate = spotObj.avgRating ? Number((spotObj.avgRating.substring(0, 3))) : null
+                let updatedAvgRate = spotObj.avgRating ? parseFloat(Number(spotObj.avgRating).toFixed(1)) : null
                 spotObj.avgRating = updatedAvgRate
-
             })
 
 
