@@ -154,7 +154,7 @@ router.get('/:spotId', async(req, res) => {
     if(!spotById.length){
         res.statusCode = 404
         return res.json({
-            message: "Spot Couldn't be found"
+            message: "Spot couldn't be found"
         })
     }
     const ownerId = spotById[0].dataValues.ownerId
