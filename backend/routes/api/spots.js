@@ -24,7 +24,7 @@ router.get('/current', async(req,res) => {
                                 SELECT AVG(stars) 
                                 FROM "Reviews" 
                                 WHERE "Reviews"."spotId" = Spot.id
-                                )`), 'averageRating'],  
+                                )`), 'avgRating'], 
                             [literal(`(
                                 SELECT url 
                                 FROM "SpotImages" 
@@ -45,7 +45,7 @@ router.get('/current', async(req,res) => {
                                 SELECT AVG(stars) 
                                 FROM "airbnb-db"."Reviews" 
                                 WHERE "Reviews"."spotId" = "Spot".id
-                                )`), 'averageRating'],  
+                                )`), 'avgRating'],  
                             [literal(`(
                                 SELECT url 
                                 FROM "airbnb-db"."SpotImages" 
@@ -57,8 +57,18 @@ router.get('/current', async(req,res) => {
                     },
                     raw: true
                 });
+                spots.map(spotObj => {
+                    let updatedLat = spotObj.lat ? Number(spotObj.lat) : null
+                    spotObj.lat = updatedLat
+                    let updatedLng = spotObj.lng ? Number(spotObj.lng) : null
+                    spotObj.lng = updatedLng
+                    let updatedPrice = spotObj.price ? parseFloat(Number(spotObj.price).toFixed(2)) : null
+                    spotObj.price = updatedPrice
+                    let updatedAvgRate = spotObj.avgRating ? parseFloat(Number(spotObj.avgRating).toFixed(1)) : null
+                    spotObj.avgRating = updatedAvgRate
+                })
             }
-    
+
             return res.status(200).json({Spots:spots})
         } catch (error) {
             console.error('Error details:', error.message);  
@@ -66,7 +76,7 @@ router.get('/current', async(req,res) => {
             res.status(500).json({ error: 'An error occurred while fetching spots.' });
         }
     } else {
-        res.status(403)
+        res.status(401)
         return res.json({
             "message": "Authentication required"
           });
