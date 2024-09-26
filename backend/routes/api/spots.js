@@ -258,28 +258,54 @@ router.delete('/:spotId', async (req, res) => {
 
 
 // const { Op, literal } = require('sequelize');
-
+const {environment} = require('../../config/index.js')
 router.get('/', async (req,res) =>{
     try{
-        const spots = await Spot.findAll({
-            attributes: {
-                include: [
-                    [literal(`(
-                        SELECT AVG(stars) 
-                        FROM "Reviews" 
-                        WHERE "Reviews"."spotId" = Spot.id
-                        )`), 'averageRating'],  
-                    [literal(`(
-                        SELECT url 
-                        FROM "SpotImages" 
-                        WHERE "SpotImages"."spotId" = Spot.id 
-                            AND "SpotImages".preview = true 
-                        LIMIT 1
-                        )`), 'previewImage']  
-                ]
-            },
-            raw: true
-        });
+        let spots;
+        if(environment==="development"){
+            console.log("===== 1 =====")
+            spots = await Spot.findAll({
+                attributes: {
+                    include: [
+                        [literal(`(
+                            SELECT AVG(stars) 
+                            FROM "Reviews" 
+                            WHERE "Reviews"."spotId" = Spot.id
+                            )`), 'averageRating'],  
+                        [literal(`(
+                            SELECT url 
+                            FROM "SpotImages" 
+                            WHERE "SpotImages"."spotId" = Spot.id 
+                                AND "SpotImages".preview = true 
+                            LIMIT 1
+                            )`), 'previewImage']  
+                    ]
+                },
+                raw: true
+            });
+        } else { // production environment
+            console.log("===== 2 =====")
+            spots = await Spot.findAll({
+                attributes: {
+                    include: [
+                        [literal(`(
+                            SELECT AVG(stars) 
+                            FROM projectschema."Reviews" 
+                            WHERE "Reviews"."spotId" = Spot.id
+                            )`), 'averageRating'],  
+                        [literal(`(
+                            SELECT url 
+                            FROM projectschema."SpotImages" 
+                            WHERE "SpotImages"."spotId" = Spot.id 
+                                AND "SpotImages".preview = true 
+                            LIMIT 1
+                            )`), 'previewImage']  
+                    ]
+                },
+                raw: true
+            });
+        }
+
         return res.status(200).json({Spots:spots})
     } catch (error) {
         console.error('Error details:', error.message);  
