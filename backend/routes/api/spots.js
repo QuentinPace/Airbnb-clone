@@ -308,9 +308,82 @@ router.delete('/:spotId', async (req, res) => {
 
 router.get('/', async (req,res) =>{
     try{
+        let { page, size } = req.query
+
+
+        page = parseInt(page);
+        size = parseInt(size);
+
+
+        if (Number.isNaN(page) || page <= 0) page = 1;
+        if (Number.isNaN(size) || size <= 0) size = 20;
+
+
+
+
+        const where = {}
+        // creating the where clause from the querys in the url
+        for(let query in req.query){
+
+            if(query == 'minLat'){
+                if(where.lat){
+                    where.lat =  { [Op.between]: [req.query.minLat, req.query.maxLat]}
+                }
+                else{where.lat = {
+                    [Op.gte]: req.query.minLat
+                }}
+            }
+            else if(query == 'maxLat'){
+                if(where.lat){
+                    where.lat =  { [Op.between]: [req.query.minLat, req.query.maxLat]}
+                }
+                else{where.lat = {
+                    [Op.lte]: req.query.maxLat
+                }}
+            }
+            else if(query == 'minLng'){
+                if(where.lng){
+                    where.lng =  { [Op.between]: [req.query.minLng, req.query.maxLng]}
+                }
+                else{where.lng = {
+                    [Op.gte]: req.query.minLng
+                }}
+            }
+            else if(query == 'maxLng'){
+                if(where.lng){
+                    where.lng =  { [Op.between]: [req.query.minLng, req.query.maxLng]}
+                }
+                else{where.lng = {
+                    [Op.lte]: req.query.maxLng
+                }}
+
+
+            }
+            else if(query == 'minPrice'){
+                if(where.price){
+                    where.price =  { [Op.between]: [req.query.minPrice, req.query.maxPrice]}
+                }
+                else{where.price = {
+                    [Op.gte]: req.query.minPrice
+                }}
+            }
+            else if(query == 'maxPrice'){
+                if(where.price){
+                    where.price =  { [Op.between]: [req.query.minPrice, req.query.maxPrice]}
+                }
+                else{where.price = {
+                    [Op.lte]: req.query.maxPrice
+                }}
+
+
+            }
+        }
+
         let spots;
-        if(environment==="development"){ 
-            spots = await Spot.findAll({
+
+        if(environment==="development"){
+
+            const query = {
                 attributes: {
                     include: [
                         [literal(`(
@@ -328,9 +401,13 @@ router.get('/', async (req,res) =>{
                     ]
                 },
                 raw: true
-            });
+            }
+
+
+            spots = await Spot.findAll(query);
         } else { // production environment
-            spots = await Spot.findAll({
+
+            const query = {
                 attributes: {
                     include: [
                         [literal(`(
@@ -348,7 +425,12 @@ router.get('/', async (req,res) =>{
                     ]
                 },
                 raw: true
-            });
+            }
+
+            query.limit = size
+            query.offset = size * (page - 1)
+
+            spots = await Spot.findAll(query);
         }
 
         return res.status(200).json({Spots:spots})
