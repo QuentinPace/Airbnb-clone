@@ -409,6 +409,7 @@ router.get('/', validateQuery, async (req,res) =>{
 
 
             spots = await Spot.findAll(query);
+            
         } else { // production environment
 
             const query = {
