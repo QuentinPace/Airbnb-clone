@@ -4,7 +4,8 @@ const { literal, Op } = require('sequelize');
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 const {environment} = require('../../config/index.js')
 
-const { validateSpotCreate, validateSpotEdit, validateReviewCreate, validateQuery } = require('../../utils/validationArrays')
+const { validateSpotCreate, validateSpotEdit, validateReviewCreate, validateQuery } = require('../../utils/validationArrays');
+const spot = require('../../db/models/spot.js');
 
 
 const router = express.Router()
@@ -439,6 +440,7 @@ router.get('/', validateQuery, async (req,res) =>{
             spots = await Spot.findAll(query);
 
             console.log(spots)
+
 
         }
 
