@@ -267,12 +267,12 @@ router.get('/', async (req,res) =>{
                     [literal(`(
                         SELECT AVG(stars) 
                         FROM "Reviews" 
-                        WHERE "Reviews".spotId = Spot.id
+                        WHERE "Reviews"."spotId" = Spot.id
                         )`), 'averageRating'],  
                     [literal(`(
                         SELECT url 
                         FROM "SpotImages" 
-                        WHERE "SpotImages".spotId = Spot.id 
+                        WHERE "SpotImages"."spotId" = Spot.id 
                             AND "SpotImages".preview = true 
                         LIMIT 1
                         )`), 'previewImage']  
