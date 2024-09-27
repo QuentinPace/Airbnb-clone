@@ -249,7 +249,7 @@ router.get('/:spotId', async(req, res) => {
 
 router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
     if(!req.user) {
-        res.status = 403;
+        res.statusCode = 401;
         res.json({
             "message": "Authentication required"
           })
