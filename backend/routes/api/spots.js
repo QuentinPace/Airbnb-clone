@@ -190,7 +190,7 @@ router.post('/:spotId/images', async(req, res) => {
             })
         }    
     } else {
-        res.status(403)
+        res.status(401)
         return res.json({
             "message": "Authentication required"
           });
