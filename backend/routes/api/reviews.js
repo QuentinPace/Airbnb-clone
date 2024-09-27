@@ -47,7 +47,6 @@ router.get('/current', async (req, res) => {
 
             //adding reviewImages
             const currReview = reviewsOfCurrent[i]
-            console.log(currReview.dataValues.id)
             const reviewImages = await ReviewImage.findAll({
                 where: {
                     reviewId: currReview.dataValues.id
@@ -81,9 +80,7 @@ router.get('/current', async (req, res) => {
             "message": "Authentication required"
           })
 
-
     }
-
 
 })
 
