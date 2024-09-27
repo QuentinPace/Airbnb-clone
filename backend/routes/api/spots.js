@@ -465,7 +465,12 @@ router.get('/', validateQuery, async (req,res) =>{
 
         }
 
-        return res.status(200).json({Spots:spots})
+        return res.status(200).json({
+            Spots:spots,
+            page: page,
+            size: size
+
+        })
     } catch (error) {
         console.error('Error details:', error.message);  
         console.error('Stack trace:', error.stack);  
