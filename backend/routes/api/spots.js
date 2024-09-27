@@ -189,34 +189,29 @@ router.post('/:spotId/images', async(req, res) => {
 
 })
 
-
-
 router.get('/:spotId', async(req, res) => {
+    const spotId = parseInt(req.params.spotId)
     const spotById = await Spot.findAll({
-        where: {
-            id: parseInt(req.params.spotId)
-        }
+        where: {id:spotId}
     })
-    console.log(spotById)
     if(!spotById.length){
-        res.statusCode = 404
-        return res.json({
-            message: "Spot couldn't be found"
-        })
+        return res.status(404).json({ message:"Spot couldn't be found"})
     }
     const ownerId = spotById[0].dataValues.ownerId
     const owner = await User.findOne({
-        where: {
-            id: ownerId
-        },
+        where: {id: ownerId},
         attributes: ['id', 'firstName', 'lastName']
     })
-
     const spotImages = await SpotImage.findAll({
-        where: {
-            spotId: parseInt(req.params.spotId)
-        }
+        where: {spotId: spotId}
     })
+    const numReviews = await Review.count({
+        where :{spotId: spotId}
+    })
+    const sumOfStars = await Review.sum('stars',{
+        where :{spotId}
+    })
+    const avgStarRating = numReviews > 0 ? sumOfStars / numReviews : null;
 
     const imagesArr = []
     spotImages.forEach(spot => {
@@ -228,12 +223,59 @@ router.get('/:spotId', async(req, res) => {
     })
     const response = {
         ...spotById[0].dataValues,
+        numReviews,
+        avgStarRating,
         SpotImages: imagesArr,
         Owner: owner
     }
     res.statusCode = 200
     return res.json(response)
 })
+
+
+// router.get('/:spotId', async(req, res) => {
+//     const spotById = await Spot.findAll({
+//         where: {
+//             id: parseInt(req.params.spotId)
+//         }
+//     })
+//     console.log(spotById)
+//     if(!spotById.length){
+//         res.statusCode = 404
+//         return res.json({
+//             message: "Spot couldn't be found"
+//         })
+//     }
+//     const ownerId = spotById[0].dataValues.ownerId
+//     const owner = await User.findOne({
+//         where: {
+//             id: ownerId
+//         },
+//         attributes: ['id', 'firstName', 'lastName']
+//     })
+
+//     const spotImages = await SpotImage.findAll({
+//         where: {
+//             spotId: parseInt(req.params.spotId)
+//         }
+//     })
+
+//     const imagesArr = []
+//     spotImages.forEach(spot => {
+//         const imageObj = {}
+//         imageObj.id = spot.dataValues.id
+//         imageObj.url = spot.dataValues.url
+//         imageObj.preview = spot.dataValues.preview
+//         imagesArr.push(imageObj)
+//     })
+//     const response = {
+//         ...spotById[0].dataValues,
+//         SpotImages: imagesArr,
+//         Owner: owner
+//     }
+//     res.statusCode = 200
+//     return res.json(response)
+// })
 
 
 router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
