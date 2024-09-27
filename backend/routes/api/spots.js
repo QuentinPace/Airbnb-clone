@@ -290,7 +290,7 @@ router.get('/:spotId', async(req, res) => {
 // })
 
 
-router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
+router.put('/:spotId', validateSpot, async (req, res,next ) => {
     if(!req.user) {
         res.statusCode = 401;
         res.json({
