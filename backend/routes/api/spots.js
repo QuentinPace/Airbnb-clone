@@ -151,7 +151,7 @@ router.get('/:spotId/reviews', async (req,res) => {
             ]
         })
         res.status(200);
-        return res.json(reviews);
+        return res.json({Reviews: reviews});
     }
 })
 
