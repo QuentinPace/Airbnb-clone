@@ -40,17 +40,17 @@ router.get('/current', async (req, res) => {
             }
             else {
                 review.dataValues.Spot = {
-                    id: 2,
-                    ownerId: 2,
-                    address: "wefiugw",
-                    city: "kbfrskiv",
-                    state: "ugfrgfh4",
-                    country: "reygfewkg",
-                    lat: 12.0004435,
-                    lng: 12.0004435,
-                    name: "kweglf",
-                    price: 500,
-                    previewImage: 'ukbwfikuw4'
+                    id: null,
+                    ownerId: null,
+                    address: null,
+                    city: null,
+                    state: null,
+                    country: null,
+                    lat: null,
+                    lng: null,
+                    name: null,
+                    price: null,
+                    previewImage: null
                 }
 
             }
