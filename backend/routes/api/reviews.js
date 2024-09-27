@@ -26,7 +26,8 @@ router.get('/current', async (req, res) => {
                     where: {
                         preview: true
                     }
-                }
+
+                },
             },
         })
         //getting the preview image for each spot
@@ -38,6 +39,20 @@ router.get('/current', async (req, res) => {
                 delete review.dataValues.Spot.dataValues.SpotImages
             }
             else {
+                review.dataValues.Spot = {
+                    id: 2,
+                    ownerId: 2,
+                    address: "wefiugw",
+                    city: "kbfrskiv",
+                    state: "ugfrgfh4",
+                    country: "reygfewkg",
+                    lat: 12.0004435,
+                    lng: 12.0004435,
+                    name: "kweglf",
+                    price: 500,
+                    previewImage: 'ukbwfikuw4'
+                }
+
             }
         })
 
@@ -87,6 +102,7 @@ router.get('/current', async (req, res) => {
 
 router.post('/:reviewId/images',async (req,res)=>{
     if(!req.user) {
+        res.statusCode = 401
         return res.json({
             "message": "Authentication required"
           })
