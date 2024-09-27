@@ -292,16 +292,16 @@ router.delete('/:spotId', async (req, res) => {
     }
     else{
         const targetSpot = await Spot.findByPk(spotId);
-        if(targetSpot.dataValues.ownerId !== req.user.id){
-            res.statusCode = 403
-            return res.json({
-                "message": "Forbidden"
-              })
-        }
         if(!targetSpot){
             res.status(404)
             return res.json({
                 "message": "Spot couldn't be found"
+              })
+        }
+        if(targetSpot.dataValues.ownerId !== req.user.id){
+            res.statusCode = 403
+            return res.json({
+                "message": "Forbidden"
               })
         }else {
             await targetSpot.destroy()
