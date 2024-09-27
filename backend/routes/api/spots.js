@@ -491,7 +491,7 @@ router.post('/', validateSpotCreate, async(req, res) => {
         res.status(201)
         return res.json(newSpot)
     } else {
-        res.status(403)
+        res.status(401)
         return res.json({
             "message": "Authentication required"
           });
