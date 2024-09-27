@@ -31,7 +31,10 @@ router.get('/current', async (req, res) => {
             },
         })
         //getting the preview image for each spot
-        reviewsOfCurrent.forEach(review => {
+
+        for(let i = 0; i < reviewsOfCurrent.length; i++){
+            let review = reviewsOfCurrent[i]
+
             if(review.dataValues.Spot){
                 const reviewImageUrl = review.dataValues.Spot.dataValues.SpotImages[0].url
                 //console.log(reviewImageUrl)
@@ -39,22 +42,17 @@ router.get('/current', async (req, res) => {
                 delete review.dataValues.Spot.dataValues.SpotImages
             }
             else {
-                review.dataValues.Spot = {
-                    id: null,
-                    ownerId: null,
-                    address: null,
-                    city: null,
-                    state: null,
-                    country: null,
-                    lat: null,
-                    lng: null,
-                    name: null,
-                    price: null,
-                    previewImage: null
-                }
-
+                const targetSpot = await Spot.findOne({
+                    where: {
+                        id: review.dataValues.spotId
+                    },
+                    attributes: ['id', 'ownerId', 'address', 'city','state', 'country', 'lat', 'lng', 'name', 'price']
+                })
+                targetSpot.dataValues.previewImage = null
+                review.dataValues.Spot = targetSpot
+                //console.log(`\n\n${review.dataValues.Spot}review===>${review.dataValues.spotId}\n\n`)
             }
-        })
+        }
 
 
         for(let i = 0; i < reviewsOfCurrent.length; i++){
