@@ -2,7 +2,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('./validation');
 
 
-const validateSpotCreate = [
+const validateSpot = [
     check('address')
       .isString()
       .withMessage('Street address is required')
@@ -75,87 +75,6 @@ const validateSpotCreate = [
     handleValidationErrors
   ];
 
-  const validateSpotEdit = [
-    check('address')
-      .optional()
-      .isString()
-      .withMessage('Street address is required')
-      .exists({ checkFalsy: true })
-      .withMessage('Street address is required')
-      .notEmpty()
-      .withMessage('Street address is required'),
-    check('city')
-      .optional()
-      .isString()
-      .withMessage('City is required')
-      .exists({ checkFalsy: true })
-      .withMessage('City is required'),
-    check('state')
-      .optional()
-      .exists({ checkFalsy: true })
-      .withMessage('State is required')
-      .isString()
-      .withMessage('State is required')
-      .notEmpty()
-      .withMessage('State is required'),
-    check('country')
-      .optional()
-      .isString()
-      .withMessage('Country is required')
-      .exists({ checkFalsy: true })
-      .withMessage('Country is required'),
-    check('lat')
-      .optional()
-      .custom(value => {
-        if(value < -90 || value > 90){
-            return false
-        }else {
-            return true
-        }
-      })
-      .withMessage('Latitude must be within -90 and 90')
-      .exists({ checkFalsy: true })
-      .withMessage('Latitude must be within -90 and 90')
-      .notEmpty()
-      .withMessage('Latitude must be within -90 and 90'),
-    check('lng')
-      .optional()
-      .custom(value => {
-        if(value < -180 || value > 180){
-            return false
-        }else {
-            return true
-        }
-      })
-      .withMessage('Longitude must be within -180 and 180')
-      .exists({ checkFalsy: true })
-      .withMessage('Longitude must be within -180 and 180')
-      .notEmpty()
-      .withMessage('Longitude must be within -180 and 180'),
-    check('name')
-      .optional()
-      .exists({ checkFalsy: true })
-      .withMessage('Name must be less than 50 characters')
-      .notEmpty()
-      .withMessage('Name must be less than 50 characters')
-      .isString()
-      .withMessage('Name must be less than 50 characters')
-      .isLength({ max: 49 })
-      .withMessage('Name must be less than 50 characters'),
-    check('description')
-      .optional()
-      .isString()
-      .withMessage('Description is required')
-      .exists({ checkFalsy: true })
-      .withMessage('Description is required'),
-    check('price')
-      .optional()
-      .isInt({min: 0})
-      .withMessage('Price per day must be a positive number')
-      .exists({ checkFalsy: true })
-      .withMessage('Price per day must be a positive number'),
-    handleValidationErrors
-  ];
 
   const validateReviewCreate = [
     check('review')
@@ -270,11 +189,10 @@ const validateSpotCreate = [
         .withMessage('Maximum price must be greater than or equal to 0'),
     handleValidationErrors
   ]
-  
+
   module.exports = {
-    validateSpotCreate,
+    validateSpot,
     validateReviewCreate,
-    validateSpotEdit,
     validateReviewEdit,
     validateQuery
   };

@@ -4,7 +4,7 @@ const { literal, Op } = require('sequelize');
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 const {environment} = require('../../config/index.js')
 
-const { validateSpotCreate, validateSpotEdit, validateReviewCreate, validateQuery } = require('../../utils/validationArrays');
+const { validateSpot, validateReviewCreate, validateQuery } = require('../../utils/validationArrays');
 const spot = require('../../db/models/spot.js');
 
 
@@ -247,7 +247,7 @@ router.get('/:spotId', async(req, res) => {
 })
 
 
-router.put('/:spotId', validateSpotEdit, async (req, res,next ) => {
+router.put('/:spotId', validateSpot, async (req, res,next ) => {
     if(!req.user) {
         res.statusCode = 401;
         res.json({
@@ -480,7 +480,7 @@ router.get('/', validateQuery, async (req,res) =>{
 
 
 
-router.post('/', validateSpotCreate, async(req, res) => {
+router.post('/', validateSpot, async(req, res) => {
     const { user } = req;
     //const { address, city, state, country, lat, lng, name, description, price } = req.body
     if (user) {
