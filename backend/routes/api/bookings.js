@@ -44,7 +44,7 @@ router.get('/current', async(req,res) => {
                 }
             })
         )
-        console.log(allBookings)
+
         res.status(200)
         return res.json(allBookings)  
     } else {

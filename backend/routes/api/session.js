@@ -70,7 +70,7 @@ router.post(
   router.delete(
     '/',
     (_req, res) => {
-      console.log(`\nmade it\n`)
+
       res.clearCookie('token');
       return res.json({ message: 'success' });
     }

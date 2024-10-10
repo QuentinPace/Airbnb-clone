@@ -244,52 +244,6 @@ router.get('/:spotId', async(req, res) => {
 })
 
 
-
-// router.get('/:spotId', async(req, res) => {
-//     const spotById = await Spot.findAll({
-//         where: {
-//             id: parseInt(req.params.spotId)
-//         }
-//     })
-//     console.log(spotById)
-//     if(!spotById.length){
-//         res.statusCode = 404
-//         return res.json({
-//             message: "Spot couldn't be found"
-//         })
-//     }
-//     const ownerId = spotById[0].dataValues.ownerId
-//     const owner = await User.findOne({
-//         where: {
-//             id: ownerId
-//         },
-//         attributes: ['id', 'firstName', 'lastName']
-//     })
-
-//     const spotImages = await SpotImage.findAll({
-//         where: {
-//             spotId: parseInt(req.params.spotId)
-//         }
-//     })
-
-//     const imagesArr = []
-//     spotImages.forEach(spot => {
-//         const imageObj = {}
-//         imageObj.id = spot.dataValues.id
-//         imageObj.url = spot.dataValues.url
-//         imageObj.preview = spot.dataValues.preview
-//         imagesArr.push(imageObj)
-//     })
-//     const response = {
-//         ...spotById[0].dataValues,
-//         SpotImages: imagesArr,
-//         Owner: owner
-//     }
-//     res.statusCode = 200
-//     return res.json(response)
-// })
-
-
 router.put('/:spotId', validateSpot, async (req, res,next ) => {
     if(!req.user) {
         res.statusCode = 401;
@@ -492,7 +446,6 @@ router.get('/', validateQuery, async (req,res) =>{
 
             spots = await Spot.findAll(query);
 
-            console.log(spots)
 
             spots.map(spotObj => {
                 let updatedLat = spotObj.lat ? Number(spotObj.lat) : null

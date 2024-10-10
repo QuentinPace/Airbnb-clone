@@ -37,7 +37,7 @@ router.get('/current', async (req, res) => {
 
             if(review.dataValues.Spot){
                 const reviewImageUrl = review.dataValues.Spot.dataValues.SpotImages[0].url
-                //console.log(reviewImageUrl)
+
                 review.dataValues.Spot.dataValues.previewImage = reviewImageUrl
                 delete review.dataValues.Spot.dataValues.SpotImages
             }
@@ -50,7 +50,7 @@ router.get('/current', async (req, res) => {
                 })
                 targetSpot.dataValues.previewImage = null
                 review.dataValues.Spot = targetSpot
-                //console.log(`\n\n${review.dataValues.Spot}review===>${review.dataValues.spotId}\n\n`)
+
             }
         }
 
