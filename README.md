@@ -1442,4 +1442,4 @@ Return spots filtered by query parameters.
         "maxPrice": "Maximum price must be greater than or equal to 0"
       }
     }
-    ```
+    ```# Airbnb-clone
