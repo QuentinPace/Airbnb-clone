@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
@@ -6,6 +6,7 @@ import * as sessionActions from '../../store/session';
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef()
 
   const logout = (e) => {
     e.preventDefault();
@@ -17,7 +18,11 @@ function ProfileButton({ user }) {
   useEffect(() => {
     if (!showMenu) return;
 
-    const closeMenu = () => setShowMenu(false);;
+    const closeMenu = e => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    }
 
     document.addEventListener('click', closeMenu);
 
@@ -34,7 +39,7 @@ function ProfileButton({ user }) {
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
-      <ul className={ulClassName}>
+      <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
         <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
