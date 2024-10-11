@@ -1,1 +1,5 @@
 /* navigation styles here */
+
+.profile-dropdown-hidden li{
+    display: none;
+}
