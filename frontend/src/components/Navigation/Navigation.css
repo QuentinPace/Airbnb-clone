@@ -3,3 +3,14 @@
 .profile-dropdown-hidden li{
     display: none;
 }
+.profile-dropdown {
+    background-color: white;
+    border: 2px solid black;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    height: 69px;
+}
