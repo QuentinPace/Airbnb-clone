@@ -57,16 +57,7 @@ router.get('/current', async(req,res) => {
                     },
                     raw: true
                 });
-                // spots.map(spotObj => {
-                //     let updatedLat = spotObj.lat ? Number(spotObj.lat) : null
-                //     spotObj.lat = updatedLat
-                //     let updatedLng = spotObj.lng ? Number(spotObj.lng) : null
-                //     spotObj.lng = updatedLng
-                //     let updatedPrice = spotObj.price ? parseFloat(Number(spotObj.price).toFixed(2)) : null
-                //     spotObj.price = updatedPrice
-                //     let updatedAvgRate = spotObj.avgRating ? parseFloat(Number(spotObj.avgRating).toFixed(1)) : null
-                //     spotObj.avgRating = updatedAvgRate
-                // })
+
             }
 
             return res.status(200).json({Spots:spots})
