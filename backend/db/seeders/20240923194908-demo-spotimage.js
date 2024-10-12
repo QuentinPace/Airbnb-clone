@@ -25,6 +25,21 @@ module.exports = {
         spotId: 2,
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Seqpc26cQ-Y5Lk9zeQjlRjDOvjifTOW8_A&s',
         preview: true
+      },
+      {
+        spotId: 3,
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Seqpc26cQ-Y5Lk9zeQjlRjDOvjifTOW8_A&s',
+        preview: true
+      },
+      {
+        spotId: 2,
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Seqpc26cQ-Y5Lk9zeQjlRjDOvjifTOW8_A&s',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Seqpc26cQ-Y5Lk9zeQjlRjDOvjifTOW8_A&s',
+        preview: false
       }
     ], { validate: true });
   },
