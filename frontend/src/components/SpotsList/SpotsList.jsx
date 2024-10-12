@@ -12,6 +12,12 @@ export default function SpotsList() {
     }, [dispatch])
 
     return (
-        <></>
+        <>
+        {spotsArr.map((spot) => {
+            return (
+                <h2>{spot.name}</h2>
+            )
+        })}
+        </>
     )
 }
