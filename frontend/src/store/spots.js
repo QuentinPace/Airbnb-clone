@@ -1,4 +1,4 @@
-import { csrfFetch } from './csrf';
+//import { csrfFetch } from './csrf';
 
 const GET_ALL_SPOTS = 'spots/getAll'
 
