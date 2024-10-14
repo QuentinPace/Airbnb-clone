@@ -2,6 +2,8 @@
     height: 250px;
     width: 250px;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     margin: 20px;
 }
 

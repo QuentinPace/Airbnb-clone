@@ -1,5 +1,6 @@
 .preview-image {
-    width: 500px;
+    width: 50%;
+    min-width: 500px;
     height: 500px;
     background-size: cover;
     background-repeat: no-repeat;
