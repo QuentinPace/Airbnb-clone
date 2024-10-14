@@ -41,7 +41,7 @@ export default function SpotView () {
 
                 </div>
             </div>
-            <SpotReviewSection />
+            <SpotReviewSection spot={spot}/>
         </main>
     )
 }

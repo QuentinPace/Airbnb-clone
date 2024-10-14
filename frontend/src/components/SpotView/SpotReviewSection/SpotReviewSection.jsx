@@ -1,6 +1,12 @@
-export default function SpotReviewSection () {
+import './SpotReviewSection.css'
+export default function SpotReviewSection ({spot}) {
     return (
-        <h5>reviewsssssss</h5>
+        <>
+            <div className='review-header'><p>*{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
+            {/* <ul>
+                {spot}
+            </ul> */}
+        </>
     )
 
 }
