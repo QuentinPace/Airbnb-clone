@@ -14,11 +14,11 @@ export default function SpotView () {
 
     }, [dispatch])
 
-    if(!spot){
-        return (
-            <></>
-        )
-    }
+    console.log(spot)
+
+    if(!spot) return (<></>)
+    if(spot.avgRating) return (<></>)
+
     return (
         <main>
             <h1>{spot.name}</h1>

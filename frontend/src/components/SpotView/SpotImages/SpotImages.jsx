@@ -1,6 +1,8 @@
+import './SpotImages.css'
 export default function SpotImages ({ spotImages }) {
     const spotImagesUrl = []
     let previewImgUrl
+
     for(let i = 0; i < spotImages.length; i++){
         const image = spotImages[i]
         if(image.preview){
@@ -12,9 +14,9 @@ export default function SpotImages ({ spotImages }) {
     }
 
     return (
-        <div className='spot-images'>
-            <div ></div>
-
+        <div className='spot-images-container'>
+            <div className='preview-image' style={{'backgroundImage': `url("${previewImgUrl}")`}}></div>
+            <div className ='spot-images'></div>
         </div>
     )
 }
