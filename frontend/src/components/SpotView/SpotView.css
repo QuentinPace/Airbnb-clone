@@ -1,0 +1,17 @@
+.spot-details-reserve-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .spot-view-info {
+    display: flex;
+} */
+
+.reserve-button-container {
+    width: 33%;
+    border: 1px solid black;
+}
+
+.review-price-button-text {
+    display: flex;
+}

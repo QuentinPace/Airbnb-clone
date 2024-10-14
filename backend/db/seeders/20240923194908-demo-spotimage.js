@@ -45,6 +45,11 @@ module.exports = {
         spotId: 2,
         url: 'https://cf42c4dc.rocketcdn.me/wp-content/uploads/2023/08/Oliver-Mansion-2.jpg',
         preview: false
+      },
+      {
+        spotId: 3,
+        url: 'https://cf42c4dc.rocketcdn.me/wp-content/uploads/2023/08/Oliver-Mansion-2.jpg',
+        preview: false
       }
     ], { validate: true });
   },
