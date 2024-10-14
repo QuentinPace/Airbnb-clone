@@ -1,5 +1,6 @@
-.spot-item {
+.spot-item-image {
     height: 250px;
     width: 250px;
     background-size: cover;
+    margin: 20px;
 }

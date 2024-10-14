@@ -21,7 +21,7 @@ module.exports = {
         lat: 12.5687437,
         lng: -142.3498694,
         name: 'Qs House',
-        price: 1500000000.00,
+        price: 150.25,
         description: "owned by a billionaire"
       },
       {
@@ -33,7 +33,7 @@ module.exports = {
         lat: 4.5698437,
         lng: -12.3456794,
         name: 'black house',
-        price: 356000.00,
+        price: 760.50,
         description: "this is desc"
       },
       {
@@ -45,7 +45,7 @@ module.exports = {
         lat: 17.5645337,
         lng: -12.3498694,
         name: 'white house',
-        price: 1200000.00,
+        price: 625.00,
         description: "terrible house"
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
         lat: 17.5645337,
         lng: -12.3498694,
         name: 'Bat Cave',
-        price: 1200000.00,
+        price: 120.00,
         description: "Amazinf Cave"
       },
     ], { validate: true });
