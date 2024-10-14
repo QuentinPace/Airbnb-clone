@@ -9,14 +9,25 @@ export default function SpotImages ({ spotImages }) {
             previewImgUrl = image.url
         }
         else{
-            spotImagesUrl.push(image.url)
+            if(spotImagesUrl.length < 4){
+                spotImagesUrl.push(image.url)
+            }
         }
     }
+    let keyCount = 0
 
     return (
         <div className='spot-images-container'>
             <div className='preview-image' style={{'backgroundImage': `url("${previewImgUrl}")`}}></div>
-            <div className ='spot-images'></div>
+            <div className ='spot-images'>
+                {spotImagesUrl.map(url => {
+                    keyCount++
+                    return (
+                        <div className='non-preview-spot-image' key={keyCount} style={{'backgroundImage': `url("${url}")`}}>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

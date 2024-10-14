@@ -40,6 +40,11 @@ module.exports = {
         spotId: 2,
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Seqpc26cQ-Y5Lk9zeQjlRjDOvjifTOW8_A&s',
         preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://cf42c4dc.rocketcdn.me/wp-content/uploads/2023/08/Oliver-Mansion-2.jpg',
+        preview: false
       }
     ], { validate: true });
   },

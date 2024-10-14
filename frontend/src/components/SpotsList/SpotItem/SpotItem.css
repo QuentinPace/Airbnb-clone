@@ -7,6 +7,10 @@
     margin: 20px;
 }
 
+.spot-item {
+    border: 1px solid black;
+}
+
 .spot-info {
     display: flex;
     justify-content: space-between;
