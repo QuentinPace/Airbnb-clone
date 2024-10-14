@@ -1,11 +1,8 @@
 .spot-details-reserve-container {
     display: flex;
     justify-content: space-between;
+    border-bottom: 5px solid black;
 }
-
-/* .spot-view-info {
-    display: flex;
-} */
 
 .reserve-button-container {
     width: 33%;

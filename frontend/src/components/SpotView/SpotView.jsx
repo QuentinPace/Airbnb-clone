@@ -16,8 +16,6 @@ export default function SpotView () {
 
     }, [dispatch])
 
-    console.log(spot)
-
     if(!spot) return (<></>)
     if(spot.avgRating) return (<></>)
 
