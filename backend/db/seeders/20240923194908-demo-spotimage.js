@@ -17,9 +17,9 @@ module.exports = {
         preview: true
       },
       {
-        spotId: 1,
+        spotId: 4,
         url: 'https://cf42c4dc.rocketcdn.me/wp-content/uploads/2023/08/Oliver-Mansion-2.jpg',
-        preview: false
+        preview: true
       },
       {
         spotId: 2,

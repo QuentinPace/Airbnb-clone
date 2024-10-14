@@ -48,6 +48,18 @@ module.exports = {
         price: 1200000.00,
         description: "terrible house"
       },
+      {
+        ownerId: 3,
+        address: '678 Lohnson biwen Rd',
+        city: 'Fort-Wayne',
+        state: 'Indiana',
+        country: 'United States',
+        lat: 17.5645337,
+        lng: -12.3498694,
+        name: 'Bat Cave',
+        price: 1200000.00,
+        description: "Amazinf Cave"
+      },
     ], { validate: true });
   },
 

@@ -13,4 +13,5 @@ header {
     justify-content: space-between;
     border-bottom: 2px solid black;
     height: 69px;
+    width: 100%;
 }

@@ -2,6 +2,7 @@ import { getAllSpotsThunk } from "../../store/spots"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import SpotItem from "./SpotItem"
+import './SpotList.css'
 
 export default function SpotsList() {
     const dispatch = useDispatch()
@@ -13,12 +14,12 @@ export default function SpotsList() {
     }, [dispatch])
 
     return (
-        <>
+        <main>
         {spotsArr.map((spot) => {
             return (
                 <SpotItem spot={spot} key={spot.id}/>
             )
         })}
-        </>
+        </main>
     )
 }
