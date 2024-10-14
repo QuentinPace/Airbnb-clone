@@ -1,5 +1,5 @@
 import './SpotItem.css'
-import { UNSAFE_NavigationContext, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function SpotItem({ spot }) {
     const rating = spot.avgRating ? spot.avgRating : 'N/A'
@@ -8,8 +8,8 @@ export default function SpotItem({ spot }) {
         navigate(`spots/${spot.id}`)
     }
     return (
-        <div className='spot-item'>
-            <div className='spot-item-image' onClick={onClick}style={{'backgroundImage': `url("${spot.previewImage}")`}}>
+        <div className={`spot-item${spot.id}`}>
+            <div className='spot-item-image' onClick={onClick} style={{'backgroundImage': `url("${spot.previewImage}")`}}>
             </div>
             <div className='spot-info'>
                 <p>{`${spot.city},${spot.state}`}</p>
