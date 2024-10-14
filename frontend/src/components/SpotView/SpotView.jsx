@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { getOneSpotThunk } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
+import SpotImages from './SpotImages'
 
 export default function SpotView () {
     const { spotId } = useParams()
@@ -12,8 +13,17 @@ export default function SpotView () {
         dispatch(getOneSpotThunk(spotId))
 
     }, [dispatch])
-    console.log(spot)
+
+    if(!spot){
+        return (
+            <></>
+        )
+    }
     return (
-        <h5>in spotView {spotId}</h5>
+        <main>
+            <h1>{spot.name}</h1>
+            <h2>{`${spot.city}, ${spot.state}, ${spot.country}`}</h2>
+            <SpotImages spotImages={spot.SpotImages}/>
+        </main>
     )
 }

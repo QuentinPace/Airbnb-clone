@@ -14,7 +14,7 @@ export default function SpotsList() {
     }, [dispatch])
 
     return (
-        <main>
+        <main className='all-spots-container'>
         {spotsArr.map((spot) => {
             return (
                 <SpotItem spot={spot} key={spot.id}/>
