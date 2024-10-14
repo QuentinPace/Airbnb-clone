@@ -3,6 +3,7 @@ import { getOneSpotThunk } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import SpotImages from './SpotImages'
+import SpotReviewSection from "./SpotReviewSection"
 import './SpotView.css'
 
 export default function SpotView () {
@@ -40,7 +41,7 @@ export default function SpotView () {
 
                 </div>
             </div>
-            <SpotReviwSection />
+            <SpotReviewSection />
         </main>
     )
 }
