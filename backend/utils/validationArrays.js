@@ -28,6 +28,7 @@ const validateSpot = [
       .exists({ checkFalsy: true })
       .withMessage('Country is required'),
     check('lat')
+      .optional()
       .custom(value => {
         if(value < -90 || value > 90){
             return false
@@ -41,6 +42,7 @@ const validateSpot = [
       .notEmpty()
       .withMessage('Latitude must be within -90 and 90'),
     check('lng')
+      .optional()
       .custom(value => {
         if(value < -180 || value > 180){
             return false

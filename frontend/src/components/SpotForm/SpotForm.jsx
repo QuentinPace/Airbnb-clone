@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import './SpotForm.css'
+import { createSpotThunk } from "../../store/spots"
+import { useDispatch } from "react-redux"
 
  export default function SpotForm () {
     const [hasBeenClicked, setHasBeenClicked] = useState(false)
@@ -12,8 +14,10 @@ import './SpotForm.css'
     const [title, setTitle] = useState('')
     const [price, setPrice] = useState('')
     const [previewImg, setPreviewImg] = useState('')
+    const [address, setAddress] = useState('')
     const [images, setImages] = useState([])
     const [validations, setValidations] = useState({ images: []})
+    const dispatch = useDispatch()
 
     const hasImageErrors = () => {
         let bool = false
@@ -33,6 +37,16 @@ import './SpotForm.css'
         }
         if(Object.keys(validations).length === 1 && !hasImageErrors()){
             console.log('valid input !!!!!!!')
+            const newSpot = {
+                address,
+                city,
+                state,
+                country,
+                name: title,
+                description,
+                price: Number(price)
+            }
+            dispatch(createSpotThunk(newSpot))
         }
 
     }
@@ -42,12 +56,14 @@ import './SpotForm.css'
             images: []
         }
         if(!country.length) errors.country = 'Country is required'
+        if(!address.length) errors.address = 'Address is required'
         if(!city.length) errors.city = 'City is required'
         if(!state.length) errors.state = 'State is required'
         if(!description.length) errors.description = 'Description is required'
         else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters'
         if(!title.length) errors.title = 'Title is required'
         if(!price.length) errors.price = 'Price is required'
+        else if(isNaN(price)) errors.price = 'Price must be as valid number'
         if(!previewImg.length) {
             errors.previewImg = 'Preview image is required'
         }
@@ -69,7 +85,7 @@ import './SpotForm.css'
             }
         setValidations(errors)
         }
-    }, [country, state, city, description, title, price, previewImg, images, setValidations, hasBeenClicked])
+    }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
 
     return (
         <form className='create-spot-form' onSubmit={handleSubmit}>
@@ -84,6 +100,12 @@ import './SpotForm.css'
             onChange={(e) => setCountry(e.target.value)}
             type='text'
             placeholder='country'
+            ></input>
+            {hasBeenClicked && validations.address && <p>{validations.address}</p>}
+            <input
+            onChange={(e) => setAddress(e.target.value)}
+            type='text'
+            placeholder='address'
             ></input>
             {hasBeenClicked && validations.state && <p>{validations.state}</p>}
             <input
