@@ -1,0 +1,8 @@
+.create-spot-form {
+    display: flex;
+    flex-direction: column
+}
+
+.create-spot-form input {
+    margin: 15px;
+}

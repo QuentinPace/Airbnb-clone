@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import './SpotForm.css'
 
  export default function SpotForm () {
     const [hasBeenClicked, setHasBeenClicked] = useState(false)
@@ -71,7 +72,7 @@ import { useEffect, useState } from "react"
     }, [country, state, city, description, title, price, previewImg, images, setValidations, hasBeenClicked])
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='create-spot-form' onSubmit={handleSubmit}>
             {hasBeenClicked && validations.title && <p>{validations.title}</p>}
             <input
             onChange={(e) => setTitle(e.target.value)}
