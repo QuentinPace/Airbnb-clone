@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import './SpotForm.css'
 import { createSpotThunk } from "../../store/spots"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
  export default function SpotForm () {
     const [hasBeenClicked, setHasBeenClicked] = useState(false)
@@ -17,6 +18,7 @@ import { useDispatch } from "react-redux"
     const [address, setAddress] = useState('')
     const [images, setImages] = useState([])
     const [validations, setValidations] = useState({ images: []})
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const hasImageErrors = () => {
@@ -30,13 +32,12 @@ import { useDispatch } from "react-redux"
     }
 
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         if(!hasBeenClicked){
             setHasBeenClicked(true)
         }
         if(Object.keys(validations).length === 1 && !hasImageErrors()){
-            console.log('valid input !!!!!!!')
             const newSpot = {
                 address,
                 city,
@@ -46,7 +47,9 @@ import { useDispatch } from "react-redux"
                 description,
                 price: Number(price)
             }
-            dispatch(createSpotThunk(newSpot))
+            const validImages = images.filter(url => url)
+            const id =  await dispatch(createSpotThunk(newSpot, previewImg, validImages))
+            navigate(`/spots/${id}`)
         }
 
     }
