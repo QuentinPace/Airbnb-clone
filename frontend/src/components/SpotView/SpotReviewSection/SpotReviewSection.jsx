@@ -11,6 +11,7 @@ export default function SpotReviewSection ({spot}) {
     const dispatch = useDispatch()
     const reviews = useSelector(state => state.reviews.spotReviews)
     const userReviews = useSelector(state => state.reviews.currentUser)
+    const spotId = spot.id
 
     const hasReviewButton = () => {
         const reviewIds = reviews.map(review => review.id)
@@ -28,11 +29,11 @@ export default function SpotReviewSection ({spot}) {
     }
 
     useEffect(() => {
-        dispatch(getAllReviewsOfSpotThunk(spot.id))
+        dispatch(getAllReviewsOfSpotThunk(spotId))
         if(sessionUser) {
             dispatch(getReviewsOfCurrentThunk())
         }
-    }, [dispatch])
+    }, [dispatch, spotId, sessionUser])
 
     return (
         <>

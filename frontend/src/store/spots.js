@@ -24,7 +24,7 @@ export const getOneSpotThunk = spotId => async dispatch => {
   return data
 }
 
-export const createSpotThunk = (spotObj, previewImgUrl, imagesArr) => async dispatch => {
+export const createSpotThunk = (spotObj, previewImgUrl, imagesArr) => async () => {
   const response = await csrfFetch('/api/spots', {
     method: 'post',
     headers: {

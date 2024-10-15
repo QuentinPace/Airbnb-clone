@@ -14,7 +14,7 @@ export default function SpotView () {
     useEffect(() => {
         dispatch(getOneSpotThunk(spotId))
 
-    }, [dispatch])
+    }, [dispatch, spotId])
 
     if(!spot) return (<></>)
     if(spot.avgRating) return (<></>)

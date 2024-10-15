@@ -15,10 +15,9 @@ const StarRatingInput = ({ rating, onChange }) => {
   const propsByStar = starNumber => {
     return {
       className: handleClassName(starNumber),
-      key: starNumber,
-      onMouseEnter: e => setActiveRating(starNumber),
-      onMouseLeave: e => setActiveRating(rating),
-      onClick: e => onChange(starNumber)
+      onMouseEnter: () => setActiveRating(starNumber),
+      onMouseLeave: () => setActiveRating(rating),
+      onClick: () => onChange(starNumber)
     } 
   }
 
@@ -27,7 +26,7 @@ const StarRatingInput = ({ rating, onChange }) => {
       <div className="rating-input">
         {starNums.map(num => {
           return (
-            <div {...propsByStar(num)}>
+            <div key={num} {...propsByStar(num)}>
               <FaStar />
             </div>
           )})}
