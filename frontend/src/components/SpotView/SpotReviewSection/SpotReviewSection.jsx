@@ -12,10 +12,7 @@ export default function SpotReviewSection ({spot}) {
         dispatch(getAllReviewsOfSpotThunk(spot.id))
     }, [dispatch])
 
-    console.log(reviews)
-
     if(reviews.length === 0) return (<></>)
-    
 
     return (
         <>

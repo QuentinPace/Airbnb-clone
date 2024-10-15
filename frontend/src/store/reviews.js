@@ -11,7 +11,6 @@ export const getAllReviewsOfSpot = reviews => {
 export const getAllReviewsOfSpotThunk = spotId => async dispatch => {
     const response = await fetch(`/api/spots/${spotId}/reviews`)
     const data = await response.json()
-    console.log(data)
     if(response.ok){
         dispatch(getAllReviewsOfSpot(data.Reviews))
     }
