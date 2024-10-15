@@ -19,6 +19,10 @@ export default function SpotView () {
     if(!spot) return (<></>)
     if(spot.avgRating) return (<></>)
 
+     const onClick = () => {
+        alert("Feature coming soon")
+     }
+
     return (
         <main>
             <h1>{spot.name}</h1>
@@ -35,7 +39,7 @@ export default function SpotView () {
                         <p>*{spot.avgStarRating}</p>
                         <p>{spot.numReviews} Reviews</p>
                     </div>
-                    <button>Reserve</button>
+                    <button onClick={onClick}>Reserve</button>
 
                 </div>
             </div>
