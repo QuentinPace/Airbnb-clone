@@ -17,22 +17,82 @@ import { useEffect, useState } from "react"
 
     const handleSubmit = e => {
         e.preventDefault()
-        hasBeenClicked= true
+        hasBeenClicked = true
 
     }
 
     useEffect(() => {
         if(hasBeenClicked){
-
+            console.log('booyah')
         }
-
     }, [country, state, city, lat, lng, description, title, price, previewImg, images])
 
     return (
         <form onSubmit={handleSubmit}>
             <input
+            onChange={(e) => setTitle(e.target.value)}
             type='text'
-            placeholder='dookie'
+            placeholder='title'
+            ></input>
+            <input
+            onChange={(e) => setCountry(e.target.value)}
+            type='text'
+            placeholder='country'
+            ></input>
+            <input
+            onChange={(e) => setState(e.target.value)}
+            type='text'
+            placeholder='state'
+            ></input>
+            <input
+            onChange={(e) => setCity(e.target.value)}
+            type='text'
+            placeholder='city'
+            ></input>
+            <input
+            onChange={(e) => setLat(e.target.value)}
+            type='text'
+            placeholder='latitude'
+            ></input>
+            <input
+            onChange={(e) => setLng(e.target.value)}
+            type='text'
+            placeholder='longitude'
+            ></input>
+            <input
+            onChange={(e) => setDescription(e.target.value)}
+            type='text'
+            placeholder='description'
+            ></input>
+            <input
+            onChange={(e) => setPrice(e.target.value)}
+            type='text'
+            placeholder='price'
+            ></input>
+            <input
+            onChange={(e) => setPreviewImg(e.target.value)}
+            type='text'
+            placeholder='preview image url'
+            ></input>
+            <input
+            onChange={(e) => setImages([...images, e.target.value])}
+            type='text'
+            placeholder='image url'
+            ></input>
+            <input
+            onChange={(e) => setImages([...images, e.target.value])}
+            type='text'
+            placeholder='image url'
+            ></input>
+            <input
+            onChange={(e) => setImages([...images, e.target.value])}
+            type='text'
+            placeholder='image url'
+            ></input>
+            <input
+            onChange={(e) => setImages([...images, e.target.value])}
+            type='text'
+            placeholder='image url'
             ></input>
             <button type='submit'>Create Spot</button>
         </form>
