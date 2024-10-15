@@ -38,7 +38,7 @@ import { useEffect, useState } from "react"
                 errors.previewImg = 'Preview image is required'
             }
             else if(!(previewImg.endsWith('.png') || previewImg.endsWith('.jpg') || previewImg.endsWith('.jpeg'))){
-                errors.previewImg = 'Image URL must end in .png, .jpg, or .jpeg'
+                errors.previewImg = 'Preview image URL must end in .png, .jpg, or .jpeg'
             }
             for(let i = 0; i < 4; i++){
                 let url = images[i]
@@ -72,7 +72,7 @@ import { useEffect, useState } from "react"
             type='text'
             placeholder='country'
             ></input>
-            {validations.state && <p>{validations.country}</p>}
+            {validations.state && <p>{validations.state}</p>}
             <input
             onChange={(e) => setState(e.target.value)}
             type='text'
