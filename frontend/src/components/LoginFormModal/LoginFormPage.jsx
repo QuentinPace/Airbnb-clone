@@ -35,7 +35,7 @@ function LoginFormModal() {
       });
   };
 
-  const demoLogIn = (e) => {
+  const demoLogIn = () => {
     setCredential('Demo-lition')
     setPassword('password')
     return handleSubmit
