@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
       </div>
       {isLoaded && (
         <div className='user-dropdown-container'>
-          <button onClick={createSpotClick}>Create a Spot</button>
+          {sessionUser && <button onClick={createSpotClick}>Create a Spot</button>}
           <ProfileButton className='user-menu' user={sessionUser} />
         </div>
       )}
