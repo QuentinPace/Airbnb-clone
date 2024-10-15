@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 
  export default function SpotForm () {
-    let hasBeenClicked = false
+    const [hasBeenClicked, setHasBeenClicked] = useState(false)
     const [country, setCountry] = useState('')
     const [state, setState] = useState('')
     const [city, setCity] = useState('')
-    const [lat, setLat] = useState('')
-    const [lng, setLng] = useState('')
+    //const [lat, setLat] = useState('')
+    //const [lng, setLng] = useState('')
     const [description, setDescription] = useState('')
     const [title, setTitle] = useState('')
     const [price, setPrice] = useState('')
@@ -17,15 +17,21 @@ import { useEffect, useState } from "react"
 
     const handleSubmit = e => {
         e.preventDefault()
-        hasBeenClicked = true
+        setHasBeenClicked(true)
 
     }
 
     useEffect(() => {
+        const errors = {}
         if(hasBeenClicked){
-            console.log('booyah')
+            if(!country.length) errors.country = 'Country is required'
+            if(!city.length) errors.city = 'City is required'
+            if(!state.length) errors.state = 'State is required'
+            if(!country.length) errors.country = 'Country is required'
+            if(!country.length) errors.country = 'Country is required'
+            if(!country.length) errors.country = 'Country is required'
         }
-    }, [country, state, city, lat, lng, description, title, price, previewImg, images])
+    }, [country, state, city, description, title, price, previewImg, images])
 
     return (
         <form onSubmit={handleSubmit}>
@@ -49,7 +55,7 @@ import { useEffect, useState } from "react"
             type='text'
             placeholder='city'
             ></input>
-            <input
+            {/* <input
             onChange={(e) => setLat(e.target.value)}
             type='text'
             placeholder='latitude'
@@ -58,7 +64,7 @@ import { useEffect, useState } from "react"
             onChange={(e) => setLng(e.target.value)}
             type='text'
             placeholder='longitude'
-            ></input>
+            ></input> */}
             <input
             onChange={(e) => setDescription(e.target.value)}
             type='text'
