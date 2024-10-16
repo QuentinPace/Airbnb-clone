@@ -2,6 +2,14 @@ import { csrfFetch } from './csrf';
 
 const GET_ALL_SPOTS = 'spots/getAll'
 const GET_ONE_SPOT = 'spots/getOne'
+const GET_CURRENT_SPOTS = 'spots/getCurrent'
+
+export const getCurrentSpots = spots => {
+  return {
+    type: GET_CURRENT_SPOTS,
+    spots
+  }
+}
 
 export const getAllSpots = spots => {
     return {
@@ -15,6 +23,15 @@ export const getOneSpot = spot => {
     type: GET_ONE_SPOT,
     spot
   }
+}
+
+export const getCurrentSpotsThunk = () => async dispatch => {
+  const response = await csrfFetch('/api/spots/current')
+  const data = await response.json()
+  if(response.ok){
+    dispatch(getAllSpots(data.Spots))
+  }
+  return data
 }
 
 export const getOneSpotThunk = spotId => async dispatch => {
