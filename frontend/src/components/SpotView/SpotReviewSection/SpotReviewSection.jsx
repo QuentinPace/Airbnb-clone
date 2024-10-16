@@ -16,7 +16,7 @@ export default function SpotReviewSection ({spot}) {
     const hasReviewButton = () => {
         const reviewIds = reviews.map(review => review.id)
         const userReviewIds = userReviews.map(review => review.id)
-        if(!sessionUser || !userReviews.length){
+        if(!sessionUser){
             return false
         }
         if(sessionUser.id === spot.ownerId){
@@ -27,6 +27,8 @@ export default function SpotReviewSection ({spot}) {
         }
         return true
     }
+
+
 
     useEffect(() => {
         dispatch(getAllReviewsOfSpotThunk(spotId))
