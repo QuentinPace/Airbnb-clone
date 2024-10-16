@@ -1,7 +1,10 @@
 import './SpotItem.css'
+import OpenModalButton from '../../OpenModalButton'
+import ConfirmDeleteModal from '../../ConfirmDeleteModal'
 
-export default function SpotItem({ spot, onClick }) {
+export default function SpotItem({ spot, onClick, manageSpotsPage }) {
     const rating = spot.avgRating ? spot.avgRating : 'New'
+
     return (
         <div onClick={() => onClick(spot.id)} className={`spot-item`}>
             <div className='spot-item-image' style={{'backgroundImage': `url("${spot.previewImage}")`}}>
@@ -11,6 +14,12 @@ export default function SpotItem({ spot, onClick }) {
                 <p>{`*${rating}`}</p>
                 <p>{`$${spot.price} Night`}</p>
             </div>
+            {manageSpotsPage && <div className='manage-spot-buttons-container'>
+                <OpenModalButton 
+                buttonText="delete"
+                modalComponent={<ConfirmDeleteModal />}/>
+                <button>update</button>
+            </div>}
         </div>
     )
 }

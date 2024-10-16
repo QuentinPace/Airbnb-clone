@@ -20,7 +20,7 @@ export default function ManageSpots() {
         <main className='all-spots-container'>
             {currentSpots.map((spot) => {
             return (
-                <SpotItem onClick={e => onClick(spot.id)} spot={spot} key={spot.id}/>
+                <SpotItem manageSpotsPage={true} onClick={e => onClick(spot.id)} spot={spot} key={spot.id}/>
             )
         })}
         </main>
