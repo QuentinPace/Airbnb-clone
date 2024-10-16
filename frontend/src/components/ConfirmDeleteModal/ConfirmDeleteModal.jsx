@@ -5,7 +5,7 @@ import { deleteSpotThunk } from "../../store/spots"
 export default function ConfirmDeleteModal({ spot }) {
     const { closeModal } = useModal()
     const dispatch = useDispatch()
-    console.log(spot)
+    
     const removeSpot = () => {
         dispatch(deleteSpotThunk(spot.id))
         closeModal()

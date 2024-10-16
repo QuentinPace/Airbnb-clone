@@ -4,7 +4,10 @@ import { createSpotThunk } from "../../store/spots"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
- export default function SpotForm () {
+ export default function SpotForm ({ updateForm }) {
+    if(updateForm){
+        console.log('its an update my boi')
+    }
     const [hasBeenClicked, setHasBeenClicked] = useState(false)
     const [country, setCountry] = useState('')
     const [state, setState] = useState('')
