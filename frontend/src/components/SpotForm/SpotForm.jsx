@@ -104,9 +104,11 @@ import { useParams } from "react-router-dom"
 
     }
 
+
     useEffect(() => {
         validateForm()
     }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
+
 
     return (
         <form className='create-spot-form' onSubmit={handleSubmit}>
@@ -115,31 +117,35 @@ import { useParams } from "react-router-dom"
             onChange={(e) => setTitle(e.target.value)}
             type='text'
             placeholder='title'
+            defaultValue={spot && updateForm ? spot.name : ''}
             ></input>
             {hasBeenClicked && validations.country && <p>{validations.country}</p>}
             <input
             onChange={(e) => setCountry(e.target.value)}
             type='text'
             placeholder='country'
-            value={spot && updateForm ? spot.country : ''}
+            defaultValue={spot && updateForm ? spot.country : ''}
             ></input>
             {hasBeenClicked && validations.address && <p>{validations.address}</p>}
             <input
             onChange={(e) => setAddress(e.target.value)}
             type='text'
             placeholder='address'
+            defaultValue={spot && updateForm ? spot.address : ''}
             ></input>
             {hasBeenClicked && validations.state && <p>{validations.state}</p>}
             <input
             onChange={(e) => setState(e.target.value)}
             type='text'
             placeholder='state'
+            defaultValue={spot && updateForm ? spot.state : ''}
             ></input>
             {hasBeenClicked && validations.city && <p>{validations.city}</p>}
             <input
             onChange={(e) => setCity(e.target.value)}
             type='text'
             placeholder='city'
+            defaultValue={spot && updateForm ? spot.city : ''}
             ></input>
             {/* <input
             onChange={(e) => setLat(e.target.value)}
@@ -156,19 +162,21 @@ import { useParams } from "react-router-dom"
             onChange={(e) => setDescription(e.target.value)}
             type='text'
             placeholder='description'
-            value={description}
+            defaultValue={spot && updateForm ? spot.description : ''}
             ></input>
             {hasBeenClicked && validations.price && <p>{validations.price}</p>}
             <input
             onChange={(e) => setPrice(e.target.value)}
             type='text'
             placeholder='price'
+            defaultValue={spot && updateForm ? spot.price : ''}
             ></input>
             {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
             <input
             onChange={(e) => setPreviewImg(e.target.value)}
             type='text'
             placeholder='preview image url'
+            defaultValue={spot && updateForm ? spot.SpotImages.find(img => img.preview).url : ''}
             ></input>
             {hasBeenClicked && validations.images[0] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
