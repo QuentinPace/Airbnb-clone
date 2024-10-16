@@ -14,7 +14,6 @@ export default function PostReviewModal({spot, setNeedsRender}) {
     const { closeModal } = useModal()
 
     const submitReview = async () => {
-        //e.preventDefault()
         const newReview = {
             rating,
             reviewText,

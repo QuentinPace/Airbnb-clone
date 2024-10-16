@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import OpenModalButton from '../../OpenModalButton'
 import PostReviewModal from '../../PostReviewModal'
-import { UNSAFE_NavigationContext, useNavigate } from 'react-router-dom'
 
-export default function SpotReviewSection ({}) {
-    const navigate = useNavigate() 
+export default function SpotReviewSection () {
     const sessionUser = useSelector(state => state.session.user);
     const months = ["Offset", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const dispatch = useDispatch()
