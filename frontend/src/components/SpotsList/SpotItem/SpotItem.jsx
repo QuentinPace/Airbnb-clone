@@ -26,7 +26,9 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
                 <OpenModalButton 
                 buttonText="delete"
                 modalComponent={<ConfirmDeleteModal spot={spot}/>}/>
-                <button onClick={() => getUpdatedSpot().then(navigate(`/spots/${spot.id}/edit`))}>update</button>
+                <button onClick={() => {
+                    (getUpdatedSpot()).then(() => navigate(`/spots/${spot.id}/edit`))
+                    }}>update</button>
             </div>}
         </div>
     )

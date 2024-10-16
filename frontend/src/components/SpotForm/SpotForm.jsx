@@ -21,9 +21,9 @@ import { useParams } from "react-router-dom"
     const [validations, setValidations] = useState({ images: []})
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
-    const [loaded, setLoaded] = useState(false)
     const spot = useSelector(state => state.spots[0])
     console.log(spot)
+
 
 
 
@@ -32,6 +32,28 @@ import { useParams } from "react-router-dom"
             dispatch(getOneSpotThunk(spotId))
         }
     }, [dispatch])
+
+    let defaultImageVals = ['', '', '', '']
+
+    if(spot && updateForm){
+        for(let i = 0; i < spot.SpotImages.length; i++){
+            if(!spot.SpotImages[i].preview)defaultImageVals[i] = spot.SpotImages[i].url
+        }
+    }
+
+    const defaultVals = {
+        name: spot && updateForm ? spot.name : '',
+        country: spot && updateForm ? spot.country : '',
+        state: spot && updateForm ? spot.state : '',
+        city: spot && updateForm ? spot.city : '',
+        description: spot && updateForm ? spot.description : '',
+        price: spot && updateForm ? spot.price : '',
+        address: spot && updateForm ? spot.address : '',
+        defaultImageVals,
+        preview: spot && updateForm ? spot.SpotImages.find(img => img.preview).url : ''
+    }
+
+    
 
     const hasImageErrors = () => {
         let bool = false
@@ -45,7 +67,6 @@ import { useParams } from "react-router-dom"
 
 
     const handleSubmit = async e => {
-        console.log('here')
         e.preventDefault()
         if(!hasBeenClicked){
             setHasBeenClicked(true)
@@ -104,7 +125,6 @@ import { useParams } from "react-router-dom"
 
     }
 
-
     useEffect(() => {
         validateForm()
     }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
@@ -117,66 +137,56 @@ import { useParams } from "react-router-dom"
             onChange={(e) => setTitle(e.target.value)}
             type='text'
             placeholder='title'
-            defaultValue={spot && updateForm ? spot.name : ''}
+            defaultValue={defaultVals.name}
             ></input>
             {hasBeenClicked && validations.country && <p>{validations.country}</p>}
             <input
             onChange={(e) => setCountry(e.target.value)}
             type='text'
             placeholder='country'
-            defaultValue={spot && updateForm ? spot.country : ''}
+            defaultValue={defaultVals.country}
             ></input>
             {hasBeenClicked && validations.address && <p>{validations.address}</p>}
             <input
             onChange={(e) => setAddress(e.target.value)}
             type='text'
             placeholder='address'
-            defaultValue={spot && updateForm ? spot.address : ''}
+            defaultValue={defaultVals.address}
             ></input>
             {hasBeenClicked && validations.state && <p>{validations.state}</p>}
             <input
             onChange={(e) => setState(e.target.value)}
             type='text'
             placeholder='state'
-            defaultValue={spot && updateForm ? spot.state : ''}
+            defaultValue={defaultVals.state}
             ></input>
             {hasBeenClicked && validations.city && <p>{validations.city}</p>}
             <input
             onChange={(e) => setCity(e.target.value)}
             type='text'
             placeholder='city'
-            defaultValue={spot && updateForm ? spot.city : ''}
+            defaultValue={defaultVals.city}
             ></input>
-            {/* <input
-            onChange={(e) => setLat(e.target.value)}
-            type='text'
-            placeholder='latitude'
-            ></input>
-            <input
-            onChange={(e) => setLng(e.target.value)}
-            type='text'
-            placeholder='longitude'
-            ></input> */}
             {hasBeenClicked && validations.description && <p>{validations.description}</p>}
             <input
             onChange={(e) => setDescription(e.target.value)}
             type='text'
             placeholder='description'
-            defaultValue={spot && updateForm ? spot.description : ''}
+            defaultValue={defaultVals.description}
             ></input>
             {hasBeenClicked && validations.price && <p>{validations.price}</p>}
             <input
             onChange={(e) => setPrice(e.target.value)}
             type='text'
             placeholder='price'
-            defaultValue={spot && updateForm ? spot.price : ''}
+            defaultValue={defaultVals.price}
             ></input>
             {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
             <input
             onChange={(e) => setPreviewImg(e.target.value)}
             type='text'
             placeholder='preview image url'
-            defaultValue={spot && updateForm ? spot.SpotImages.find(img => img.preview).url : ''}
+            defaultValue={defaultVals.preview}
             ></input>
             {hasBeenClicked && validations.images[0] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
@@ -185,6 +195,7 @@ import { useParams } from "react-router-dom"
                 setImages([...images])}}
             type='text'
             placeholder='image url'
+            defaultValue={defaultVals.defaultImageVals[0]}
             ></input>
             {hasBeenClicked && validations.images[1] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
@@ -193,6 +204,7 @@ import { useParams } from "react-router-dom"
                 setImages([...images])}}
             type='text'
             placeholder='image url'
+            defaultValue={defaultVals.defaultImageVals[1]}
             ></input>
             {hasBeenClicked && validations.images[2] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
@@ -201,6 +213,7 @@ import { useParams } from "react-router-dom"
                 setImages([...images])}}
             type='text'
             placeholder='image url'
+            defaultValue={defaultVals.defaultImageVals[2]}
             ></input>
             {hasBeenClicked && validations.images[3] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
@@ -209,6 +222,7 @@ import { useParams } from "react-router-dom"
                 setImages([...images])}}
             type='text'
             placeholder='image url'
+            defaultValue={defaultVals.defaultImageVals[3]}
             ></input>
             <button type='submit'>Create Spot</button>
         </form>
