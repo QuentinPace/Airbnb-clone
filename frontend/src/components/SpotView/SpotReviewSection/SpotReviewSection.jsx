@@ -1,17 +1,22 @@
 import './SpotReviewSection.css'
 import { getAllReviewsOfSpotThunk, getReviewsOfCurrentThunk } from '../../../store/reviews'
+import { getOneSpotThunk } from '../../../store/spots'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import OpenModalButton from '../../OpenModalButton'
 import PostReviewModal from '../../PostReviewModal'
+import { UNSAFE_NavigationContext, useNavigate } from 'react-router-dom'
 
-export default function SpotReviewSection ({spot}) {
+export default function SpotReviewSection ({}) {
+    const navigate = useNavigate() 
     const sessionUser = useSelector(state => state.session.user);
     const months = ["Offset", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const dispatch = useDispatch()
     const reviews = useSelector(state => state.reviews.spotReviews)
     const userReviews = useSelector(state => state.reviews.currentUser)
-    const spotId = spot.id
+    const spot = useSelector(state => state.spots[0])
+    const [needsRender, setNeedsRender] = useState(false)
+    let spotId = spot.id
 
     const hasReviewButton = () => {
         const reviewIds = reviews.map(review => review.id)
@@ -28,6 +33,11 @@ export default function SpotReviewSection ({spot}) {
         return true
     }
 
+    useEffect(() => {
+        dispatch(getOneSpotThunk(spotId))
+
+    }, [needsRender, spotId, dispatch])
+
 
 
     useEffect(() => {
@@ -42,7 +52,7 @@ export default function SpotReviewSection ({spot}) {
             <div className='review-header'><p>*{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
             { hasReviewButton() && <OpenModalButton
                 buttonText="post a review"
-                modalComponent={<PostReviewModal spot={spot}/>}
+                modalComponent={<PostReviewModal setNeedsRender={setNeedsRender} spot={spot}/>}
               />}
             <ul>
                 {reviews.map(review => {

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { createReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 
-export default function PostReviewModal({spot}) {
+export default function PostReviewModal({spot, setNeedsRender}) {
     const spotId = spot.id
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('')
@@ -14,14 +14,15 @@ export default function PostReviewModal({spot}) {
     const { closeModal } = useModal()
 
     const submitReview = async () => {
+        //e.preventDefault()
         const newReview = {
             rating,
             reviewText,
             spotId
         }
         await dispatch(createReviewThunk(newReview))
-        closeModal()
-    }
+        setNeedsRender(true)
+        closeModal()    }
 
     useEffect(() => {
         if(rating === 0 || reviewText.length < 10) {

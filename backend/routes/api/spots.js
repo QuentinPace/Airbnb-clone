@@ -214,7 +214,7 @@ router.get('/:spotId', async(req, res) => {
     const sumOfStars = await Review.sum('stars',{
         where :{spotId}
     })
-    const avgStarRating = numReviews > 0 ? sumOfStars / numReviews : null;
+    let avgStarRating = numReviews > 0 ? parseFloat((sumOfStars / numReviews).toFixed(1)) : null;
 
     const imagesArr = []
     spotImages.forEach(spot => {
@@ -410,6 +410,12 @@ router.get('/', validateQuery, async (req,res) =>{
 
             spots = await Spot.findAll(query);
 
+            spots.forEach(spot => {
+                if(spot.avgRating){
+                    spot.avgRating = parseFloat((spot.avgRating).toFixed(1))
+                }
+            })
+
         } else { // production environment
 
             const query = {
@@ -452,6 +458,7 @@ router.get('/', validateQuery, async (req,res) =>{
 
 
         }
+
 
         return res.status(200).json({
             Spots:spots,

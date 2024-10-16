@@ -2,7 +2,6 @@ import { csrfFetch } from "./csrf"
 
 const GET_REVIEWS_SPOT = 'reviews/GET_REVIEWS_SPOT'
 const GET_REVIEWS_OF_CURRENT = 'reviews/GET_REVIEWS_OF_CURRENT'
-const CREATE_REVIEW = 'reviews/CREATE_REVIEW'
 
 export const getAllReviewsOfSpot = reviews => {
     return {
@@ -18,12 +17,6 @@ export const getReviewsOfCurrent = userReviews => {
   }
 }
 
-export const createReview = newReview => {
-  return {
-    type: CREATE_REVIEW,
-    newReview
-  }
-}
 
 export const createReviewThunk = review => async dispatch => {
   const response = await csrfFetch(`/api/spots/${review.spotId}/reviews`, {
@@ -36,10 +29,9 @@ export const createReviewThunk = review => async dispatch => {
       stars: review.rating
     })
   })
-  console.log(response)
-  const data = await response.json()
   if(response.ok){
-    dispatch(createReviewThunk(data))
+    await dispatch(getAllReviewsOfSpotThunk(review.spotId))
+    await dispatch(getReviewsOfCurrentThunk())
   }
 }
 
@@ -66,8 +58,6 @@ const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
       case GET_REVIEWS_SPOT:
         return {spotReviews: [ ...action.reviews ], currentUser: [...state.currentUser]};
-      case CREATE_REVIEW:
-        return {spotReviews: [ action.newReview, ...state.spotReviews ], currentUser: [ action.newReview, ...state.currentUser]};
       case GET_REVIEWS_OF_CURRENT:
         return {spotReviews: [...state.spotReviews], currentUser: [...action.userReviews]}
       default:
