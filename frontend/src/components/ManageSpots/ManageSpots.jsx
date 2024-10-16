@@ -1,15 +1,28 @@
 import { useEffect } from "react"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentSpotsThunk } from "../../store/spots";
+import SpotItem from "../SpotsList/SpotItem";
 
 export default function ManageSpots() {
     const dispatch = useDispatch()
+    const currentSpots = useSelector(store => store.spots)
 
     useEffect(() => {
         dispatch(getCurrentSpotsThunk())
         
     }, [dispatch])
+
+    const onClick = spotId => {
+        console.log(spotId)
+    }
+
     return (
-        <h1>my spots boiiiii</h1>
+        <main className='all-spots-container'>
+            {currentSpots.map((spot) => {
+            return (
+                <SpotItem onClick={e => onClick(spot.id)} spot={spot} key={spot.id}/>
+            )
+        })}
+        </main>
     )
 }

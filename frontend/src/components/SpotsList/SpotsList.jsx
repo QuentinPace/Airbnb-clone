@@ -3,10 +3,16 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import SpotItem from "./SpotItem"
 import './SpotList.css'
+import { useNavigate } from "react-router-dom"
 
 export default function SpotsList() {
     const dispatch = useDispatch()
     const spotsArr = useSelector(store => store.spots)
+    const navigate = useNavigate()
+    const onClick = (spotId) => {
+        console.log(spotId)
+        navigate(`spots/${spotId}`)
+    }
 
 
     useEffect(() => {
@@ -17,7 +23,7 @@ export default function SpotsList() {
         <main className='all-spots-container'>
         {spotsArr.map((spot) => {
             return (
-                <SpotItem spot={spot} key={spot.id}/>
+                <SpotItem spot={spot} onClick={onClick} key={spot.id}/>
             )
         })}
         </main>

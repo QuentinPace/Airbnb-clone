@@ -1,14 +1,9 @@
 import './SpotItem.css'
-import { useNavigate } from 'react-router-dom'
 
-export default function SpotItem({ spot }) {
+export default function SpotItem({ spot, onClick }) {
     const rating = spot.avgRating ? spot.avgRating : 'New'
-    const navigate = useNavigate()
-    const onClick = () => {
-        navigate(`spots/${spot.id}`)
-    }
     return (
-        <div onClick={onClick} className={`spot-item`}>
+        <div onClick={() => onClick(spot.id)} className={`spot-item`}>
             <div className='spot-item-image' style={{'backgroundImage': `url("${spot.previewImage}")`}}>
             </div>
             <div className='spot-info'>
