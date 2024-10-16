@@ -1,9 +1,17 @@
 import './SpotItem.css'
 import OpenModalButton from '../../OpenModalButton'
 import ConfirmDeleteModal from '../../ConfirmDeleteModal'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getOneSpotThunk } from '../../../store/spots'
 
 export default function SpotItem({ spot, onClick, manageSpotsPage }) {
+    const dispatch = useDispatch()
     const rating = spot.avgRating ? spot.avgRating : 'New'
+    const navigate = useNavigate()
+    const getUpdatedSpot = async () => {
+        await dispatch(getOneSpotThunk(spot.id))
+    }
 
     return (
         <div onClick={() => onClick(spot.id)} className={`spot-item`}>
@@ -18,7 +26,7 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
                 <OpenModalButton 
                 buttonText="delete"
                 modalComponent={<ConfirmDeleteModal spot={spot}/>}/>
-                <button>update</button>
+                <button onClick={() => getUpdatedSpot().then(navigate(`/spots/${spot.id}/edit`))}>update</button>
             </div>}
         </div>
     )

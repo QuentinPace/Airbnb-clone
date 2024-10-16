@@ -1,28 +1,37 @@
 import { useEffect, useState } from "react"
 import './SpotForm.css'
 import { createSpotThunk } from "../../store/spots"
-import { useDispatch } from "react-redux"
+import { getOneSpotThunk } from "../../store/spots"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
  export default function SpotForm ({ updateForm }) {
-    if(updateForm){
-        console.log('its an update my boi')
-    }
-    const [hasBeenClicked, setHasBeenClicked] = useState(false)
+    const dispatch = useDispatch()
+    const {spotId} = useParams()
     const [country, setCountry] = useState('')
+    const [hasBeenClicked, setHasBeenClicked] = useState(false)
     const [state, setState] = useState('')
     const [city, setCity] = useState('')
-    //const [lat, setLat] = useState('')
-    //const [lng, setLng] = useState('')
     const [description, setDescription] = useState('')
-    const [title, setTitle] = useState('')
     const [price, setPrice] = useState('')
     const [previewImg, setPreviewImg] = useState('')
     const [address, setAddress] = useState('')
     const [images, setImages] = useState([])
     const [validations, setValidations] = useState({ images: []})
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const [title, setTitle] = useState('')
+    const [loaded, setLoaded] = useState(false)
+    const spot = useSelector(state => state.spots[0])
+    console.log(spot)
+
+
+
+    useEffect(()=> {
+        if(updateForm && !spot){
+            dispatch(getOneSpotThunk(spotId))
+        }
+    }, [dispatch])
 
     const hasImageErrors = () => {
         let bool = false
@@ -36,6 +45,7 @@ import { useNavigate } from "react-router-dom"
 
 
     const handleSubmit = async e => {
+        console.log('here')
         e.preventDefault()
         if(!hasBeenClicked){
             setHasBeenClicked(true)
@@ -57,7 +67,7 @@ import { useNavigate } from "react-router-dom"
 
     }
 
-    useEffect(() => {
+    const validateForm = () => {
         const errors = {
             images: []
         }
@@ -91,6 +101,11 @@ import { useNavigate } from "react-router-dom"
             }
         setValidations(errors)
         }
+
+    }
+
+    useEffect(() => {
+        validateForm()
     }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
 
     return (
@@ -106,6 +121,7 @@ import { useNavigate } from "react-router-dom"
             onChange={(e) => setCountry(e.target.value)}
             type='text'
             placeholder='country'
+            value={spot && updateForm ? spot.country : ''}
             ></input>
             {hasBeenClicked && validations.address && <p>{validations.address}</p>}
             <input
@@ -140,6 +156,7 @@ import { useNavigate } from "react-router-dom"
             onChange={(e) => setDescription(e.target.value)}
             type='text'
             placeholder='description'
+            value={description}
             ></input>
             {hasBeenClicked && validations.price && <p>{validations.price}</p>}
             <input
