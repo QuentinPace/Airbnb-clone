@@ -139,7 +139,8 @@ router.get('/:spotId/reviews', async (req,res) => {
                     model:ReviewImage,
                     attributes: ['id','url']
                 }
-            ]
+            ],
+            order: [['createdAt', 'DESC']]
         })
         res.status(200);
         return res.json({Reviews: reviews});
