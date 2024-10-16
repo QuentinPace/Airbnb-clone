@@ -1,17 +1,26 @@
 import StarRatingInput from "./StarRatingInput"
 import './PostReviewModal.css'
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createReviewThunk } from "../../store/reviews";
+import { useModal } from "../../context/Modal";
 
-export default function PostReviewModal() {
+export default function PostReviewModal({spot}) {
+    const spotId = spot.id
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('')
     const [disabled, setDisabled] = useState(true)
+    const dispatch = useDispatch()
+    const { closeModal } = useModal()
 
-    const submitReview = () => {
-        console.log({
+    const submitReview = async () => {
+        const newReview = {
             rating,
-            reviewText
-        })
+            reviewText,
+            spotId
+        }
+        await dispatch(createReviewThunk(newReview))
+        closeModal()
     }
 
     useEffect(() => {

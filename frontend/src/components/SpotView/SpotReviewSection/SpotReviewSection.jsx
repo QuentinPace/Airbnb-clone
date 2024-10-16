@@ -40,7 +40,7 @@ export default function SpotReviewSection ({spot}) {
             <div className='review-header'><p>*{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
             { hasReviewButton() && <OpenModalButton
                 buttonText="post a review"
-                modalComponent={<PostReviewModal />}
+                modalComponent={<PostReviewModal spot={spot}/>}
               />}
             <ul>
                 {reviews.map(review => {
