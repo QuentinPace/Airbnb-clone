@@ -17,7 +17,7 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
             {manageSpotsPage && <div className='manage-spot-buttons-container'>
                 <OpenModalButton 
                 buttonText="delete"
-                modalComponent={<ConfirmDeleteModal />}/>
+                modalComponent={<ConfirmDeleteModal spot={spot}/>}/>
                 <button>update</button>
             </div>}
         </div>
