@@ -202,122 +202,146 @@ import { useParams } from "react-router-dom"
 
     return (
         <form className='create-spot-form' onSubmit={handleSubmit}>
-            {hasBeenClicked && validations.title && <p>{validations.title}</p>}
-            <input
-            onChange={(e) => {
-                setTitleUpdated(true)
-                setTitle(e.target.value)}}
-            type='text'
-            placeholder='title'
-            defaultValue={defaultVals.name}
-            ></input>
-            {hasBeenClicked && validations.country && <p>{validations.country}</p>}
-            <input
-            onChange={(e) => {
-                setCountryUpdated(true)
-                setCountry(e.target.value)}}
-            type='text'
-            placeholder='country'
-            defaultValue={defaultVals.country}
-            ></input>
-            {hasBeenClicked && validations.address && <p>{validations.address}</p>}
-            <input
-            onChange={(e) => {
-                setAddressUpdated(true)
-                setAddress(e.target.value)}}
-            type='text'
-            placeholder='address'
-            defaultValue={defaultVals.address}
-            ></input>
-            {hasBeenClicked && validations.state && <p>{validations.state}</p>}
-            <input
-            onChange={(e) => {
-                setStateUpdated(true)
-                setState(e.target.value)}}
-            type='text'
-            placeholder='state'
-            defaultValue={defaultVals.state}
-            ></input>
-            {hasBeenClicked && validations.city && <p>{validations.city}</p>}
-            <input
-            onChange={(e) => {
-                setCityUpdated(true)
-                setCity(e.target.value)}}
-            type='text'
-            placeholder='city'
-            defaultValue={defaultVals.city}
-            ></input>
-            {hasBeenClicked && validations.description && <p>{validations.description}</p>}
-            <input
-            onChange={(e) => {
-                setDescriptionUpdated(true)
-                setDescription(e.target.value)}}
-            type='text'
-            placeholder='description'
-            defaultValue={defaultVals.description}
-            ></input>
-            {hasBeenClicked && validations.price && <p>{validations.price}</p>}
-            <input
-            onChange={(e) => {
-                setPriceUpdated(true)
-                setPrice(e.target.value)}}
-            type='text'
-            placeholder='price'
-            defaultValue={defaultVals.price}
-            ></input>
-            {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
-            <input
-            onChange={(e) => {
-                //setPreviewImgUpdated(true)
-                setPreviewImg(e.target.value)}}
-            type='text'
-            placeholder='preview image url'
-            defaultValue={defaultVals.preview}
-            ></input>
-            {hasBeenClicked && validations.images[0] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
-            <input
-            onChange={(e) => {
-                imagesUpdated[0] = true
-                setImagesUpdated([...imagesUpdated])
-                images[0] = e.target.value
-                setImages([...images])}}
-            type='text'
-            placeholder='image url'
-            defaultValue={defaultVals.defaultImageVals[0]}
-            ></input>
-            {hasBeenClicked && validations.images[1] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
-            <input
-            onChange={(e) => {
-                imagesUpdated[1] = true
-                setImagesUpdated([...imagesUpdated])
-                images[1] = e.target.value
-                setImages([...images])}}
-            type='text'
-            placeholder='image url'
-            defaultValue={defaultVals.defaultImageVals[1]}
-            ></input>
-            {hasBeenClicked && validations.images[2] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
-            <input
-            onChange={(e) => {
-                imagesUpdated[2] = true
-                setImagesUpdated([...imagesUpdated])
-                images[2] = e.target.value
-                setImages([...images])}}
-            type='text'
-            placeholder='image url'
-            defaultValue={defaultVals.defaultImageVals[2]}
-            ></input>
-            {hasBeenClicked && validations.images[3] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
-            <input
-            onChange={(e) => {
-                imagesUpdated[3] = true
-                setImagesUpdated([...imagesUpdated])
-                images[3] = e.target.value
-                setImages([...images])}}
-            type='text'
-            placeholder='image url'
-            defaultValue={defaultVals.defaultImageVals[3]}
-            ></input>
+            <h1>{updateForm ? 'Update Your Spot' : 'Create a Spot'}</h1>
+            <div>
+                <h2>Where's your place located?</h2>
+                <h3>Guests will only get your exact address once they booked a reservation.</h3>
+                {hasBeenClicked && validations.country && <p>{validations.country}</p>}
+                <input
+                onChange={(e) => {
+                    setCountryUpdated(true)
+                    setCountry(e.target.value)}}
+                type='text'
+                placeholder='country'
+                defaultValue={defaultVals.country}
+                ></input>
+                {hasBeenClicked && validations.address && <p>{validations.address}</p>}
+                <input
+                onChange={(e) => {
+                    setAddressUpdated(true)
+                    setAddress(e.target.value)}}
+                type='text'
+                placeholder='address'
+                defaultValue={defaultVals.address}
+                ></input>
+                {hasBeenClicked && validations.city && <p>{validations.city}</p>}
+                <input
+                onChange={(e) => {
+                    setCityUpdated(true)
+                    setCity(e.target.value)}}
+                type='text'
+                placeholder='city'
+                defaultValue={defaultVals.city}
+                ></input>
+                {hasBeenClicked && validations.state && <p>{validations.state}</p>}
+                <input
+                onChange={(e) => {
+                    setStateUpdated(true)
+                    setState(e.target.value)}}
+                type='text'
+                placeholder='state'
+                defaultValue={defaultVals.state}
+                ></input>
+
+
+            </div>
+            <div>
+                <h2>Describe your place to guests</h2>
+                <h3>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h3>
+                {hasBeenClicked && validations.description && <p>{validations.description}</p>}
+                <input
+                onChange={(e) => {
+                    setDescriptionUpdated(true)
+                    setDescription(e.target.value)}}
+                type='text'
+                placeholder='description'
+                defaultValue={defaultVals.description}
+                ></input>
+
+            </div>
+            <div>
+                <h2>Create a title for your spot</h2>
+                <h3>Catch guests' attention with a spot title that highlights what makes your place special</h3>
+                {hasBeenClicked && validations.title && <p>{validations.title}</p>}
+                <input
+                onChange={(e) => {
+                    setTitleUpdated(true)
+                    setTitle(e.target.value)}}
+                type='text'
+                placeholder='title'
+                defaultValue={defaultVals.name}
+                ></input>
+            </div>
+            <div>
+                <h2>Set a base price for your spot</h2>
+                <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
+                {hasBeenClicked && validations.price && <p>{validations.price}</p>}
+                <input
+                onChange={(e) => {
+                    setPriceUpdated(true)
+                    setPrice(e.target.value)}}
+                type='text'
+                placeholder='price'
+                defaultValue={defaultVals.price}
+                ></input>
+            </div>
+            { !updateForm && <div>
+                <h2>Liven up your spot with photos</h2>
+                <h3>Submit a link to at least one photo to publish your spot.</h3>
+                {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
+                <input
+                onChange={(e) => {
+                    //setPreviewImgUpdated(true)
+                    setPreviewImg(e.target.value)}}
+                type='text'
+                placeholder='preview image url'
+                defaultValue={defaultVals.preview}
+                ></input>
+                {hasBeenClicked && validations.images[0] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
+                <input
+                onChange={(e) => {
+                    imagesUpdated[0] = true
+                    setImagesUpdated([...imagesUpdated])
+                    images[0] = e.target.value
+                    setImages([...images])}}
+                type='text'
+                placeholder='image url'
+                defaultValue={defaultVals.defaultImageVals[0]}
+                ></input>
+                {hasBeenClicked && validations.images[1] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
+                <input
+                onChange={(e) => {
+                    imagesUpdated[1] = true
+                    setImagesUpdated([...imagesUpdated])
+                    images[1] = e.target.value
+                    setImages([...images])}}
+                type='text'
+                placeholder='image url'
+                defaultValue={defaultVals.defaultImageVals[1]}
+                ></input>
+                {hasBeenClicked && validations.images[2] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
+                <input
+                onChange={(e) => {
+                    imagesUpdated[2] = true
+                    setImagesUpdated([...imagesUpdated])
+                    images[2] = e.target.value
+                    setImages([...images])}}
+                type='text'
+                placeholder='image url'
+                defaultValue={defaultVals.defaultImageVals[2]}
+                ></input>
+                {hasBeenClicked && validations.images[3] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
+                <input
+                onChange={(e) => {
+                    imagesUpdated[3] = true
+                    setImagesUpdated([...imagesUpdated])
+                    images[3] = e.target.value
+                    setImages([...images])}}
+                type='text'
+                placeholder='image url'
+                defaultValue={defaultVals.defaultImageVals[3]}
+                ></input>
+            </div>}
             <button type='submit'>{`${updateForm ? 'Update Spot' : 'Create Spot'}`}</button>
         </form>
     )
