@@ -7,22 +7,30 @@ import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
 
  export default function SpotForm ({ updateForm }) {
+    const spot = useSelector(state => state.spots[0])
     const dispatch = useDispatch()
     const {spotId} = useParams()
     const [country, setCountry] = useState('')
+    const [countryUpdated, setCountryUpdated] = useState(false)
     const [hasBeenClicked, setHasBeenClicked] = useState(false)
     const [state, setState] = useState('')
+    const [stateUpdated, setStateUpdated] = useState(false)
     const [city, setCity] = useState('')
+    const [cityUpdated, setCityUpdated] = useState(false)
     const [description, setDescription] = useState('')
+    const [descriptionUpdated, setDescriptionUpdated] = useState(false)
     const [price, setPrice] = useState('')
+    const [priceUpdated, setPriceUpdated] = useState(false)
     const [previewImg, setPreviewImg] = useState('')
+    const [previewImgUpdated, setPreviewImgUpdated] = useState(false)
     const [address, setAddress] = useState('')
+    const [addressUpdated, setAddressUpdated] = useState(false)
     const [images, setImages] = useState([])
+    const [imagesUpdated, setImagesUpdated] = useState(false)
     const [validations, setValidations] = useState({ images: []})
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
-    const spot = useSelector(state => state.spots[0])
-    console.log(spot)
+    const [titleUpdated, setTitleUpdated] = useState(false)
 
 
 
@@ -72,23 +80,37 @@ import { useParams } from "react-router-dom"
             setHasBeenClicked(true)
         }
         if(Object.keys(validations).length === 1 && !hasImageErrors()){
-            const newSpot = {
-                address,
-                city,
-                state,
-                country,
-                name: title,
-                description,
-                price: Number(price)
+            if(updateForm){
+                const updatedSpotObj = {}
+                if(!description.length && !descriptionUpdated){
+                    console.log('doesnt need description')
+                }
+                else {
+                    console.log('needs description')
+                }
             }
-            const validImages = images.filter(url => url)
-            const id =  await dispatch(createSpotThunk(newSpot, previewImg, validImages))
-            navigate(`/spots/${id}`)
+            else{
+                const newSpot = {
+                    address,
+                    city,
+                    state,
+                    country,
+                    name: title,
+                    description,
+                    price: Number(price)
+                }
+                console.log(newSpot)
+                console.log(validations)
+                const validImages = images.filter(url => url)
+                const id =  await dispatch(createSpotThunk(newSpot, previewImg, validImages))
+                navigate(`/spots/${id}`)
+
+            }
         }
 
     }
 
-    const validateForm = () => {
+    const validateCreateForm = () => {
         const errors = {
             images: []
         }
@@ -124,11 +146,25 @@ import { useParams } from "react-router-dom"
         }
 
     }
-    console.log(defaultVals)
-    console.log(country)
+
+    const validateUpdateForm = () => {
+        const errors = {
+            images: []
+        }
+        if(descriptionUpdated){
+            if(!description.length) errors.description = 'Description is required'
+            else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters' 
+        }
+        setValidations(errors)
+    }
 
     useEffect(() => {
-        validateForm()
+        if(updateForm){
+            validateUpdateForm()
+        }
+        else{
+            validateForm()
+        }
     }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
 
 
@@ -136,56 +172,72 @@ import { useParams } from "react-router-dom"
         <form className='create-spot-form' onSubmit={handleSubmit}>
             {hasBeenClicked && validations.title && <p>{validations.title}</p>}
             <input
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+                setTitleUpdated(true)
+                setTitle(e.target.value)}}
             type='text'
             placeholder='title'
             defaultValue={defaultVals.name}
             ></input>
             {hasBeenClicked && validations.country && <p>{validations.country}</p>}
             <input
-            onChange={(e) => setCountry(e.target.value)}
+            onChange={(e) => {
+                setCountryUpdated(true)
+                setCountry(e.target.value)}}
             type='text'
             placeholder='country'
             defaultValue={defaultVals.country}
             ></input>
             {hasBeenClicked && validations.address && <p>{validations.address}</p>}
             <input
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(e) => {
+                setAddressUpdated(true)
+                setAddress(e.target.value)}}
             type='text'
             placeholder='address'
             defaultValue={defaultVals.address}
             ></input>
             {hasBeenClicked && validations.state && <p>{validations.state}</p>}
             <input
-            onChange={(e) => setState(e.target.value)}
+            onChange={(e) => {
+                setStateUpdated(true)
+                setState(e.target.value)}}
             type='text'
             placeholder='state'
             defaultValue={defaultVals.state}
             ></input>
             {hasBeenClicked && validations.city && <p>{validations.city}</p>}
             <input
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => {
+                setCityUpdated(true)
+                setCity(e.target.value)}}
             type='text'
             placeholder='city'
             defaultValue={defaultVals.city}
             ></input>
             {hasBeenClicked && validations.description && <p>{validations.description}</p>}
             <input
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => {
+                setDescriptionUpdated(true)
+                setDescription(e.target.value)}}
             type='text'
             placeholder='description'
             defaultValue={defaultVals.description}
             ></input>
             {hasBeenClicked && validations.price && <p>{validations.price}</p>}
             <input
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => {
+                setPriceUpdated(true)
+                setPrice(e.target.value)}}
             type='text'
             placeholder='price'
             defaultValue={defaultVals.price}
             ></input>
             {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
             <input
-            onChange={(e) => setPreviewImg(e.target.value)}
+            onChange={(e) => {
+                setPreviewImgUpdated(true)
+                setPreviewImg(e.target.value)}}
             type='text'
             placeholder='preview image url'
             defaultValue={defaultVals.preview}
