@@ -11,20 +11,27 @@ export default function ManageSpots() {
 
     useEffect(() => {
         dispatch(getCurrentSpotsThunk())
-        
     }, [dispatch])
 
-    const onClick = spotId => {
+    const onClickSpot = spotId => {
         navigate(`/spots/${spotId}`)
     }
 
+    const onClickCreate = () => {
+        navigate('/spots/new')
+    }
+
     return (
-        <main className='all-spots-container'>
-            {currentSpots.map((spot) => {
-            return (
-                <SpotItem manageSpotsPage={true} onClick={e => onClick(spot.id)} spot={spot} key={spot.id}/>
-            )
-        })}
-        </main>
+        <>
+            <h1>Manage Spots</h1>
+            <main className='all-spots-container'>
+                {currentSpots.map((spot) => {
+                return (
+                    <SpotItem manageSpotsPage={true} onClick={e => onClickSpot(spot.id)} spot={spot} key={spot.id}/>
+                )
+            })}
+            {!currentSpots.length && <button onClick={onClickCreate}>Create a Spot</button>}
+            </main>
+        </>
     )
 }
