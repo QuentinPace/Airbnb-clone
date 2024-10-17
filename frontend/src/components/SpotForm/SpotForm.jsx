@@ -26,7 +26,7 @@ import { useParams } from "react-router-dom"
     const [address, setAddress] = useState('')
     const [addressUpdated, setAddressUpdated] = useState(false)
     const [images, setImages] = useState([])
-    const [imagesUpdated, setImagesUpdated] = useState(false)
+    const [imagesUpdated, setImagesUpdated] = useState([false, false, false, false])
     const [validations, setValidations] = useState({ images: []})
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
@@ -88,6 +88,7 @@ import { useParams } from "react-router-dom"
                 else {
                     console.log('needs description')
                 }
+
             }
             else{
                 const newSpot = {
@@ -144,7 +145,6 @@ import { useParams } from "react-router-dom"
             }
         setValidations(errors)
         }
-
     }
 
     const validateUpdateForm = () => {
@@ -155,7 +155,38 @@ import { useParams } from "react-router-dom"
             if(!description.length) errors.description = 'Description is required'
             else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters' 
         }
-        setValidations(errors)
+        if(stateUpdated)if(!state.length) errors.state = 'State is required'
+        if(cityUpdated)if(!city.length) errors.city = 'City is required'
+        if(priceUpdated){
+            if(!price.length) errors.price = 'Price is required'
+            else if(isNaN(price)) errors.price = 'Price must be as valid number'
+        }
+        if(addressUpdated)if(!address.length) errors.address = 'Address is required'
+        if(countryUpdated)if(!country.length) errors.country = 'Country is required'
+        if(titleUpdated)if(!title.length) errors.title = 'Title is required'
+        // if(previewImgUpdated){
+        //     if(!previewImg.length) {
+        //         errors.previewImg = 'Preview image is required'
+        //     }
+        //     else if(!(previewImg.endsWith('.png') || previewImg.endsWith('.jpg') || previewImg.endsWith('.jpeg'))){
+        //         errors.previewImg = 'Preview image URL must end in .png, .jpg, or .jpeg'
+        //     }
+        // }
+        // for(let i = 0; i < 4; i++){
+        //     let url = images[i]
+        //     if(url){
+        //         if(url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg')){
+        //             errors.images.push(false)
+        //         }
+        //         else{
+        //             errors.images.push(true)
+        //         }
+        //     }
+        //     else{
+        //         errors.images.push(false)
+        //     }
+        // }
+    setValidations(errors)
     }
 
     useEffect(() => {
@@ -245,6 +276,8 @@ import { useParams } from "react-router-dom"
             {hasBeenClicked && validations.images[0] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
             onChange={(e) => {
+                imagesUpdated[0] = true
+                setImagesUpdated([...imagesUpdated])
                 images[0] = e.target.value
                 setImages([...images])}}
             type='text'
@@ -254,6 +287,8 @@ import { useParams } from "react-router-dom"
             {hasBeenClicked && validations.images[1] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
             onChange={(e) => {
+                imagesUpdated[1] = true
+                setImagesUpdated([...imagesUpdated])
                 images[1] = e.target.value
                 setImages([...images])}}
             type='text'
@@ -263,6 +298,8 @@ import { useParams } from "react-router-dom"
             {hasBeenClicked && validations.images[2] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
             onChange={(e) => {
+                imagesUpdated[2] = true
+                setImagesUpdated([...imagesUpdated])
                 images[2] = e.target.value
                 setImages([...images])}}
             type='text'
@@ -272,6 +309,8 @@ import { useParams } from "react-router-dom"
             {hasBeenClicked && validations.images[3] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
             <input
             onChange={(e) => {
+                imagesUpdated[3] = true
+                setImagesUpdated([...imagesUpdated])
                 images[3] = e.target.value
                 setImages([...images])}}
             type='text'
