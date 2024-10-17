@@ -32,8 +32,6 @@ export default function SpotReviewSection () {
         return true
     }
 
-    console.log(hasReviewButton())
-
     useEffect(() => {
         dispatch(getOneSpotThunk(spotId))
 
@@ -64,10 +62,10 @@ export default function SpotReviewSection () {
                             <p>{review.review}</p>
                             {review.User.id == sessionUser.id ? <OpenModalButton
                             buttonText='Delete Review'
-                            needsRender={needsRender}
-                            setNeedsRender={setNeedsRender}
                             modalComponent={<ConfirmDeleteModal
-                            review={review}/>}/> : null}
+                                needsRender={needsRender}
+                                setNeedsRender={setNeedsRender}
+                                review={review}/>}/> : null}
                         </li>
                     )
                 })}

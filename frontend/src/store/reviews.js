@@ -40,8 +40,8 @@ export const deleteReviewThunk = review => async dispatch => {
     method: 'delete'
   })
   if(response.ok){
-    await dispatch(getAllReviewsOfSpotThunk(review.spotId))
     await dispatch(getReviewsOfCurrentThunk())
+    await dispatch(getAllReviewsOfSpotThunk(review.spotId))
     return review.spotId
   }
 }

@@ -7,16 +7,17 @@ export default function ConfirmDeleteModal({ spot, review, setNeedsRender, needs
     const { closeModal } = useModal()
     const dispatch = useDispatch()
     
-    const removeClick = () => {
+    const removeClick = async () => {
+        //closeModal()
         if(review){
-            console.log(review)
-            dispatch(deleteReviewThunk(review))
-            setNeedsRender(!needsRender)
+            console.log(setNeedsRender)
+            await dispatch(deleteReviewThunk(review))
+            await setNeedsRender(!needsRender)
         }
         else {
-            dispatch(deleteSpotThunk(spot.id))
+            await dispatch(deleteSpotThunk(spot.id))
         }
-        closeModal()
+        await closeModal()
     }
     return (
         <>

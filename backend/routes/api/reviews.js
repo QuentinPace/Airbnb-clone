@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/current', async (req, res) => {
     const { user } = req
-    //const response = {}
+
     if(user){
         const reviewsOfCurrent = await Review.findAll({
             where: {
@@ -42,6 +42,9 @@ router.get('/current', async (req, res) => {
                 delete review.dataValues.Spot.dataValues.SpotImages
             }
             else {
+                console.log('------------------------------------------------------------')
+                console.log(review.dataValues)
+                console.log('------------------------------------------------------------')
                 const targetSpot = await Spot.findOne({
                     where: {
                         id: review.dataValues.spotId
