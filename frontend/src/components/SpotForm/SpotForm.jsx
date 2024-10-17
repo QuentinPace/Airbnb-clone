@@ -124,6 +124,8 @@ import { useParams } from "react-router-dom"
         }
 
     }
+    console.log(defaultVals)
+    console.log(country)
 
     useEffect(() => {
         validateForm()
