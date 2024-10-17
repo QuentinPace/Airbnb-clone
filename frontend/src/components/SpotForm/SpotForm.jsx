@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import './SpotForm.css'
-import { createSpotThunk } from "../../store/spots"
+import { createSpotThunk, editSpotThunk } from "../../store/spots"
 import { getOneSpotThunk } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -22,7 +22,7 @@ import { useParams } from "react-router-dom"
     const [price, setPrice] = useState('')
     const [priceUpdated, setPriceUpdated] = useState(false)
     const [previewImg, setPreviewImg] = useState('')
-    const [previewImgUpdated, setPreviewImgUpdated] = useState(false)
+    //const [previewImgUpdated, setPreviewImgUpdated] = useState(false)
     const [address, setAddress] = useState('')
     const [addressUpdated, setAddressUpdated] = useState(false)
     const [images, setImages] = useState([])
@@ -81,14 +81,17 @@ import { useParams } from "react-router-dom"
         }
         if(Object.keys(validations).length === 1 && !hasImageErrors()){
             if(updateForm){
-                const updatedSpotObj = {}
-                if(!description.length && !descriptionUpdated){
-                    console.log('doesnt need description')
+                const updatedSpotObj = {
+                    description: descriptionUpdated ? description : spot.description,
+                    state: stateUpdated ? state : spot.state,
+                    country: countryUpdated ? country : spot.country,
+                    city: cityUpdated ? city : spot.city,
+                    price: priceUpdated ? Number(price) : spot.price,
+                    address: addressUpdated ? address : spot.address,
+                    name: titleUpdated ? title : spot.name
                 }
-                else {
-                    console.log('needs description')
-                }
-
+                const id = await dispatch(editSpotThunk(updatedSpotObj, spotId))
+                navigate(`/spots/${id}`)
             }
             else{
                 const newSpot = {
@@ -100,8 +103,6 @@ import { useParams } from "react-router-dom"
                     description,
                     price: Number(price)
                 }
-                console.log(newSpot)
-                console.log(validations)
                 const validImages = images.filter(url => url)
                 const id =  await dispatch(createSpotThunk(newSpot, previewImg, validImages))
                 navigate(`/spots/${id}`)
@@ -194,7 +195,7 @@ import { useParams } from "react-router-dom"
             validateUpdateForm()
         }
         else{
-            validateForm()
+            validateCreateForm()
         }
     }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
 
@@ -317,7 +318,7 @@ import { useParams } from "react-router-dom"
             placeholder='image url'
             defaultValue={defaultVals.defaultImageVals[3]}
             ></input>
-            <button type='submit'>Create Spot</button>
+            <button type='submit'>{`${updateForm ? 'Update Spot' : 'Create Spot'}`}</button>
         </form>
     )
  }
