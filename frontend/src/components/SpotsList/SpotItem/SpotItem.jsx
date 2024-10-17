@@ -19,8 +19,10 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
             <div className='spot-item-image' style={{'backgroundImage': `url("${spot.previewImage}")`}}>
             </div>
             <div className='spot-info'>
-                <p>{`${spot.city},${spot.state}`}</p>
-                <p><BsStarFill />{`${rating}`}</p>
+                <div className='location-review-container'>
+                    <p>{`${spot.city},${spot.state}`}</p>
+                    <p><BsStarFill />{`${rating}`}</p>
+                </div>
                 <p>{`$${spot.price} Night`}</p>
             </div>
             {manageSpotsPage && <div className='manage-spot-buttons-container'>
