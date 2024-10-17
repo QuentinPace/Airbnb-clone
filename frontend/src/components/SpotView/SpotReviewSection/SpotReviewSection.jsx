@@ -3,6 +3,7 @@ import { getAllReviewsOfSpotThunk, getReviewsOfCurrentThunk } from '../../../sto
 import { getOneSpotThunk } from '../../../store/spots'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { BsStarFill } from "react-icons/bs";
 import OpenModalButton from '../../OpenModalButton'
 import PostReviewModal from '../../PostReviewModal'
 import ConfirmDeleteModal from '../../ConfirmDeleteModal'
@@ -46,14 +47,26 @@ export default function SpotReviewSection () {
         }
     }, [dispatch, spotId, sessionUser])
 
+    const beTheFirstText = () => {
+        if(!reviews.length && sessionUser){
+            if(sessionUser.id !== spot.Owner.id){
+                return (
+                    <h3>Be the first to post a review!</h3>
+                )
+            }
+        }
+        return null
+    }
+
     return (
         <>
-            <div className='review-header'><p>*{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
+            <div className='review-header'><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
             { hasReviewButton() && <OpenModalButton
                 buttonText="post a review"
                 modalComponent={<PostReviewModal  needsRender={needsRender} setNeedsRender={setNeedsRender} spot={spot}/>}
               />}
             <ul>
+                {beTheFirstText()}
                 {reviews.map(review => {
                     return (
                         <li key={review.id} className='review-spot-view'>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaStar } from 'react-icons/fa6';
+import { BsStarFill } from "react-icons/bs";
 
 const StarRatingInput = ({ rating, onChange }) => {
   const [activeRating, setActiveRating] = useState(rating)
@@ -27,7 +27,7 @@ const StarRatingInput = ({ rating, onChange }) => {
         {starNums.map(num => {
           return (
             <div key={num} {...propsByStar(num)}>
-              <FaStar />
+              <BsStarFill />
             </div>
           )})}
     </div>

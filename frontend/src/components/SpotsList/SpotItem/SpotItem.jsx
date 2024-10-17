@@ -4,6 +4,7 @@ import ConfirmDeleteModal from '../../ConfirmDeleteModal'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getOneSpotThunk } from '../../../store/spots'
+import { BsStarFill } from "react-icons/bs";
 
 export default function SpotItem({ spot, onClick, manageSpotsPage }) {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
             </div>
             <div className='spot-info'>
                 <p>{`${spot.city},${spot.state}`}</p>
-                <p>{`*${rating}`}</p>
+                <p><BsStarFill />{`${rating}`}</p>
                 <p>{`$${spot.price} Night`}</p>
             </div>
             {manageSpotsPage && <div className='manage-spot-buttons-container'>

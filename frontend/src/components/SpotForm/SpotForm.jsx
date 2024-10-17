@@ -253,11 +253,10 @@ import { useParams } from "react-router-dom"
                 onChange={(e) => {
                     setDescriptionUpdated(true)
                     setDescription(e.target.value)}}
-                type='text'
+                type='text-area'
                 placeholder='description'
                 defaultValue={defaultVals.description}
                 ></input>
-
             </div>
             <div>
                 <h2>Create a title for your spot</h2>

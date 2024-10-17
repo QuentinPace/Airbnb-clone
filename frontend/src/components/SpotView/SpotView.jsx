@@ -3,6 +3,7 @@ import { getOneSpotThunk } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import SpotImages from './SpotImages'
+import { BsStarFill } from "react-icons/bs";
 import SpotReviewSection from "./SpotReviewSection"
 import './SpotView.css'
 
@@ -36,7 +37,7 @@ export default function SpotView () {
                 <div className='reserve-button-container'>
                     <div className='review-price-button-text'>
                         <p>${spot.price} Night</p>
-                        <p>*{spot.avgStarRating}</p>
+                        <p><BsStarFill/>{spot.avgStarRating}</p>
                         <p>{spot.numReviews} Reviews</p>
                     </div>
                     <button onClick={onClick}>Reserve</button>
