@@ -28,3 +28,7 @@ form {
     justify-content: space-around;
     align-items: center;
 }
+
+body {
+    padding: 0px 75px;
+}
