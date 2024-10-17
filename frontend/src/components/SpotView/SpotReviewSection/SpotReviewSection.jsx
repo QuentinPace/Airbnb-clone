@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import OpenModalButton from '../../OpenModalButton'
 import PostReviewModal from '../../PostReviewModal'
+import ConfirmDeleteModal from '../../ConfirmDeleteModal'
 
 export default function SpotReviewSection () {
     const sessionUser = useSelector(state => state.session.user);
@@ -31,6 +32,8 @@ export default function SpotReviewSection () {
         return true
     }
 
+    console.log(hasReviewButton())
+
     useEffect(() => {
         dispatch(getOneSpotThunk(spotId))
 
@@ -50,7 +53,7 @@ export default function SpotReviewSection () {
             <div className='review-header'><p>*{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
             { hasReviewButton() && <OpenModalButton
                 buttonText="post a review"
-                modalComponent={<PostReviewModal setNeedsRender={setNeedsRender} spot={spot}/>}
+                modalComponent={<PostReviewModal  needsRender={needsRender} setNeedsRender={setNeedsRender} spot={spot}/>}
               />}
             <ul>
                 {reviews.map(review => {
@@ -59,6 +62,12 @@ export default function SpotReviewSection () {
                             <h4>{review.User.firstName}</h4>
                             <h5>{months[review.createdAt.substring(5, 7)]}, {review.createdAt.substring(0, 4)}</h5>
                             <p>{review.review}</p>
+                            {review.User.id == sessionUser.id ? <OpenModalButton
+                            buttonText='Delete Review'
+                            needsRender={needsRender}
+                            setNeedsRender={setNeedsRender}
+                            modalComponent={<ConfirmDeleteModal
+                            review={review}/>}/> : null}
                         </li>
                     )
                 })}
