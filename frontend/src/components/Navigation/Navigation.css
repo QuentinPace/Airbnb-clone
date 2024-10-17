@@ -8,13 +8,57 @@
     border: 2px solid black;
     z-index: 9999;
     position: absolute;
+    margin-top: 300px;
     right: 0%;
 }
 
 header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid black;
-    height: 69px;
+    border-bottom: 1px solid rgb(175, 175, 175);
+    height: 80px;
     width: 100%;
+}
+
+.user-dropdown-container {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-menu {
+    position: fixed;
+    right: 0;
+    margin-right: 75px;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    border-color: grey;
+    background-color: white;
+}
+
+.create-spot-button {
+    position: fixed;
+    right: 0;
+    margin-right: 200px;
+}
+
+.air-bnb-home-icon {
+    font-size: 70px;
+}
+
+.user-icon {
+    font-size: 40px;
+    margin-top: 5px;
+}
+
+.air-bnb-home {
+    display: flex;
+}
+
+.air-bnb-home h2 {
+    text-decoration: none;
+    font-size: 30px;
+    margin-top: 20px
 }

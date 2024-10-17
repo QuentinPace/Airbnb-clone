@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FaAirbnb } from "react-icons/fa";
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
@@ -14,12 +15,12 @@ function Navigation({ isLoaded }) {
   return (
     <header>
       <div>
-        <NavLink to="/">Home</NavLink>
+        <NavLink className='air-bnb-home' style={{ textDecoration: 'none' }} to="/"><FaAirbnb className='air-bnb-home-icon'/><h2>Airbnb</h2></NavLink>
       </div>
       {isLoaded && (
         <div className='user-dropdown-container'>
-          {sessionUser && <button onClick={createSpotClick}>Create a Spot</button>}
-          <ProfileButton className='user-menu' user={sessionUser} />
+          {sessionUser && <button className='create-spot-button' onClick={createSpotClick}>Create a Spot</button>}
+          <ProfileButton user={sessionUser} />
         </div>
       )}
     </header>
