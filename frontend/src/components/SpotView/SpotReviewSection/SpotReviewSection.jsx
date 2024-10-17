@@ -58,9 +58,20 @@ export default function SpotReviewSection () {
         return null
     }
 
+    const ratingInfo = () => {
+        if(!reviews.length){
+            return (<><BsStarFill/><p>New</p></>)
+        }
+        else{
+            return (<><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></>)
+        }
+    }
+
+    let sessionUserId = sessionUser ? sessionUser.id : null
+
     return (
         <>
-            <div className='review-header'><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>
+            <div className='review-header'>{ratingInfo()}</div>
             { hasReviewButton() && <OpenModalButton
                 buttonText="post a review"
                 modalComponent={<PostReviewModal  needsRender={needsRender} setNeedsRender={setNeedsRender} spot={spot}/>}
@@ -73,7 +84,7 @@ export default function SpotReviewSection () {
                             <h4>{review.User.firstName}</h4>
                             <h5>{months[review.createdAt.substring(5, 7)]}, {review.createdAt.substring(0, 4)}</h5>
                             <p>{review.review}</p>
-                            {review.User.id == sessionUser.id ? <OpenModalButton
+                            {review.User.id == sessionUserId ? <OpenModalButton
                             buttonText='Delete Review'
                             modalComponent={<ConfirmDeleteModal
                                 needsRender={needsRender}

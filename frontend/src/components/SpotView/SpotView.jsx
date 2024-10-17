@@ -24,6 +24,15 @@ export default function SpotView () {
         alert("Feature coming soon")
      }
 
+     const ratingInfo = () => {
+        if(!spot.numReviews){
+            return (<><BsStarFill/><p>New</p></>)
+        }
+        else{
+            return (<><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></>)
+        }
+    }
+
     return (
         <main>
             <h1>{spot.name}</h1>
@@ -37,8 +46,7 @@ export default function SpotView () {
                 <div className='reserve-button-container'>
                     <div className='review-price-button-text'>
                         <p>${spot.price} Night</p>
-                        <p><BsStarFill/>{spot.avgStarRating}</p>
-                        <p>{spot.numReviews} Reviews</p>
+                        {ratingInfo()}
                     </div>
                     <button onClick={onClick}>Reserve</button>
 

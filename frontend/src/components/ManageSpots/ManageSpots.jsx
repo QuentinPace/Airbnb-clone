@@ -2,9 +2,11 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentSpotsThunk } from "../../store/spots";
 import SpotItem from "../SpotsList/SpotItem";
+import { useNavigate } from "react-router-dom";
 
 export default function ManageSpots() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const currentSpots = useSelector(store => store.spots)
 
     useEffect(() => {
@@ -13,7 +15,7 @@ export default function ManageSpots() {
     }, [dispatch])
 
     const onClick = spotId => {
-        console.log(spotId)
+        navigate(`/spots/${spotId}`)
     }
 
     return (
