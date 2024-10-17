@@ -17,7 +17,7 @@ export default function SpotView () {
     }, [dispatch, spotId])
 
     if(!spot) return (<></>)
-    if(spot.avgRating) return (<></>)
+    if(!spot.Owner) return (<></>)
 
      const onClick = () => {
         alert("Feature coming soon")

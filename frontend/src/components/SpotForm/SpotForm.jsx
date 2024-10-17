@@ -268,7 +268,7 @@ import { useParams } from "react-router-dom"
             {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
             <input
             onChange={(e) => {
-                setPreviewImgUpdated(true)
+                //setPreviewImgUpdated(true)
                 setPreviewImg(e.target.value)}}
             type='text'
             placeholder='preview image url'
