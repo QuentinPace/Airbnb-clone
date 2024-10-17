@@ -8,6 +8,7 @@ span,
 h6,
 button,
 li,
+input,
 p {
     margin: 5px;
     font-family: 'Poppins', sans-serif;
@@ -19,4 +20,11 @@ button {
     border-color: grey;
     font-size: large;
     margin: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
