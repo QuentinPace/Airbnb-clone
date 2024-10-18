@@ -4,6 +4,13 @@
     display: none;
 }
 
+.profile-dropdown-logged-in p,
+.profile-dropdown p {
+    font-weight: 600;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+
 .profile-dropdown-logged-in,
 .profile-dropdown {
     background-color: white;
@@ -12,6 +19,7 @@
     z-index: 9999;
     position: absolute;
     right: 5%;
+    padding: 10px;
 }
 .profile-dropdown {
     margin-top: 175px;

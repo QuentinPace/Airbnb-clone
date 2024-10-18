@@ -12,6 +12,7 @@
     width: 100%;
     height: 500px;
     display: flex;
+    overflow: hidden;
 }
 
 .non-preview-spot-image {
