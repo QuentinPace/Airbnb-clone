@@ -27,7 +27,7 @@ export default function ManageSpots() {
             <main className='all-spots-container'>
                 {currentSpots.map((spot) => {
                 return (
-                    <SpotItem manageSpotsPage={true} onClick={e => onClickSpot(spot.id)} spot={spot} key={spot.id}/>
+                    <SpotItem manageSpotsPage={true} onClick={() => onClickSpot(spot.id)} spot={spot} key={spot.id}/>
                 )
             })}
             {!currentSpots.length && <button onClick={onClickCreate}>Create a Spot</button>}

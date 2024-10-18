@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import './SpotForm.css'
 import { createSpotThunk, editSpotThunk } from "../../store/spots"
 import { getOneSpotThunk } from "../../store/spots"
@@ -37,9 +37,9 @@ import { useParams } from "react-router-dom"
 
     useEffect(()=> {
         if(updateForm && !spot){
-            dispatch(getOneSpotThunk(spotId))
+            dispatch(getOneSpotThunk(spot.id))
         }
-    }, [dispatch])
+    }, [dispatch, spot, updateForm])
 
     let defaultImageVals = ['', '', '', '']
 
@@ -112,99 +112,69 @@ import { useParams } from "react-router-dom"
 
     }
 
-    const validateCreateForm = () => {
-        const errors = {
+    const validateForm = useCallback(() => {
+        let errors = {
             images: []
         }
-        if(!country.length) errors.country = 'Country is required'
-        if(!address.length) errors.address = 'Address is required'
-        if(!city.length) errors.city = 'City is required'
-        if(!state.length) errors.state = 'State is required'
-        if(!description.length) errors.description = 'Description is required'
-        else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters'
-        if(!title.length) errors.title = 'Title is required'
-        if(!price.length) errors.price = 'Price is required'
-        else if(isNaN(price)) errors.price = 'Price must be as valid number'
-        if(!previewImg.length) {
-            errors.previewImg = 'Preview image is required'
-        }
-        else if(!(previewImg.endsWith('.png') || previewImg.endsWith('.jpg') || previewImg.endsWith('.jpeg'))){
-            errors.previewImg = 'Preview image URL must end in .png, .jpg, or .jpeg'
-        }
-        for(let i = 0; i < 4; i++){
-            let url = images[i]
-            if(url){
-                if(url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg')){
-                    errors.images.push(false)
-                }
-                else{
-                    errors.images.push(true)
-                }
+        if(updateForm) {
+            if(descriptionUpdated){
+                if(!description.length) errors.description = 'Description is required'
+                else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters' 
             }
-            else{
-                errors.images.push(false)
+            if(stateUpdated)if(!state.length) errors.state = 'State is required'
+            if(cityUpdated)if(!city.length) errors.city = 'City is required'
+            if(priceUpdated){
+                if(!price.length) errors.price = 'Price is required'
+                else if(isNaN(price)) errors.price = 'Price must be as valid number'
             }
-        setValidations(errors)
-        }
-    }
-
-    const validateUpdateForm = () => {
-        const errors = {
-            images: []
-        }
-        if(descriptionUpdated){
-            if(!description.length) errors.description = 'Description is required'
-            else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters' 
-        }
-        if(stateUpdated)if(!state.length) errors.state = 'State is required'
-        if(cityUpdated)if(!city.length) errors.city = 'City is required'
-        if(priceUpdated){
-            if(!price.length) errors.price = 'Price is required'
-            else if(isNaN(price)) errors.price = 'Price must be as valid number'
-        }
-        if(addressUpdated)if(!address.length) errors.address = 'Address is required'
-        if(countryUpdated)if(!country.length) errors.country = 'Country is required'
-        if(titleUpdated)if(!title.length) errors.title = 'Title is required'
-        // if(previewImgUpdated){
-        //     if(!previewImg.length) {
-        //         errors.previewImg = 'Preview image is required'
-        //     }
-        //     else if(!(previewImg.endsWith('.png') || previewImg.endsWith('.jpg') || previewImg.endsWith('.jpeg'))){
-        //         errors.previewImg = 'Preview image URL must end in .png, .jpg, or .jpeg'
-        //     }
-        // }
-        // for(let i = 0; i < 4; i++){
-        //     let url = images[i]
-        //     if(url){
-        //         if(url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg')){
-        //             errors.images.push(false)
-        //         }
-        //         else{
-        //             errors.images.push(true)
-        //         }
-        //     }
-        //     else{
-        //         errors.images.push(false)
-        //     }
-        // }
-    setValidations(errors)
-    }
-
-    useEffect(() => {
-        if(updateForm){
-            validateUpdateForm()
+            if(addressUpdated)if(!address.length) errors.address = 'Address is required'
+            if(countryUpdated)if(!country.length) errors.country = 'Country is required'
+            if(titleUpdated)if(!title.length) errors.title = 'Title is required'
         }
         else{
-            validateCreateForm()
+            if(!country.length) errors.country = 'Country is required'
+            if(!address.length) errors.address = 'Address is required'
+            if(!city.length) errors.city = 'City is required'
+            if(!state.length) errors.state = 'State is required'
+            if(!description.length) errors.description = 'Description is required'
+            else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters'
+            if(!title.length) errors.title = 'Title is required'
+            if(!price.length) errors.price = 'Price is required'
+            else if(isNaN(price)) errors.price = 'Price must be as valid number'
+            if(!previewImg.length) {
+                errors.previewImg = 'Preview image is required'
+            }
+            else if(!(previewImg.endsWith('.png') || previewImg.endsWith('.jpg') || previewImg.endsWith('.jpeg'))){
+                errors.previewImg = 'Preview image URL must end in .png, .jpg, or .jpeg'
+            }
+            for(let i = 0; i < 4; i++){
+                let url = images[i]
+                if(url){
+                    if(url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg')){
+                        errors.images.push(false)
+                    }
+                    else{
+                        errors.images.push(true)
+                    }
+                }
+                else{
+                    errors.images.push(false)
+                }
+            }
         }
-    }, [country, state, city, description, title, price, previewImg, images, address, setValidations, hasBeenClicked])
+        setValidations(errors)
+    }, [country, state, city, description, title, price, previewImg, images, address, setValidations, descriptionUpdated, stateUpdated, cityUpdated, priceUpdated, addressUpdated, countryUpdated, titleUpdated, updateForm])
+
+    useEffect(() => {
+        validateForm()
+    }, [validateForm])
 
 
     return (
         <form className='create-spot-form' onSubmit={handleSubmit}>
             <h1>{updateForm ? 'Update Your Spot' : 'Create a Spot'}</h1>
             <div>
-                <h2>Where's your place located?</h2>
+                <h2>Where&apos;s your place located?</h2>
                 <h3>Guests will only get your exact address once they booked a reservation.</h3>
                 {hasBeenClicked && validations.country && <p>{validations.country}</p>}
                 <input
@@ -260,7 +230,7 @@ import { useParams } from "react-router-dom"
             </div>
             <div>
                 <h2>Create a title for your spot</h2>
-                <h3>Catch guests' attention with a spot title that highlights what makes your place special</h3>
+                <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special</h3>
                 {hasBeenClicked && validations.title && <p>{validations.title}</p>}
                 <input
                 onChange={(e) => {
