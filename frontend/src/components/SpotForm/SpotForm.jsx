@@ -176,7 +176,12 @@ import { useParams } from "react-router-dom"
             <div>
                 <h2>Where&apos;s your place located?</h2>
                 <h3>Guests will only get your exact address once they booked a reservation.</h3>
-                {hasBeenClicked && validations.country && <p>{validations.country}</p>}
+                <section>
+                    {hasBeenClicked && validations.country && <p>{validations.country}</p>}
+                    {hasBeenClicked && validations.address && <p>{validations.address}</p>}
+                    {hasBeenClicked && validations.city && <p>{validations.city}</p>}
+                    {hasBeenClicked && validations.state && <p>{validations.state}</p>}
+                </section>
                 <input
                 onChange={(e) => {
                     setCountryUpdated(true)
@@ -185,7 +190,6 @@ import { useParams } from "react-router-dom"
                 placeholder='country'
                 defaultValue={defaultVals.country}
                 ></input>
-                {hasBeenClicked && validations.address && <p>{validations.address}</p>}
                 <input
                 onChange={(e) => {
                     setAddressUpdated(true)
@@ -194,7 +198,6 @@ import { useParams } from "react-router-dom"
                 placeholder='address'
                 defaultValue={defaultVals.address}
                 ></input>
-                {hasBeenClicked && validations.city && <p>{validations.city}</p>}
                 <input
                 onChange={(e) => {
                     setCityUpdated(true)
@@ -203,7 +206,6 @@ import { useParams } from "react-router-dom"
                 placeholder='city'
                 defaultValue={defaultVals.city}
                 ></input>
-                {hasBeenClicked && validations.state && <p>{validations.state}</p>}
                 <input
                 onChange={(e) => {
                     setStateUpdated(true)
@@ -218,8 +220,10 @@ import { useParams } from "react-router-dom"
             <div>
                 <h2>Describe your place to guests</h2>
                 <h3>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h3>
-                {hasBeenClicked && validations.description && <p>{validations.description}</p>}
-                <input
+                <section>
+                    {hasBeenClicked && validations.description && <p>{validations.description}</p>}
+                </section>
+                <input className="description-input"
                 onChange={(e) => {
                     setDescriptionUpdated(true)
                     setDescription(e.target.value)}}
@@ -231,7 +235,9 @@ import { useParams } from "react-router-dom"
             <div>
                 <h2>Create a title for your spot</h2>
                 <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special</h3>
-                {hasBeenClicked && validations.title && <p>{validations.title}</p>}
+                <section>
+                    {hasBeenClicked && validations.title && <p>{validations.title}</p>}
+                </section>
                 <input
                 onChange={(e) => {
                     setTitleUpdated(true)
@@ -244,7 +250,9 @@ import { useParams } from "react-router-dom"
             <div>
                 <h2>Set a base price for your spot</h2>
                 <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
-                {hasBeenClicked && validations.price && <p>{validations.price}</p>}
+                <section>
+                    {hasBeenClicked && validations.price && <p>{validations.price}</p>}
+                </section>
                 <input
                 onChange={(e) => {
                     setPriceUpdated(true)
@@ -257,7 +265,10 @@ import { useParams } from "react-router-dom"
             { !updateForm && <div>
                 <h2>Liven up your spot with photos</h2>
                 <h3>Submit a link to at least one photo to publish your spot.</h3>
-                {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
+                <section>
+                    {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
+                    {hasBeenClicked && (validations.images[0] || validations.images[1] || validations.images[2] || validations.images[3]) && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
+                </section>
                 <input
                 onChange={(e) => {
                     //setPreviewImgUpdated(true)
@@ -266,7 +277,6 @@ import { useParams } from "react-router-dom"
                 placeholder='preview image url'
                 defaultValue={defaultVals.preview}
                 ></input>
-                {hasBeenClicked && validations.images[0] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
                 <input
                 onChange={(e) => {
                     imagesUpdated[0] = true
@@ -277,7 +287,6 @@ import { useParams } from "react-router-dom"
                 placeholder='image url'
                 defaultValue={defaultVals.defaultImageVals[0]}
                 ></input>
-                {hasBeenClicked && validations.images[1] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
                 <input
                 onChange={(e) => {
                     imagesUpdated[1] = true
@@ -288,7 +297,6 @@ import { useParams } from "react-router-dom"
                 placeholder='image url'
                 defaultValue={defaultVals.defaultImageVals[1]}
                 ></input>
-                {hasBeenClicked && validations.images[2] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
                 <input
                 onChange={(e) => {
                     imagesUpdated[2] = true
@@ -299,7 +307,6 @@ import { useParams } from "react-router-dom"
                 placeholder='image url'
                 defaultValue={defaultVals.defaultImageVals[2]}
                 ></input>
-                {hasBeenClicked && validations.images[3] && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
                 <input
                 onChange={(e) => {
                     imagesUpdated[3] = true

@@ -28,7 +28,7 @@ header {
 }
 
 .user-menu {
-    position: fixed;
+    position: absolute;
     right: 0;
     margin-right: 75px;
     width: 60px;
@@ -39,7 +39,7 @@ header {
 }
 
 .create-spot-button {
-    position: fixed;
+    position: absolute;
     right: 0;
     margin-right: 200px;
 }
