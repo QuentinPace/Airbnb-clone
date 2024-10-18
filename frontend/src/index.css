@@ -15,7 +15,8 @@ p {
 }
 
 button {
-    background-color: whitesmoke;
+    background-color: rgb(94, 0, 94);
+    color: white;
     border-radius: 20px;
     border-color: grey;
     font-size: large;

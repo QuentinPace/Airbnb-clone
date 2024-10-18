@@ -46,6 +46,7 @@ function ProfileButton({ user }) {
   const navManageSpots = () => {
     console.log('made it to button click')
     navigate('/spots/current')
+    closeMenu()
   }
 
   return (

@@ -318,7 +318,7 @@ import { useParams } from "react-router-dom"
                 defaultValue={defaultVals.defaultImageVals[3]}
                 ></input>
             </div>}
-            <button type='submit'>{`${updateForm ? 'Update Spot' : 'Create Spot'}`}</button>
+            <button className='create-spot-submit' type='submit'>{`${updateForm ? 'Update Spot' : 'Create Spot'}`}</button>
         </form>
     )
  }
