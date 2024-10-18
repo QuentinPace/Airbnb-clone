@@ -20,7 +20,7 @@ function ProfileButton({ user }) {
     closeMenu()
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : "-hidden");
+  const ulClassName = "profile-dropdown" + (showMenu ? "" : "-hidden") + (user ? '-logged-in' : '');
 
   useEffect(() => {
     if (!showMenu) return;
@@ -51,39 +51,39 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button className="user-menu" onClick={toggleMenu}>
+      <button className='user-menu' onClick={toggleMenu}>
         <FaUserCircle className='user-icon'/>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Username - {user.username}</li>
-            <li> Hello, {user.firstName} {user.lastName}</li>
-            <li>Email - {user.email}</li>
-            <li><button onClick={navManageSpots}>manage spots</button></li>
-            <li>
+            <p>Username - {user.username}</p>
+            <p> Hello, {user.firstName} {user.lastName}</p>
+            <p>Email - {user.email}</p>
+            <p><button onClick={navManageSpots}>manage spots</button></p>
+            <p>
               <button onClick={logout}>Log Out</button>
-            </li>
+            </p>
           </>
         ) : (
           <>
-            <li>
+            <p>
               <OpenModalButton
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
-            </li>
-            <li>
+            </p>
+            <p>
               <OpenModalButton
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-            </li>
+            </p>
           </>
         )}
-      </ul>
+      </div>
     </>
   );
 }

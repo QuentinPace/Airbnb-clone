@@ -1,11 +1,27 @@
 /* navigation styles here */
 
-.profile-dropdown-hidden li{
+.profile-dropdown-hidden p {
     display: none;
 }
+
+.profile-dropdown-hidden-logged-in p {
+    display: none;
+}
+
 .profile-dropdown {
     background-color: white;
-    border: 2px solid black;
+    border: 2px solid rgb(104, 104, 104);
+    border-radius: 15px;;
+    z-index: 9999;
+    position: absolute;
+    margin-top: 175px;
+    right: 5%;
+}
+
+.profile-dropdown-logged-in {
+    background-color: white;
+    border: 2px solid rgb(104, 104, 104);
+    border-radius: 15px;;
     z-index: 9999;
     position: absolute;
     margin-top: 300px;
@@ -34,9 +50,10 @@ header {
     width: 60px;
     height: 60px;
     border-radius: 100px;
-    border-color: grey;
+    border-color: black;
     background-color: white;
 }
+
 
 .create-spot-button {
     position: absolute;
