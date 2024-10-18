@@ -223,14 +223,14 @@ import { useParams } from "react-router-dom"
                 <section>
                     {hasBeenClicked && validations.description && <p>{validations.description}</p>}
                 </section>
-                <input className="description-input"
+                <textarea className="description-input"
                 onChange={(e) => {
                     setDescriptionUpdated(true)
                     setDescription(e.target.value)}}
                 type='text-area'
                 placeholder='description'
                 defaultValue={defaultVals.description}
-                ></input>
+                ></textarea>
             </div>
             <div>
                 <h2>Create a title for your spot</h2>
