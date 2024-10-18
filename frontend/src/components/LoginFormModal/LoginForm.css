@@ -1,1 +1,10 @@
 /* login page styles here */
+
+.login-form button {
+    height: 45px;
+    margin: 15px;
+}
+
+.login-form input {
+    height: 30px;
+}

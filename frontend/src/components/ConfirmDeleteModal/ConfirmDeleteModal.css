@@ -1,0 +1,22 @@
+.delete-button-container {
+    display: flex;
+    height: 50%;
+    flex-direction: column;
+}
+
+.delete-button-container button {
+    height: 50%;
+    margin: 15px;
+}
+
+#modal-content h1 {
+    text-align: center;
+}
+
+.confirm-delete-button {
+    background-color: rgb(116, 0, 0);
+}
+
+.keep-button {
+    background-color: gray;
+}

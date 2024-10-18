@@ -26,10 +26,10 @@ export default function SpotView () {
 
      const ratingInfo = () => {
         if(!spot.numReviews){
-            return (<><BsStarFill/><p>New</p></>)
+            return (<div className='rating-info'><BsStarFill/><p>New</p></div>)
         }
         else{
-            return (<><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></>)
+            return (<div className='rating-info'><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>)
         }
     }
 
@@ -43,12 +43,14 @@ export default function SpotView () {
                     <h2>Hosted By {spot.Owner.firstName}, {spot.Owner.lastName}</h2>
                     <p>{spot.description}</p>
                 </div>
-                <div className='reserve-button-container'>
+                <div className='reserve-container'>
                     <div className='review-price-button-text'>
                         <p>${spot.price} Night</p>
                         {ratingInfo()}
                     </div>
-                    <button onClick={onClick}>Reserve</button>
+                    <div className='reserve-button-container'>
+                        <button className='reserve-button' onClick={onClick}>Reserve</button>
+                    </div>
 
                 </div>
             </div>
