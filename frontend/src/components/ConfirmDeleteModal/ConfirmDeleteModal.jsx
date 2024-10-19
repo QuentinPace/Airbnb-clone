@@ -22,7 +22,7 @@ export default function ConfirmDeleteModal({ spot, review, setNeedsRender, needs
     return (
         <>
             <h1>Confirm Delete</h1>
-               <h2>{`Are you sure you want to ${review ? 'delete this review' : 'remove this spot'}?`}</h2>
+               <h4 className='are-you-sure-text'>{`Are you sure you want to ${review ? 'delete this review' : 'remove this spot'}?`}</h4>
             <div className='delete-button-container'>
                 <button className='confirm-delete-button' onClick={removeClick}>{`Yes (Delete ${review ? 'Review' : 'Spot'})`}</button>
                 <button className='keep-button' onClick={closeModal}>{`No (Keep ${review ? 'Review' : 'Spot'})`}</button>

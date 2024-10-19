@@ -3,3 +3,12 @@
 .errors-container {
     min-height: 50px;
 }
+
+.signup-form-form-ele input{
+    width: 80%;
+}
+
+.signup-form-form-ele button{
+    width: 80%;
+    margin-bottom: 20px;
+}

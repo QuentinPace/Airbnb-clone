@@ -44,7 +44,6 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   const navManageSpots = () => {
-    console.log('made it to button click')
     navigate('/spots/current')
     closeMenu()
   }
@@ -60,9 +59,9 @@ function ProfileButton({ user }) {
             <p>Username - {user.username}</p>
             <p> Hello, {user.firstName} {user.lastName}</p>
             <p>Email - {user.email}</p>
-            <p><button onClick={navManageSpots}>manage spots</button></p>
+            <p><button className='user-dropdown-button' onClick={navManageSpots}>manage spots</button></p>
             <p>
-              <button onClick={logout}>Log Out</button>
+              <button className='user-dropdown-button' onClick={logout}>Log Out</button>
             </p>
           </>
         ) : (

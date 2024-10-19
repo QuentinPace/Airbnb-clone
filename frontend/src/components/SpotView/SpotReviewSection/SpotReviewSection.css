@@ -8,5 +8,28 @@
  }
 
  .review-spot-view {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(177, 177, 177);
+ }
+
+ .review-list {
+   list-style-type: none;
+   padding-left: 0px;
+ }
+
+ .review-list li {
+   margin: 10px;
+ }
+
+ .date-review {
+   color: grey;
+ }
+
+ .review-text-p {
+   font-weight: 500;
+   font-size: 17px;
+ }
+
+ .delete-review-li-button {
+   font-size: 14px;
+   border-radius: 5px;
  }

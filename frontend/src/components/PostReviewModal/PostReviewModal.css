@@ -8,11 +8,15 @@
 
 .rating-input {
     display: flex;
-    background-color: grey;
+    background-color: rgb(197, 197, 197);
     height: 37px;
     border-radius: 10px;;
     justify-content: space-around;
     padding: 3px;
+}
+
+.stars-text {
+  font-size: 25px;
 }
 
 .rating-input div svg{
@@ -42,8 +46,8 @@
 
 .submit-review {
   align-self: center;
-  height: 40px;
-  width: 80%;
+  height: 60px;
+  width: 90%;
 }
 
 .submit-review-button-container {

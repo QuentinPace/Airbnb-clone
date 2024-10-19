@@ -171,10 +171,11 @@ import { useParams } from "react-router-dom"
     return (
         <form className='create-spot-form' onSubmit={handleSubmit}>
             <h1>{updateForm ? 'Update Your Spot' : 'Create a New Spot'}</h1>
-            <div>
+            <div className='create-spot-section' id='location-input-container'>
                 <h2>Where&apos;s your place located?</h2>
-                <h3>Guests will only get your exact address once they booked a reservation.</h3>
+                <h4>Guests will only get your exact address once they booked a reservation.</h4>
                 <input
+                className='city-state-sub'
                 onChange={(e) => {
                     setCountryUpdated(true)
                     setCountry(e.target.value)}}
@@ -183,6 +184,7 @@ import { useParams } from "react-router-dom"
                 defaultValue={defaultVals.country}
                 ></input>
                 <input
+                className='city-state-sub'
                 onChange={(e) => {
                     setAddressUpdated(true)
                     setAddress(e.target.value)}}
@@ -190,22 +192,24 @@ import { useParams } from "react-router-dom"
                 placeholder='Street Address'
                 defaultValue={defaultVals.address}
                 ></input>
-                <input
-                onChange={(e) => {
-                    setCityUpdated(true)
-                    setCity(e.target.value)}}
-                type='text'
-                placeholder='City'
-                defaultValue={defaultVals.city}
-                ></input>
-                <input
-                onChange={(e) => {
-                    setStateUpdated(true)
-                    setState(e.target.value)}}
-                type='text'
-                placeholder='State'
-                defaultValue={defaultVals.state}
-                ></input>
+                <div className='city-state-container'>
+                    <input
+                    onChange={(e) => {
+                        setCityUpdated(true)
+                        setCity(e.target.value)}}
+                    type='text'
+                    placeholder='City'
+                    defaultValue={defaultVals.city}
+                    ></input>
+                    <input
+                    onChange={(e) => {
+                        setStateUpdated(true)
+                        setState(e.target.value)}}
+                    type='text'
+                    placeholder='State'
+                    defaultValue={defaultVals.state}
+                    ></input>
+                </div>
                 <section>
                     {hasBeenClicked && validations.country && <p>{validations.country}</p>}
                     {hasBeenClicked && validations.address && <p>{validations.address}</p>}
@@ -213,9 +217,9 @@ import { useParams } from "react-router-dom"
                     {hasBeenClicked && validations.state && <p>{validations.state}</p>}
                 </section>
             </div>
-            <div>
+            <div className='create-spot-section'>
                 <h2>Describe your place to guests</h2>
-                <h3>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h3>
+                <h4>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
                 <textarea className="description-input"
                 onChange={(e) => {
                     setDescriptionUpdated(true)
@@ -228,10 +232,11 @@ import { useParams } from "react-router-dom"
                     {hasBeenClicked && validations.description && <p>{validations.description}</p>}
                 </section>
             </div>
-            <div>
+            <div className='create-spot-section'>
                 <h2>Create a title for your spot</h2>
-                <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special</h3>
+                <h4>Catch guests&apos; attention with a spot title that highlights what makes your place special</h4>
                 <input
+                className='title-input'
                 onChange={(e) => {
                     setTitleUpdated(true)
                     setTitle(e.target.value)}}
@@ -243,10 +248,11 @@ import { useParams } from "react-router-dom"
                     {hasBeenClicked && validations.title && <p>{validations.title}</p>}
                 </section>
             </div>
-            <div>
+            <div className='create-spot-section'>
                 <h2>Set a base price for your spot</h2>
-                <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
+                <h4>Competitive pricing can help your listing stand out and rank higher in search results.</h4>
                 <input
+                className='price-input'
                 onChange={(e) => {
                     setPriceUpdated(true)
                     setPrice(e.target.value)}}
@@ -258,10 +264,11 @@ import { useParams } from "react-router-dom"
                     {hasBeenClicked && validations.price && <p>{validations.price}</p>}
                 </section>
             </div>
-            { !updateForm && <div>
+            { !updateForm && <div className='create-spot-section'>
                 <h2>Liven up your spot with photos</h2>
-                <h3>Submit a link to at least one photo to publish your spot.</h3>
+                <h4>Submit a link to at least one photo to publish your spot.</h4>
                 <input
+                className='image-input'
                 onChange={(e) => {
                     //setPreviewImgUpdated(true)
                     setPreviewImg(e.target.value)}}
@@ -270,6 +277,7 @@ import { useParams } from "react-router-dom"
                 defaultValue={defaultVals.preview}
                 ></input>
                 <input
+                className='image-input'
                 onChange={(e) => {
                     imagesUpdated[0] = true
                     setImagesUpdated([...imagesUpdated])
@@ -280,6 +288,7 @@ import { useParams } from "react-router-dom"
                 defaultValue={defaultVals.defaultImageVals[0]}
                 ></input>
                 <input
+                className='image-input'
                 onChange={(e) => {
                     imagesUpdated[1] = true
                     setImagesUpdated([...imagesUpdated])
@@ -290,6 +299,7 @@ import { useParams } from "react-router-dom"
                 defaultValue={defaultVals.defaultImageVals[1]}
                 ></input>
                 <input
+                className='image-input'
                 onChange={(e) => {
                     imagesUpdated[2] = true
                     setImagesUpdated([...imagesUpdated])
@@ -300,6 +310,7 @@ import { useParams } from "react-router-dom"
                 defaultValue={defaultVals.defaultImageVals[2]}
                 ></input>
                 <input
+                className='image-input'
                 onChange={(e) => {
                     imagesUpdated[3] = true
                     setImagesUpdated([...imagesUpdated])

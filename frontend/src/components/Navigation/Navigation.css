@@ -19,6 +19,10 @@
     }
 }
 
+.user-dropdown-button {
+    width: 100%
+}
+
 
 .profile-dropdown-logged-in,
 .profile-dropdown {

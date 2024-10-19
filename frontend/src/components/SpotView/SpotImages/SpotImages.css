@@ -5,7 +5,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    margin-right: 12px;
+    margin-right: 5px;
 }
 
 .spot-images-container {
@@ -13,6 +13,7 @@
     height: 500px;
     display: flex;
     overflow: hidden;
+    margin-top: 15px;
 }
 
 .non-preview-spot-image {
@@ -27,7 +28,6 @@
 .spot-images {
     width: 50%;
     display: grid;
-    gap: 12px;
+    gap: 5px;
     grid-template-columns: 1fr 1fr;
-
 }

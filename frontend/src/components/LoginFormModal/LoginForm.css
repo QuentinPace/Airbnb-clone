@@ -3,8 +3,10 @@
 .login-form button {
     height: 45px;
     margin: 15px;
+    width: 70%;
 }
 
 .login-form input {
     height: 30px;
+    width: 70%;
 }

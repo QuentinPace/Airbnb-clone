@@ -1,6 +1,6 @@
 .delete-button-container {
     display: flex;
-    height: 50%;
+    height: 200px;
     flex-direction: column;
 }
 
@@ -19,4 +19,8 @@
 
 .keep-button {
     background-color: gray;
+}
+
+.are-you-sure-text {
+    text-align: center;
 }

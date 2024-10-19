@@ -76,15 +76,16 @@ export default function SpotReviewSection () {
                 buttonText="post Your review"
                 modalComponent={<PostReviewModal  needsRender={needsRender} setNeedsRender={setNeedsRender} spot={spot}/>}
               />}
-            <ul>
+            <ul className='review-list'>
                 {beTheFirstText()}
                 {reviews.map(review => {
                     return (
                         <li key={review.id} className='review-spot-view'>
-                            <h4>{review.User.firstName}</h4>
-                            <h5>{months[review.createdAt.substring(5, 7)]}, {review.createdAt.substring(0, 4)}</h5>
-                            <p>{review.review}</p>
+                            <h3>{review.User.firstName}</h3>
+                            <h5 className='date-review'>{months[review.createdAt.substring(5, 7)]}, {review.createdAt.substring(0, 4)}</h5>
+                            <p className='review-text-p' >{review.review}</p>
                             {review.User.id == sessionUserId ? <OpenModalButton
+                            className='delete-review-li-button'
                             buttonText='Delete Review'
                             modalComponent={<ConfirmDeleteModal
                                 needsRender={needsRender}

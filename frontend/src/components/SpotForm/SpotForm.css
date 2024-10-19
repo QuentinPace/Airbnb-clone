@@ -3,20 +3,45 @@
     flex-direction: column;
     width: 90%;
     margin: 0 auto;
+    max-width: 600px;
 }
 
-.create-spot-form div {
+#location-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.city-state-container input {
+    width: 50%;
+}
+
+.city-state-container {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 0px
+}
+
+.create-spot-form .create-spot-section {
     align-self: flex-start;
     margin: 15px 0px;
-    border-bottom: 1px solid grey;
+    border-bottom: 2px solid grey;
     padding-bottom: 10px;
     width: 100%;
 
 }
 
+.title-input,
+.image-input,
+.price-input {
+    width: 100%;
+}
+
+
+
 .description-input {
     width: 100%;
     height: 100px;
+    margin-top: 20px;
 }
 
 section {
@@ -34,7 +59,7 @@ section p {
 .create-spot-submit {
     background-color: rgb(94, 0, 94);
     color: white;
-    width: 50%;
+    width: 25%;
     height: 45px;
 }
 .create-spot-form input {

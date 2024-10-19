@@ -34,9 +34,9 @@ export default function SpotView () {
     }
 
     return (
-        <main>
+        <main className='spot-view-main'>
             <h1 data-testid='spot-name'>{spot.name}</h1>
-            <h2 data-testid='spot-location'>{`${spot.city}, ${spot.state}, ${spot.country}`}</h2>
+            <h3 data-testid='spot-location'>{`${spot.city}, ${spot.state}, ${spot.country}`}</h3>
             <SpotImages spotImages={spot.SpotImages}/>
             <div className='spot-details-reserve-container'>
                 <div className='spot-view-info'>

@@ -71,7 +71,7 @@ function SignupFormModal() {
         {errors.password && <p className='error'>{errors.password}</p>}
         {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
       </div>
-      <form onSubmit={handleSubmit}>
+      <form className='signup-form-form-ele' onSubmit={handleSubmit}>
           <input
             data-testid='email-input'
             type="text"
