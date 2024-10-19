@@ -5,10 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getOneSpotThunk } from '../../../store/spots'
 import { BsStarFill } from "react-icons/bs";
-import { useState } from 'react'
 
 export default function SpotItem({ spot, onClick, manageSpotsPage }) {
-    const [visible, setVisible] = useState(false);
     const dispatch = useDispatch()
     const rating = spot.avgRating ? spot.avgRating : 'New'
     const navigate = useNavigate()
@@ -17,9 +15,8 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
     }
 
     return (
-        // <div  onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} data-testid='spot-link'>
         <div data-testid='spot-tile' onClick={() => onClick(spot.id)} className={`spot-item`}>
-            <span class="tooltip">{spot.name}</span>
+            <span className="tooltip">{spot.name}</span>
             <div data-testid='spot-thumbnail-image' className='spot-item-image' style={{'backgroundImage': `url("${spot.previewImage}")`}}>
             </div>
             <div data-testid='spot-link' className='spot-info'>
