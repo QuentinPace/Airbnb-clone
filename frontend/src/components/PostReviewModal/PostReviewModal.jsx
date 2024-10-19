@@ -40,13 +40,17 @@ export default function PostReviewModal({spot, setNeedsRender, needsRender}) {
     return (
         <>
             <h1>How was your stay?</h1>
-            <textarea
-            placeholder='Leave your review here...'
-            onChange={e => setReviewText(e.target.value)}/>
+            <div className='text-area-container'>
+                <textarea
+                placeholder='Leave your review here...'
+                onChange={e => setReviewText(e.target.value)}/>
+            </div>
             <StarRatingInput 
             onChange={onChange}
             rating={rating}/>
-            <button disabled={disabled} onClick={submitReview}>Submit Your Review</button>
+            <div className='submit-review-button-container'>
+                <button className='submit-review' disabled={disabled} onClick={submitReview}>Submit Your Review</button>
+            </div>
         </>
     )
 }

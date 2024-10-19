@@ -10,7 +10,6 @@ export default function SpotsList() {
     const spotsArr = useSelector(store => store.spots)
     const navigate = useNavigate()
     const onClick = (spotId) => {
-        console.log(spotId)
         navigate(`spots/${spotId}`)
     }
 
@@ -20,7 +19,7 @@ export default function SpotsList() {
     }, [dispatch])
 
     return (
-        <main className='all-spots-container'>
+        <main data-testid='spots-list' className='all-spots-container'>
         {spotsArr.map((spot) => {
             return (
                 <SpotItem spot={spot} onClick={onClick} key={spot.id}/>

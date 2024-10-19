@@ -22,7 +22,7 @@ const StarRatingInput = ({ rating, onChange }) => {
   }
 
   return (
-    <>
+    <div className='star-rating-input-container'>
       <div className="rating-input">
         {starNums.map(num => {
           return (
@@ -31,7 +31,8 @@ const StarRatingInput = ({ rating, onChange }) => {
             </div>
           )})}
     </div>
-  </>
+    <h3>Stars</h3>
+  </div>
   );
 };
 

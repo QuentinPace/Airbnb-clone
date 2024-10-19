@@ -14,16 +14,19 @@ export default function SpotImages ({ spotImages }) {
             }
         }
     }
-    let keyCount = 0
+    let keyCount = -1
+
+    console.log(spotImagesUrl)
+    const placeholders = ['none.png', 'none.png', 'none.png', 'none.png',]
 
     return (
         <div className='spot-images-container'>
-            <div className='preview-image' style={{'backgroundImage': `url("${previewImgUrl}")`}}></div>
+            <div data-testid='spot-large-image' className='preview-image' style={{'backgroundImage': `url("${previewImgUrl}")`}}></div>
             <div className ='spot-images'>
-                {spotImagesUrl.map(url => {
+                {placeholders.map(url => {
                     keyCount++
                     return (
-                        <div className='non-preview-spot-image' key={keyCount} style={{'backgroundImage': `url("${url}")`}}>
+                        <div data-testid='spot-small-image' className='non-preview-spot-image' key={keyCount} style={{'backgroundImage': `url("${spotImagesUrl[keyCount] ? spotImagesUrl[keyCount] : url}")`}}>
                         </div>
                     )
                 })}

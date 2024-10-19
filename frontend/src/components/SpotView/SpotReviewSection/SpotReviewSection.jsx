@@ -63,7 +63,7 @@ export default function SpotReviewSection () {
             return (<><BsStarFill/><p>New</p></>)
         }
         else{
-            return (<><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></>)
+            return (<><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></>)
         }
     }
 
@@ -73,7 +73,7 @@ export default function SpotReviewSection () {
         <>
             <div className='review-header'>{ratingInfo()}</div>
             { hasReviewButton() && <OpenModalButton
-                buttonText="post a review"
+                buttonText="post Your review"
                 modalComponent={<PostReviewModal  needsRender={needsRender} setNeedsRender={setNeedsRender} spot={spot}/>}
               />}
             <ul>

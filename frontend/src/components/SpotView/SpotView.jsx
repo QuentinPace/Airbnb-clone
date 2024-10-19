@@ -29,27 +29,27 @@ export default function SpotView () {
             return (<div className='rating-info'><BsStarFill/><p>New</p></div>)
         }
         else{
-            return (<div className='rating-info'><p><BsStarFill/>{spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>)
+            return (<div className='rating-info'><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>)
         }
     }
 
     return (
         <main>
-            <h1>{spot.name}</h1>
-            <h2>{`${spot.city}, ${spot.state}, ${spot.country}`}</h2>
+            <h1 data-testid='spot-name'>{spot.name}</h1>
+            <h2 data-testid='spot-location'>{`${spot.city}, ${spot.state}, ${spot.country}`}</h2>
             <SpotImages spotImages={spot.SpotImages}/>
             <div className='spot-details-reserve-container'>
                 <div className='spot-view-info'>
-                    <h2>Hosted By {spot.Owner.firstName}, {spot.Owner.lastName}</h2>
-                    <p>{spot.description}</p>
+                    <h2 data-testid='spot-host'>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+                    <p data-testid='spot-description'>{spot.description}</p>
                 </div>
-                <div className='reserve-container'>
+                <div data-testid='spot-callout-box' className='reserve-container'>
                     <div className='review-price-button-text'>
-                        <p>${spot.price} Night</p>
+                        <p data-testid='spot-price'>${spot.price} night</p>
                         {ratingInfo()}
                     </div>
                     <div className='reserve-button-container'>
-                        <button className='reserve-button' onClick={onClick}>Reserve</button>
+                        <button data-testid='reserve-button' className='reserve-button' onClick={onClick}>Reserve</button>
                     </div>
 
                 </div>

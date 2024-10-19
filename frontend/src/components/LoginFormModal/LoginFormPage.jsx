@@ -42,11 +42,12 @@ function LoginFormModal() {
   }
 
   return (
-    <>
+    <div data-testid='login-modal'>
       <h1>Log In</h1>
       <form className='login-form' onSubmit={handleSubmit}>
-      {errors.credential && <p>{errors.credential}</p>}
+      {errors.credential && <p className='error'>{errors.credential}</p>}
           <input
+            data-testid='credential-input'
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -54,16 +55,17 @@ function LoginFormModal() {
             placeholder='Username or Email'
           />
           <input
+          data-testid='password-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder='Password'
           />
-        <button type="submit" disabled={disabled}>Log In</button>
+        <button type="submit" data-testid='login-button' disabled={disabled}>Log in</button>
         <button onClick={demoLogIn}>Log in as Demo User</button>
       </form>
-    </>
+    </div>
   );
 }
 

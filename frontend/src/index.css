@@ -38,3 +38,15 @@ body {
     padding: 10px;
     max-width: 400px;
 }
+
+button:disabled {
+    background-color: grey;
+    color: white;
+}
+
+.error {
+    font-weight: bold;
+    color: red;
+}
+
+

@@ -9,4 +9,46 @@
 .rating-input {
     display: flex;
     background-color: grey;
+    height: 37px;
+    border-radius: 10px;;
+    justify-content: space-around;
+    padding: 3px;
+}
+
+.rating-input div svg{
+  font-size: 35px;
+}
+
+.star-rating-input-container {
+  display: flex;
+  width: min-content;
+  margin: 0 auto;
+
+}
+
+#modal-content textarea {
+  height: 100px;
+  border-radius: 10px;
+  width: 90%;
+  padding-left: 0px;
+  margin: 0 auto;
+}
+
+.text-area-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.submit-review {
+  align-self: center;
+  height: 40px;
+  width: 80%;
+}
+
+.submit-review-button-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 30px;
 }

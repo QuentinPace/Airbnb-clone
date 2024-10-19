@@ -61,16 +61,17 @@ function SignupFormModal() {
   
 
   return (
-    <>
+    <div data-testid='sign-up-form'>
       <h1>Sign Up</h1>
-      {errors.email && <p>{errors.email}</p>}
-      {errors.username && <p>{errors.username}</p>}
-      {errors.firstName && <p>{errors.firstName}</p>}
-      {errors.lastName && <p>{errors.lastName}</p>}
-      {errors.password && <p>{errors.password}</p>}
-      {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+      {errors.email && <p classname='error'>{errors.email}</p>}
+      {errors.username && <p classname='error'>{errors.username}</p>}
+      {errors.firstName && <p classname='error'>{errors.firstName}</p>}
+      {errors.lastName && <p classname='error'>{errors.lastName}</p>}
+      {errors.password && <p classname='error'>{errors.password}</p>}
+      {errors.confirmPassword && <p classname='error'>{errors.confirmPassword}</p>}
       <form onSubmit={handleSubmit}>
           <input
+            data-testid='email-input'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -78,6 +79,7 @@ function SignupFormModal() {
             placeholder='Email'
           />
           <input
+            data-testid='username-input'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -85,6 +87,7 @@ function SignupFormModal() {
             placeholder='Username'
           />
           <input
+            data-testid='first-name-input'
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -92,6 +95,7 @@ function SignupFormModal() {
             placeholder='First Name'
           />
           <input
+            data-testid='last-name-input'
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -99,6 +103,7 @@ function SignupFormModal() {
             placeholder='Last Name'
           />
           <input
+            data-testid='password-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -106,15 +111,16 @@ function SignupFormModal() {
             placeholder='Password'
           />
           <input
+            data-testid='confirm-password-input'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             placeholder='Confirm Password'
           />
-        <button type="submit" disabled={disabled}>Sign Up</button>
+        <button type="submit" data-testid='form-sign-up-button' disabled={disabled}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

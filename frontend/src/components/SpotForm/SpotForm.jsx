@@ -172,7 +172,7 @@ import { useParams } from "react-router-dom"
 
     return (
         <form className='create-spot-form' onSubmit={handleSubmit}>
-            <h1>{updateForm ? 'Update Your Spot' : 'Create a Spot'}</h1>
+            <h1>{updateForm ? 'Update Your Spot' : 'Create a New Spot'}</h1>
             <div>
                 <h2>Where&apos;s your place located?</h2>
                 <h3>Guests will only get your exact address once they booked a reservation.</h3>
@@ -187,7 +187,7 @@ import { useParams } from "react-router-dom"
                     setCountryUpdated(true)
                     setCountry(e.target.value)}}
                 type='text'
-                placeholder='country'
+                placeholder='Country'
                 defaultValue={defaultVals.country}
                 ></input>
                 <input
@@ -195,7 +195,7 @@ import { useParams } from "react-router-dom"
                     setAddressUpdated(true)
                     setAddress(e.target.value)}}
                 type='text'
-                placeholder='address'
+                placeholder='Street Address'
                 defaultValue={defaultVals.address}
                 ></input>
                 <input
@@ -203,7 +203,7 @@ import { useParams } from "react-router-dom"
                     setCityUpdated(true)
                     setCity(e.target.value)}}
                 type='text'
-                placeholder='city'
+                placeholder='City'
                 defaultValue={defaultVals.city}
                 ></input>
                 <input
@@ -211,7 +211,7 @@ import { useParams } from "react-router-dom"
                     setStateUpdated(true)
                     setState(e.target.value)}}
                 type='text'
-                placeholder='state'
+                placeholder='State'
                 defaultValue={defaultVals.state}
                 ></input>
 
@@ -228,7 +228,7 @@ import { useParams } from "react-router-dom"
                     setDescriptionUpdated(true)
                     setDescription(e.target.value)}}
                 type='text-area'
-                placeholder='description'
+                placeholder='Please write at least 30 characters'
                 defaultValue={defaultVals.description}
                 ></textarea>
             </div>
@@ -243,7 +243,7 @@ import { useParams } from "react-router-dom"
                     setTitleUpdated(true)
                     setTitle(e.target.value)}}
                 type='text'
-                placeholder='title'
+                placeholder='Name of your spot'
                 defaultValue={defaultVals.name}
                 ></input>
             </div>
@@ -258,7 +258,7 @@ import { useParams } from "react-router-dom"
                     setPriceUpdated(true)
                     setPrice(e.target.value)}}
                 type='text'
-                placeholder='price'
+                placeholder='Price per night (USD)'
                 defaultValue={defaultVals.price}
                 ></input>
             </div>
@@ -274,7 +274,7 @@ import { useParams } from "react-router-dom"
                     //setPreviewImgUpdated(true)
                     setPreviewImg(e.target.value)}}
                 type='text'
-                placeholder='preview image url'
+                placeholder='Preview Image URL'
                 defaultValue={defaultVals.preview}
                 ></input>
                 <input
@@ -284,7 +284,7 @@ import { useParams } from "react-router-dom"
                     images[0] = e.target.value
                     setImages([...images])}}
                 type='text'
-                placeholder='image url'
+                placeholder='Image URL'
                 defaultValue={defaultVals.defaultImageVals[0]}
                 ></input>
                 <input
@@ -294,7 +294,7 @@ import { useParams } from "react-router-dom"
                     images[1] = e.target.value
                     setImages([...images])}}
                 type='text'
-                placeholder='image url'
+                placeholder='Image URL'
                 defaultValue={defaultVals.defaultImageVals[1]}
                 ></input>
                 <input
@@ -304,7 +304,7 @@ import { useParams } from "react-router-dom"
                     images[2] = e.target.value
                     setImages([...images])}}
                 type='text'
-                placeholder='image url'
+                placeholder='Image URL'
                 defaultValue={defaultVals.defaultImageVals[2]}
                 ></input>
                 <input
@@ -314,7 +314,7 @@ import { useParams } from "react-router-dom"
                     images[3] = e.target.value
                     setImages([...images])}}
                 type='text'
-                placeholder='image url'
+                placeholder='Image URL'
                 defaultValue={defaultVals.defaultImageVals[3]}
                 ></input>
             </div>}

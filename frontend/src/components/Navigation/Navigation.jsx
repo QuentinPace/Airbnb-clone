@@ -14,12 +14,12 @@ function Navigation({ isLoaded }) {
 
   return (
     <header>
-      <div>
+      <div data-testid="logo">
         <NavLink className='air-bnb-home' style={{ textDecoration: 'none' }} to="/"><FaAirbnb className='air-bnb-home-icon'/><h2>Airbnb</h2></NavLink>
       </div>
       {isLoaded && (
         <div className='user-dropdown-container'>
-          {sessionUser && <button className='create-spot-button' onClick={createSpotClick}>Create a Spot</button>}
+          {sessionUser && <button data-testid='create-new-spot-button' className='create-spot-button' onClick={createSpotClick}>Create a Spot</button>}
           <ProfileButton user={sessionUser} />
         </div>
       )}
