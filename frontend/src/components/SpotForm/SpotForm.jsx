@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom"
 
  export default function SpotForm ({ updateForm }) {
     const spot = useSelector(state => state.spots[0])
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const {spotId} = useParams()
     const [country, setCountry] = useState('')
@@ -28,18 +29,15 @@ import { useParams } from "react-router-dom"
     const [images, setImages] = useState([])
     const [imagesUpdated, setImagesUpdated] = useState([false, false, false, false])
     const [validations, setValidations] = useState({ images: []})
-    const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [titleUpdated, setTitleUpdated] = useState(false)
 
 
-
-
     useEffect(()=> {
         if(updateForm && !spot){
-            dispatch(getOneSpotThunk(spot.id))
+            dispatch(getOneSpotThunk(spotId))
         }
-    }, [dispatch, spot, updateForm])
+    }, [dispatch, spot, updateForm, spotId])
 
     let defaultImageVals = ['', '', '', '']
 
@@ -176,12 +174,6 @@ import { useParams } from "react-router-dom"
             <div>
                 <h2>Where&apos;s your place located?</h2>
                 <h3>Guests will only get your exact address once they booked a reservation.</h3>
-                <section>
-                    {hasBeenClicked && validations.country && <p>{validations.country}</p>}
-                    {hasBeenClicked && validations.address && <p>{validations.address}</p>}
-                    {hasBeenClicked && validations.city && <p>{validations.city}</p>}
-                    {hasBeenClicked && validations.state && <p>{validations.state}</p>}
-                </section>
                 <input
                 onChange={(e) => {
                     setCountryUpdated(true)
@@ -214,15 +206,16 @@ import { useParams } from "react-router-dom"
                 placeholder='State'
                 defaultValue={defaultVals.state}
                 ></input>
-
-
+                <section>
+                    {hasBeenClicked && validations.country && <p>{validations.country}</p>}
+                    {hasBeenClicked && validations.address && <p>{validations.address}</p>}
+                    {hasBeenClicked && validations.city && <p>{validations.city}</p>}
+                    {hasBeenClicked && validations.state && <p>{validations.state}</p>}
+                </section>
             </div>
             <div>
                 <h2>Describe your place to guests</h2>
                 <h3>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h3>
-                <section>
-                    {hasBeenClicked && validations.description && <p>{validations.description}</p>}
-                </section>
                 <textarea className="description-input"
                 onChange={(e) => {
                     setDescriptionUpdated(true)
@@ -231,13 +224,13 @@ import { useParams } from "react-router-dom"
                 placeholder='Please write at least 30 characters'
                 defaultValue={defaultVals.description}
                 ></textarea>
+                <section>
+                    {hasBeenClicked && validations.description && <p>{validations.description}</p>}
+                </section>
             </div>
             <div>
                 <h2>Create a title for your spot</h2>
                 <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special</h3>
-                <section>
-                    {hasBeenClicked && validations.title && <p>{validations.title}</p>}
-                </section>
                 <input
                 onChange={(e) => {
                     setTitleUpdated(true)
@@ -246,13 +239,13 @@ import { useParams } from "react-router-dom"
                 placeholder='Name of your spot'
                 defaultValue={defaultVals.name}
                 ></input>
+                <section>
+                    {hasBeenClicked && validations.title && <p>{validations.title}</p>}
+                </section>
             </div>
             <div>
                 <h2>Set a base price for your spot</h2>
                 <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
-                <section>
-                    {hasBeenClicked && validations.price && <p>{validations.price}</p>}
-                </section>
                 <input
                 onChange={(e) => {
                     setPriceUpdated(true)
@@ -261,14 +254,13 @@ import { useParams } from "react-router-dom"
                 placeholder='Price per night (USD)'
                 defaultValue={defaultVals.price}
                 ></input>
+                <section>
+                    {hasBeenClicked && validations.price && <p>{validations.price}</p>}
+                </section>
             </div>
             { !updateForm && <div>
                 <h2>Liven up your spot with photos</h2>
                 <h3>Submit a link to at least one photo to publish your spot.</h3>
-                <section>
-                    {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
-                    {hasBeenClicked && (validations.images[0] || validations.images[1] || validations.images[2] || validations.images[3]) && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
-                </section>
                 <input
                 onChange={(e) => {
                     //setPreviewImgUpdated(true)
@@ -317,6 +309,10 @@ import { useParams } from "react-router-dom"
                 placeholder='Image URL'
                 defaultValue={defaultVals.defaultImageVals[3]}
                 ></input>
+                <section>
+                    {hasBeenClicked && validations.previewImg && <p>{validations.previewImg}</p>}
+                    {hasBeenClicked && (validations.images[0] || validations.images[1] || validations.images[2] || validations.images[3]) && <p>Image URL must end in .png, .jpg, or .jpeg</p>}
+                </section>
             </div>}
             <button className='create-spot-submit' type='submit'>{`${updateForm ? 'Update Spot' : 'Create Spot'}`}</button>
         </form>

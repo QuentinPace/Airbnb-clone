@@ -8,6 +8,10 @@
     border-radius: 15px;
 }
 
+.manage-spot-buttons-container {
+    width: 100%;
+}
+
 .location-review-container {
     display: flex;
     justify-content: space-between;
@@ -15,13 +19,14 @@
 }
 
 .spot-item {
-    height: 350px;
-    width: 325px;
+    height: 380px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
     position: relative;
+    align-self: center;
 }
 
 .spot-info {

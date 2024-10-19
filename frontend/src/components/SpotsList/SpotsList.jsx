@@ -19,12 +19,14 @@ export default function SpotsList() {
     }, [dispatch])
 
     return (
-        <main data-testid='spots-list' className='all-spots-container'>
-        {spotsArr.map((spot) => {
-            return (
-                <SpotItem spot={spot} onClick={onClick} key={spot.id}/>
-            )
-        })}
+        <main data-testid='spots-list' className='all-spots-wrapper'>
+            <div className='all-spots-container'>
+                {spotsArr.map((spot) => {
+                    return (
+                        <SpotItem spot={spot} onClick={onClick} key={spot.id}/>
+                    )
+                })}
+            </div>
         </main>
     )
 }
