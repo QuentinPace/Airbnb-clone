@@ -61,14 +61,16 @@ function SignupFormModal() {
   
 
   return (
-    <div data-testid='sign-up-form'>
+    <div className='signup-form-container' data-testid='sign-up-form'>
       <h1>Sign Up</h1>
-      {errors.email && <p classname='error'>{errors.email}</p>}
-      {errors.username && <p classname='error'>{errors.username}</p>}
-      {errors.firstName && <p classname='error'>{errors.firstName}</p>}
-      {errors.lastName && <p classname='error'>{errors.lastName}</p>}
-      {errors.password && <p classname='error'>{errors.password}</p>}
-      {errors.confirmPassword && <p classname='error'>{errors.confirmPassword}</p>}
+      <div className='errors-container'>
+        {errors.email && <p className='error'>{errors.email}</p>}
+        {errors.username && <p className='error'>{errors.username}</p>}
+        {errors.firstName && <p className='error'>{errors.firstName}</p>}
+        {errors.lastName && <p className='error'>{errors.lastName}</p>}
+        {errors.password && <p className='error'>{errors.password}</p>}
+        {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
+      </div>
       <form onSubmit={handleSubmit}>
           <input
             data-testid='email-input'

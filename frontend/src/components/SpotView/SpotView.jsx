@@ -26,7 +26,7 @@ export default function SpotView () {
 
      const ratingInfo = () => {
         if(!spot.numReviews){
-            return (<div className='rating-info'><BsStarFill/><p>New</p></div>)
+            return (<div className='rating-info'><BsStarFill/><p classname='new'>New</p></div>)
         }
         else{
             return (<div className='rating-info'><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></div>)

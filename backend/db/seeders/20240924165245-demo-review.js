@@ -14,13 +14,13 @@ module.exports = {
     await Review.bulkCreate( [
       {
         userId: 1,
-        spotId: 1,
+        spotId: 2,
         review: "This was an awesome spot!",
         stars: 5,
       },
       {
         userId: 1,
-        spotId: 2,
+        spotId: 3,
         review: "This was an awful spot!",
         stars: 1,
       },
@@ -28,6 +28,24 @@ module.exports = {
         userId: 3,
         spotId: 2,
         review: "This was a hot spot!",
+        stars: 4,
+      },
+      {
+        userId: 3,
+        spotId: 1,
+        review: "Loved This spot, had everything we needed!",
+        stars: 4,
+      },
+      {
+        userId: 2,
+        spotId: 4,
+        review: "Terrible, I did not enjoy myself!",
+        stars: 1,
+      },
+      {
+        userId: 3,
+        spotId: 3,
+        review: "This spot was so nice for me and my family!",
         stars: 4,
       }
     ], { validate: true });

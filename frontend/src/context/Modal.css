@@ -22,7 +22,7 @@
     position: absolute;
     background-color: white;
     border-radius: 20px;
-    height: 35%;
+    height: min-content;
     width: 35%;
     min-width: 300px;
     min-height: 300px;

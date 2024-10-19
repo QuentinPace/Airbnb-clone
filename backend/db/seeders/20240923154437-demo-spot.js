@@ -20,21 +20,21 @@ module.exports = {
         country: 'United States',
         lat: 12.5687437,
         lng: -142.3498694,
-        name: 'Qs House',
+        name: 'Warsaw Getaway',
         price: 150.25,
-        description: "owned by a billionaire"
+        description: "Vitae luctus finibus natoque vulputate lectus finibus elit euismod. Non gravida metus eget dictumst sociosqu ac praesent bibendum etiam. Nisi enim suscipit mattis augue praesent dignissim pulvinar tellus. Eros morbi feugiat congue vel elit gravida augue hendrerit. Etiam morbi massa vivamus nunc in condimentum. Sapien nascetur praesent placerat semper litora. Lacus elit etiam condimentum; donec gravida ut. Lectus morbi senectus eget eleifend molestie."
       },
       {
         ownerId: 2,
-        address: 'W Johnson St 567',
-        city: 'San Francisco',
-        state: 'California',
+        address: '456 Oak Ave',
+        city: 'Raleigh',
+        state: 'North Carolina',
         country: 'United States',
         lat: 4.5698437,
         lng: -12.3456794,
-        name: 'black house',
+        name: 'Cozy Retreat',
         price: 760.50,
-        description: "this is desc"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       },
       {
         ownerId: 2,
@@ -44,21 +44,21 @@ module.exports = {
         country: 'United States',
         lat: 17.5645337,
         lng: -12.3498694,
-        name: 'white house',
+        name: 'Urban Getaway',
         price: 625.00,
-        description: "terrible house"
+        description: "Lobortis sem donec tempus augue at cras. Ornare semper turpis ultrices sed hendrerit luctus nostra. Convallis aliquam diam quisque litora donec purus libero platea nostra. Praesent morbi lobortis mi class, semper nunc sit. Morbi sociosqu sodales odio est molestie. Quis fames nec leo, tortor libero platea. Commodo bibendum penatibus iaculis fringilla mauris."
       },
       {
         ownerId: 3,
-        address: '678 Lohnson biwen Rd',
-        city: 'Fort-Wayne',
-        state: 'Indiana',
+        address: '123 Elm St',
+        city: 'Boise',
+        state: 'Idaho',
         country: 'United States',
         lat: 17.5645337,
         lng: -12.3498694,
-        name: 'Bat Cave',
+        name: 'Boise Home',
         price: 120.00,
-        description: "Amazinf Cave"
+        description: "Dictum curabitur donec elementum vivamus litora mauris. Class odio sem nascetur litora mus egestas massa. Habitasse dignissim ut congue adipiscing natoque tempus eu accumsan sagittis. Nibh fusce sed platea ridiculus; hac dictumst. Nullam lobortis tempus pulvinar felis ut ad nisi dictum. Varius pharetra urna ligula lobortis leo ornare orci ac curabitur. Curae volutpat velit; ridiculus phasellus volutpat dictum condimentum. Nec maecenas diam luctus posuere est lectus rhoncus auctor."
       },
     ], { validate: true });
   },

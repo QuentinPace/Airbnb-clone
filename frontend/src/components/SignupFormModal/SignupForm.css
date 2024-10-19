@@ -1,1 +1,5 @@
 /* signup form styles here */
+
+.errors-container {
+    min-height: 50px;
+}
