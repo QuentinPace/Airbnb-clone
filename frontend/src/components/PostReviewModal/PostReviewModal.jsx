@@ -10,6 +10,7 @@ export default function PostReviewModal({spot, setNeedsRender, needsRender}) {
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('')
     const [disabled, setDisabled] = useState(true)
+    const [errorMessage, setErrorMessage] = useState('')
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
@@ -19,9 +20,14 @@ export default function PostReviewModal({spot, setNeedsRender, needsRender}) {
             reviewText,
             spotId
         }
-        await dispatch(createReviewThunk(newReview))
+        const error = await dispatch(createReviewThunk(newReview))
+        if(error){
+            setErrorMessage(error)
+            return
+        }
         setNeedsRender(!needsRender)
-        closeModal()    }
+        closeModal()    
+    }
 
     useEffect(() => {
         if(rating === 0 || reviewText.length < 10) {
@@ -40,6 +46,7 @@ export default function PostReviewModal({spot, setNeedsRender, needsRender}) {
     return (
         <>
             <h1>How was your stay?</h1>
+            {errorMessage && <p className='error'>{errorMessage}</p>}
             <div className='text-area-container'>
                 <textarea
                 placeholder='Leave your review here...'

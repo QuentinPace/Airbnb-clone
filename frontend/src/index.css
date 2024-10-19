@@ -4,7 +4,6 @@ h2,
 h3,
 h4,
 h5,
-span,
 h6,
 button,
 li,
@@ -47,6 +46,15 @@ button:disabled {
 .error {
     font-weight: bold;
     color: red;
+}
+
+.review-dot {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: none;
 }
 
 

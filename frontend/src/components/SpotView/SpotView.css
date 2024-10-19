@@ -7,7 +7,7 @@
 .reserve-container {
     display: flex;
     flex-direction: column;
-    width: 35%;
+    width: 40%;
     border: 1px solid black;
     border-radius: 20px;
     margin: 15px;
@@ -16,7 +16,7 @@
 }
 
 .spot-view-info {
-    width: 65%
+    width: 60%
 }
 
 .per-night-button-text {

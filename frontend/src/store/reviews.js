@@ -33,6 +33,10 @@ export const createReviewThunk = review => async dispatch => {
     await dispatch(getAllReviewsOfSpotThunk(review.spotId))
     await dispatch(getReviewsOfCurrentThunk())
   }
+  else{
+    const data = await response.json()
+    return data.message
+  }
 }
 
 export const deleteReviewThunk = review => async dispatch => {

@@ -29,7 +29,7 @@ export default function SpotView () {
             return (<div className='rating-info'><BsStarFill/><p className='res-review-text'>New</p></div>)
         }
         else{
-            return (<div className='rating-info'><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Review{spot.numReviews == 1 ? '' : 's'}</p></div>)
+            return (<div className='rating-info'><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><span className='review-dot'>&middot;</span><p>{spot.numReviews} Review{spot.numReviews == 1 ? '' : 's'}</p></div>)
         }
     }
 

@@ -60,10 +60,10 @@ export default function SpotReviewSection () {
 
     const ratingInfo = () => {
         if(!reviews.length){
-            return (<><BsStarFill/><p>New</p></>)
+            return (<><p><BsStarFill/>New</p></>)
         }
         else{
-            return (<><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Review{spot.numReviews == 1 ? '' : 's'}</p></>)
+            return (<><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><span className='review-dot'>&middot;</span><p>{spot.numReviews} Review{spot.numReviews == 1 ? '' : 's'}</p></>)
         }
     }
 
