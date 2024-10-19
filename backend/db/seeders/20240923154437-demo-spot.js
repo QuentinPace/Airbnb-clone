@@ -21,7 +21,7 @@ module.exports = {
         lat: 12.5687437,
         lng: -142.3498694,
         name: 'Warsaw Getaway',
-        price: 150.25,
+        price: 150.00,
         description: "Vitae luctus finibus natoque vulputate lectus finibus elit euismod. Non gravida metus eget dictumst sociosqu ac praesent bibendum etiam. Nisi enim suscipit mattis augue praesent dignissim pulvinar tellus. Eros morbi feugiat congue vel elit gravida augue hendrerit. Etiam morbi massa vivamus nunc in condimentum. Sapien nascetur praesent placerat semper litora. Lacus elit etiam condimentum; donec gravida ut. Lectus morbi senectus eget eleifend molestie."
       },
       {
@@ -33,7 +33,7 @@ module.exports = {
         lat: 4.5698437,
         lng: -12.3456794,
         name: 'Cozy Retreat',
-        price: 760.50,
+        price: 760.00,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       },
       {
@@ -59,6 +59,18 @@ module.exports = {
         name: 'Boise Home',
         price: 120.00,
         description: "Dictum curabitur donec elementum vivamus litora mauris. Class odio sem nascetur litora mus egestas massa. Habitasse dignissim ut congue adipiscing natoque tempus eu accumsan sagittis. Nibh fusce sed platea ridiculus; hac dictumst. Nullam lobortis tempus pulvinar felis ut ad nisi dictum. Varius pharetra urna ligula lobortis leo ornare orci ac curabitur. Curae volutpat velit; ridiculus phasellus volutpat dictum condimentum. Nec maecenas diam luctus posuere est lectus rhoncus auctor."
+      },
+      {
+        ownerId: 3,
+        address: '456 W PineCreek',
+        city: 'Lakeway',
+        state: 'Texas',
+        country: 'United States',
+        lat: 4.5698437,
+        lng: -12.3456794,
+        name: 'Roomy Lakehouse',
+        price: 760.00,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       },
     ], { validate: true });
   },

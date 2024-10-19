@@ -110,6 +110,31 @@ module.exports = {
         spotId: 4,
         url: 'https://images.pexels.com/photos/3753435/pexels-photo-3753435.jpeg',
         preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg',
+        preview: true
+      },
+      {
+        spotId: 5,
+        url: 'https://images.pexels.com/photos/6527068/pexels-photo-6527068.jpeg',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://images.pexels.com/photos/6580230/pexels-photo-6580230.jpeg',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://images.pexels.com/photos/3555618/pexels-photo-3555618.jpeg',
+        preview: false
       }
     ], { validate: true });
   },

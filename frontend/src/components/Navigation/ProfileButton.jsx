@@ -57,7 +57,7 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <p>Username - {user.username}</p>
-            <p> Hello, {user.firstName} {user.lastName}</p>
+            <p> Hello, {user.firstName}</p>
             <p>Email - {user.email}</p>
             <p><button className='user-dropdown-button' onClick={navManageSpots}>manage spots</button></p>
             <p>

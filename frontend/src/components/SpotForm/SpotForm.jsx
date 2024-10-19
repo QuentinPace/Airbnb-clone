@@ -84,7 +84,7 @@ import { useParams } from "react-router-dom"
                     state: stateUpdated ? state : spot.state,
                     country: countryUpdated ? country : spot.country,
                     city: cityUpdated ? city : spot.city,
-                    price: priceUpdated ? Number(price) : spot.price,
+                    price: priceUpdated ? Math.floor(Number(price)) : spot.price,
                     address: addressUpdated ? address : spot.address,
                     name: titleUpdated ? title : spot.name
                 }
@@ -99,7 +99,7 @@ import { useParams } from "react-router-dom"
                     country,
                     name: title,
                     description,
-                    price: Number(price)
+                    price: Math.floor(Number(price))
                 }
                 const validImages = images.filter(url => url)
                 const id =  await dispatch(createSpotThunk(newSpot, previewImg, validImages))
