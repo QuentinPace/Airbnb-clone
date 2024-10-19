@@ -10,6 +10,15 @@
     border-bottom: 1px solid rgb(194, 194, 194);
 }
 
+@media (max-width: 580px) {
+    .airbnb-home-text {
+        display: none;
+    }
+    .create-spot-button {
+        width: 75px;
+    }
+}
+
 
 .profile-dropdown-logged-in,
 .profile-dropdown {

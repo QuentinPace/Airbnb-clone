@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
   return (
     <header>
       <div data-testid="logo">
-        <NavLink className='air-bnb-home' style={{ textDecoration: 'none' }} to="/"><FaAirbnb className='air-bnb-home-icon'/><h2>Airbnb</h2></NavLink>
+        <NavLink className='air-bnb-home' style={{ textDecoration: 'none' }} to="/"><FaAirbnb className='air-bnb-home-icon'/><h2 className='airbnb-home-text'>Airbnb</h2></NavLink>
       </div>
       {isLoaded && (
         <div className='user-dropdown-container'>

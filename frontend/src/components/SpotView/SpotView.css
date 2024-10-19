@@ -8,10 +8,9 @@
     display: flex;
     flex-direction: column;
     width: 40%;
-    border: 1px solid black;
-    border-radius: 20px;
+    border: 2px solid grey;
+    border-radius: 10px;
     margin: 15px;
-    min-height: 150px;
     padding: 8px;
 }
 
@@ -35,6 +34,19 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+@media (max-width: 980px) {
+    .per-night-button-text P,
+    .rating-info p {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .reserve-container {
+        height: 125px;
+        margin: auto 0;
+    }
+}
+
 
 .review-price-button-text {
     display: flex;
