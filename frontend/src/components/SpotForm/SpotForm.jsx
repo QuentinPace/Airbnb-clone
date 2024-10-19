@@ -92,6 +92,7 @@ import { useParams } from "react-router-dom"
                 navigate(`/spots/${id}`)
             }
             else{
+
                 const newSpot = {
                     address,
                     city,
@@ -99,7 +100,7 @@ import { useParams } from "react-router-dom"
                     country,
                     name: title,
                     description,
-                    price: Math.floor(Number(price))
+                    price: Number(price)
                 }
                 const validImages = images.filter(url => url)
                 const id =  await dispatch(createSpotThunk(newSpot, previewImg, validImages))
@@ -123,7 +124,7 @@ import { useParams } from "react-router-dom"
             if(cityUpdated)if(!city.length) errors.city = 'City is required'
             if(priceUpdated){
                 if(!price.length) errors.price = 'Price is required'
-                else if(isNaN(price)) errors.price = 'Price must be as valid number'
+                else if(isNaN(price) || price.includes('.')) errors.price = 'Price must be a valid integer'
             }
             if(addressUpdated)if(!address.length) errors.address = 'Address is required'
             if(countryUpdated)if(!country.length) errors.country = 'Country is required'
@@ -138,7 +139,7 @@ import { useParams } from "react-router-dom"
             else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters'
             if(!title.length) errors.title = 'Title is required'
             if(!price.length) errors.price = 'Price is required'
-            else if(isNaN(price)) errors.price = 'Price must be as valid number'
+            else if(isNaN(price) || price.includes('.')) errors.price = 'Price must be a valid Integer'
             if(!previewImg.length) {
                 errors.previewImg = 'Preview image is required'
             }
