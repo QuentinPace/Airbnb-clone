@@ -7,7 +7,7 @@
 .reserve-container {
     display: flex;
     flex-direction: column;
-    width: 33%;
+    width: 35%;
     border: 1px solid black;
     border-radius: 20px;
     margin: 15px;
@@ -15,10 +15,25 @@
     padding: 8px;
 }
 
+.spot-view-info {
+    width: 65%
+}
+
+.per-night-button-text {
+    display: flex;
+    align-items: center;
+}
+
 .rating-info{
     display: flex;
     justify-content: center;     /* Center horizontally */
     align-items: center;
+}
+
+.per-night-button-text P,
+.rating-info p {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .review-price-button-text {
@@ -28,9 +43,9 @@
     justify-content: space-around;
 }
 
-.review-price-button-text p {
+/* .review-price-button-text p {
     padding-top: 22px;
-}
+} */
 
 .reserve-button-container {
     height: 50%;

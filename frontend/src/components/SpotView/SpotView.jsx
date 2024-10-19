@@ -26,7 +26,7 @@ export default function SpotView () {
 
      const ratingInfo = () => {
         if(!spot.numReviews){
-            return (<div className='rating-info'><BsStarFill/><p className='new'>New</p></div>)
+            return (<div className='rating-info'><BsStarFill/><p className='res-review-text'>New</p></div>)
         }
         else{
             return (<div className='rating-info'><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Review{spot.numReviews == 1 ? '' : 's'}</p></div>)
@@ -45,7 +45,7 @@ export default function SpotView () {
                 </div>
                 <div data-testid='spot-callout-box' className='reserve-container'>
                     <div className='review-price-button-text'>
-                        <p data-testid='spot-price'>${spot.price} night</p>
+                        <div className='per-night-button-text'><p data-testid='spot-price'>${spot.price} night</p></div>
                         {ratingInfo()}
                     </div>
                     <div className='reserve-button-container'>

@@ -16,7 +16,6 @@ export default function SpotImages ({ spotImages }) {
     }
     let keyCount = -1
 
-    console.log(spotImagesUrl)
     const placeholders = ['none.png', 'none.png', 'none.png', 'none.png',]
 
     return (
