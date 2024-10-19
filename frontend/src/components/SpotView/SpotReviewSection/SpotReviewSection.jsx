@@ -63,7 +63,7 @@ export default function SpotReviewSection () {
             return (<><BsStarFill/><p>New</p></>)
         }
         else{
-            return (<><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Reviews</p></>)
+            return (<><p><BsStarFill/>{Number.isInteger(spot.avgStarRating) ? `${spot.avgStarRating}.0` : spot.avgStarRating}</p><p>{spot.numReviews} Review{spot.numReviews == 1 ? '' : 's'}</p></>)
         }
     }
 
