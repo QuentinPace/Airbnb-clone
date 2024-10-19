@@ -8,8 +8,9 @@ import { BsStarFill } from "react-icons/bs";
 
 export default function SpotItem({ spot, onClick, manageSpotsPage }) {
     const dispatch = useDispatch()
-    const rating = spot.avgRating ? spot.avgRating : 'New'
+    const rating = spot.avgRating ? spot.avgRating.toString() : 'New'
     const navigate = useNavigate()
+
     const getUpdatedSpot = async () => {
         await dispatch(getOneSpotThunk(spot.id))
     }
@@ -22,7 +23,7 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
             <div data-testid='spot-link' className='spot-info'>
                 <div className='location-review-container'>
                     <p data-tesid='spot-city'>{`${spot.city},${spot.state}`}</p>
-                    <p data-testid='spot-rating'><BsStarFill />{`${Number.isInteger(rating) || parseInt(rating).length > 4 ? `${rating}.0` : rating}`}</p>
+                    <p data-testid='spot-rating'><BsStarFill />{rating.length > 1 ? `${rating[0]}.0` : rating + '.0'}</p>
                 </div>
                 <p data-testid='spot-price'>{`$${spot.price} night`}</p>
             </div>
