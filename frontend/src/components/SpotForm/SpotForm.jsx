@@ -139,7 +139,7 @@ import { useParams } from "react-router-dom"
             else if(description.length < 30) errors.description = 'Description needs a minimum of 30 characters'
             if(!title.length) errors.title = 'Title is required'
             if(!price.length) errors.price = 'Price is required'
-            else if(isNaN(price) || price.includes('.')) errors.price = 'Price must be a valid Integer'
+            else if(isNaN(price) || price.includes('.') || !Number(price)) errors.price = 'Price must be a valid Integer'
             if(!previewImg.length) {
                 errors.previewImg = 'Preview image is required'
             }

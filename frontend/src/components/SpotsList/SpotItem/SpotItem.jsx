@@ -15,11 +15,6 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
         await dispatch(getOneSpotThunk(spot.id))
     }
 
-    console.log('rating-------------------------')
-    console.log(rating)
-    console.log('rating-------------------------')
-    console.log(spot)
-
     return (
         <div data-testid='spot-tile' onClick={() => onClick(spot.id)} className={`spot-item`}>
             <span className="tooltip">{spot.name}</span>
