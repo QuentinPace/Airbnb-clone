@@ -23,7 +23,7 @@ export default function SpotItem({ spot, onClick, manageSpotsPage }) {
             <div data-testid='spot-link' className='spot-info'>
                 <div className='location-review-container'>
                     <p data-tesid='spot-city'>{`${spot.city},${spot.state}`}</p>
-                    <p data-testid='spot-rating'><BsStarFill />{rating == 'New'  ? rating : rating.length > 4 ? `${rating[0]}.0` : rating + '.0'}</p>
+                    <p data-testid='spot-rating'><BsStarFill />{rating == 'New'  ? rating : rating.length > 4 ? `${rating.substring(0, 3)}` : rating + '.0'}</p>
                 </div>
                 <p data-testid='spot-price'>{`$${spot.price} night`}</p>
             </div>
