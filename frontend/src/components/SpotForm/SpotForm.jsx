@@ -124,7 +124,7 @@ import { useParams } from "react-router-dom"
             if(cityUpdated)if(!city.length) errors.city = 'City is required'
             if(priceUpdated){
                 if(!price.length) errors.price = 'Price is required'
-                else if(isNaN(price) || price.includes('.')) errors.price = 'Price must be a valid integer'
+                else if(isNaN(price) || price.includes('.') || !Number(price)) errors.price = 'Price must be a valid integer'
             }
             if(addressUpdated)if(!address.length) errors.address = 'Address is required'
             if(countryUpdated)if(!country.length) errors.country = 'Country is required'
